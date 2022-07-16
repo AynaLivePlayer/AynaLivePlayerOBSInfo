@@ -17,7 +17,9 @@ export default {
       }
       return this.$store.state.totalTime;
     },
-  }
+  },
+  template:
+      `<span class="total-time">{{ time }}</span>`
 }
 </script>
 

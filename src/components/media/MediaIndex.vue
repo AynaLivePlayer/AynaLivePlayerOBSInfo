@@ -11,7 +11,9 @@ export default {
     current() {
       return this.$store.state.current;
     },
-  }
+  },
+  template:
+      `<span class="media-index">{{ current.Index }}</span>`
 }
 </script>
 

@@ -17,7 +17,9 @@ export default {
       }
       return ""
     },
-  }
+  },
+  template:
+      `<span class="playlist-artist">{{ data }}</span>`
 }
 </script>
 

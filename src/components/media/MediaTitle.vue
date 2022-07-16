@@ -11,12 +11,13 @@ export default {
     data() {
       return this.$store.state.current.Title;
     },
-  }
+  },
+  template:
+      `<span class="media-title">{{ data }}</span>`,
 }
 </script>
 
 <style scoped>
-.media-title {
-
+.media-title{
 }
 </style>

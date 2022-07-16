@@ -4,9 +4,14 @@
 
 <script>
 import PlaylistContainer from "../components/playlist/PlaylistContainer.vue"
+
 export default {
   name: "SimplePlaylist",
-  components: {PlaylistContainer}
+  components: {PlaylistContainer},
+  template:
+      `
+        <playlist-container></playlist-container>
+      `
 }
 </script>
 

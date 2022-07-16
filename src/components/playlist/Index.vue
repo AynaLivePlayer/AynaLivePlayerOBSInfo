@@ -4,12 +4,10 @@
 
 <script>
 export default {
-  name: "playlist-index",
+  name: "PlaylistIndex",
   tmplName: "playlist-index",
   className: "playlist-index",
-  props: {
-    index:0,
-  },
+  props: ['index'],
   computed: {
     data() {
       if (this.index < this.$store.state.playlist.length){
@@ -17,12 +15,12 @@ export default {
       }
       return ""
     },
-  }
+  },
+  template:
+      `<span class="playlist-index">{{ data }}</span>`
 }
 </script>
 
 <style scoped>
-.playlist-index {
 
-}
 </style>

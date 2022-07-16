@@ -17,7 +17,9 @@ export default {
       }
       return this.$store.state.current.Cover.Url;
     }
-  }
+  },
+  template:
+      `<img v-bind:src="imgSrc" class="media-cover"/>`
 }
 </script>
 

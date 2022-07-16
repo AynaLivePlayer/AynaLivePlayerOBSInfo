@@ -17,12 +17,12 @@ export default {
       }
       return this.$store.state.currentTime;
     },
-  }
+  },
+  template:
+      `<span class="current-time">{{ time }}</span>`
 }
 </script>
 
 <style scoped>
-.current-time {
-  
-}
+.current-time{}
 </style>

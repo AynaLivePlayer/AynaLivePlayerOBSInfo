@@ -11,12 +11,12 @@ export default {
     lyric() {
       return this.$store.state.lyric;
     },
-  }
+  },
+  template:
+      `<span class="current-lyric">{{ lyric }}</span>`
 }
 </script>
 
 <style scoped>
-.current-lyric {
-  
-}
+.current-lyric{}
 </style>

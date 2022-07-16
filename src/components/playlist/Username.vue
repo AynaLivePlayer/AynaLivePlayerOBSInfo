@@ -17,12 +17,12 @@ export default {
       }
       return ""
     },
-  }
+  },
+  template:
+      `<span class="playlist-username">{{ data }}</span>`
 }
 </script>
 
 <style scoped>
-.playlist-username {
 
-}
 </style>

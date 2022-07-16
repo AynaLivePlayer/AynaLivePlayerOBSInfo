@@ -14,17 +14,11 @@ import MediaUsername from "../components/media/MediaUsername.vue";
 import Lyric from "../components/info/Lyric.vue";
 import CurrentTime from "../components/info/CurrentTime.vue";
 import TotalTime from "../components/info/TotalTime.vue";
+import Preview from '../preview/Preview.vue'
+import PreviewV2 from '../previewV2/Preview.vue'
 
-const routes = [
-    {path: "/test", component: HelloWorld},
-    // simple part
-    {path: "/simple/playing", component: SimplePlaying},
-    {path: "/simple/cover", component: SimpleCover},
-    {path: "/simple/playlist", component: SimplePlaylist},
-    {path: "/simple/lyric", component: SimpleLyric},
-    {path: "/simple/all", component: SimpleAll},
-    {path: "/simple/player", component: SimplePlayer},
-    // component part
+// component parts
+const componentRoutes = [
     {path: "/comp/album", component: MediaAlbum},
     {path: "/comp/artist", component: MediaArtist},
     {path: "/comp/title", component: MediaTitle},
@@ -35,9 +29,33 @@ const routes = [
     {path: "/comp/total_time", component: TotalTime},
 ]
 
+// simple parts
+const simpleRoutes = [
+    {path: "/simple/playing", component: SimplePlaying},
+    {path: "/simple/cover", component: SimpleCover},
+    {path: "/simple/playlist", component: SimplePlaylist},
+    {path: "/simple/lyric", component: SimpleLyric},
+    {path: "/simple/all", component: SimpleAll},
+    {path: "/simple/player", component: SimplePlayer},
+]
+
+const otherRoutes = [
+    {path: "/test", component: HelloWorld},
+    // preview
+    {path: "/preview", component: Preview},
+    {path: "/previewV2", component: PreviewV2}
+]
+
+const routes = [...otherRoutes, ...componentRoutes, ...simpleRoutes]
+
+const routesMap = {}
+for (let index in routes) {
+    routesMap[routes[index].component.name] = routes[index]
+}
+
 const router = createRouter({
-    routes, // `routes: routes` 的缩写
+    routes: routes, // `routes: routes` 的缩写
     history: createWebHashHistory(),
 })
 
-export default router
+export {componentRoutes, simpleRoutes, routesMap, router}

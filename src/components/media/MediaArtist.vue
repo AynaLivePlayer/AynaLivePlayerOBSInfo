@@ -11,12 +11,12 @@ export default {
     current() {
       return this.$store.state.current;
     },
-  }
+  },
+  template:
+      `<span class="media-artist">{{ current.Artist }}</span>`
 }
 </script>
 
 <style scoped>
-.media-artist {
-
-}
+.media-artist{}
 </style>

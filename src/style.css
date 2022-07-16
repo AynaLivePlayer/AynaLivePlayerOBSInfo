@@ -1,7 +1,6 @@
 
 body {
   margin: 0;
-  display: flex;
   place-items: center;
   overflow: hidden;
 }
@@ -11,3 +10,4 @@ body {
   margin: 0 auto;
   text-align: center;
 }
+

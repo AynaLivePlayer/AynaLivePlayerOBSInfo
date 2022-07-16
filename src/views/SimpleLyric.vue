@@ -1,12 +1,21 @@
 <template>
-  <p><current-lyric></current-lyric></p>
+  <p>
+    <CurrentLyric></CurrentLyric>
+  </p>
 </template>
 
 <script>
 import CurrentLyric from "../components/info/Lyric.vue";
+
 export default {
   name: "SimpleLyric",
-  components: {CurrentLyric}
+  components: {CurrentLyric},
+  template:
+      `
+        <p>
+        <CurrentLyric></CurrentLyric>
+        </p>
+      `
 }
 </script>
 
