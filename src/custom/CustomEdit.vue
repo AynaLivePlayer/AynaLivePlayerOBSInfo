@@ -54,7 +54,7 @@
       <el-form label-width="128px">
         <el-scrollbar max-height="400px" style="height:auto">
           <el-form-item v-for="val in usableTmpls" :label="val.name">
-            <p>html tag: &lt;{{ val.tmplName }} /&gt;</p>
+            <p>html tag: &lt;{{ val.tmplName }}&gt;&lt;/{{ val.tmplName }}&gt;</p>
             <el-input
                 v-model="userCSS[val.cssName]"
                 autosize
