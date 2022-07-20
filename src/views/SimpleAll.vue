@@ -48,6 +48,7 @@ export default {
 </script>
 
 <style scoped>
+
 .media-cover {
   width: 128px;
   height: 128px;
@@ -55,5 +56,8 @@ export default {
 
 .current-playing {
   font-weight: bold;
+}
+.body-global{
+  overflow: hidden;
 }
 </style>

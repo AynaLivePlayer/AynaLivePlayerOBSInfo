@@ -11,11 +11,14 @@ import MediaArtist from "../components/media/MediaArtist.vue";
 import MediaTitle from "../components/media/MediaTitle.vue";
 import MediaCover from "../components/media/MediaCover.vue";
 import MediaUsername from "../components/media/MediaUsername.vue";
-import Lyric from "../components/info/Lyric.vue";
+import Lyric from "../components/info/CurrentLyric.vue";
 import CurrentTime from "../components/info/CurrentTime.vue";
 import TotalTime from "../components/info/TotalTime.vue";
 import Preview from '../preview/Preview.vue'
 import PreviewV2 from '../previewV2/Preview.vue'
+import PlaylistContainer from "../components/playlist/PlaylistContainer.vue";
+import CustomEdit from "../custom/CustomEdit.vue"
+import CustomView from "../custom/CustomView.vue"
 
 // component parts
 const componentRoutes = [
@@ -27,6 +30,7 @@ const componentRoutes = [
     {path: "/comp/lyric", component: Lyric},
     {path: "/comp/current_time", component: CurrentTime},
     {path: "/comp/total_time", component: TotalTime},
+    {path:"/comp/playlist",component: PlaylistContainer}
 ]
 
 // simple parts
@@ -43,7 +47,9 @@ const otherRoutes = [
     {path: "/test", component: HelloWorld},
     // preview
     {path: "/preview", component: Preview},
-    {path: "/previewV2", component: PreviewV2}
+    {path: "/previewV2", component: PreviewV2},
+    {path: "/custom/edit",component: CustomEdit},
+    {path: "/custom/view",component: CustomView}
 ]
 
 const routes = [...otherRoutes, ...componentRoutes, ...simpleRoutes]

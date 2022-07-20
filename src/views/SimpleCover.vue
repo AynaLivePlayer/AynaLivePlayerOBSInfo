@@ -16,6 +16,7 @@ export default {
 </script>
 
 <style scoped>
+body{overflow: hidden}
 .media-cover {
   width: 256px;
   height: 256px;

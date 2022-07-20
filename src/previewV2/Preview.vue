@@ -1,7 +1,11 @@
 <template>
   <div class="preview">
-
     <div class="layout">
+      <p>
+        <el-link href="/#/previewV2" type="primary">系统模板</el-link>
+        <span> / </span>
+        <el-link href="/#/custom/edit" type="primary">自定义模板</el-link>
+      </p>
       <el-select
           v-model="tmplName" class="m-2" placeholder="Select" size="large"
           @change="updateTmpl"
@@ -58,6 +62,9 @@ import {componentRoutes, routesMap, simpleRoutes} from "../router/index.js";
 export default {
   name: 'Preview',
   components: {
+  },
+  mounted() {
+    document.body.className="scroll"
   },
   data(){
     let opts = {}

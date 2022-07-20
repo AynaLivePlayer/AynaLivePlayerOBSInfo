@@ -5,6 +5,9 @@ body {
   overflow: hidden;
 }
 
+body.scroll {
+  overflow: scroll;
+}
 
 #app {
   margin: 0 auto;

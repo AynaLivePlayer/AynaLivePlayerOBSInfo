@@ -2,8 +2,6 @@ import {
     createStore
 } from 'vuex'
 
-import {simpleRoutes,componentRoutes} from '../router/index.js'
-const systemRoutes = [...simpleRoutes,...componentRoutes]
 
 // 创建一个新的 store 实例
 const store = createStore({
@@ -24,8 +22,6 @@ const store = createStore({
             totalTime: 0,
             lyric: "",
             playlist: [],
-
-            systemRoutes : systemRoutes,
 
             template: '',
             SimpleAll: `<div>

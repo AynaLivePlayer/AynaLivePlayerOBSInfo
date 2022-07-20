@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import CurrentLyric from "../components/info/Lyric.vue";
+import CurrentLyric from "../components/info/CurrentLyric.vue";
 
 export default {
   name: "SimpleLyric",
@@ -20,4 +20,5 @@ export default {
 </script>
 
 <style scoped>
+body{overflow: hidden}
 </style>

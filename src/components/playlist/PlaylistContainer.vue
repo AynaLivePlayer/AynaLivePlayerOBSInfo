@@ -1,15 +1,18 @@
 <template>
   <div class="playlist-container">
-    <div v-for="(item, index) in playlist" :key="index">
-      <p>
-        #
-        <playlist-index :index="index"></playlist-index>
-        -
-        <playlist-title :index="index"></playlist-title>
-        -
-        <playlist-username :index="index"></playlist-username>
-      </p>
-    </div>
+    <template v-for="(_, index) in playlist.length">
+      <slot v-bind:index="index">
+        <p>
+          #
+          <playlist-index :index="index">
+          </playlist-index>
+          -
+          <playlist-title :index="index"></playlist-title>
+          -
+          <playlist-username :index="index"></playlist-username>
+        </p>
+      </slot>
+    </template>
   </div>
 </template>
 
@@ -25,6 +28,9 @@ export default {
   tmplName: "playlist-container",
   computed: {
     playlist() {
+      if (this.$store.state.playlist === null){
+        return [];
+      }
       return this.$store.state.playlist;
     },
   },
