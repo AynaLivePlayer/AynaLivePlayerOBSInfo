@@ -7,8 +7,8 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import {Client, WebInfoClient} from './api/client.js'
 import myComp from "./components/index.js"
-
 console.info("Starting with environment", process.env.NODE_ENV);
+
 
 const app = createApp(App);
 

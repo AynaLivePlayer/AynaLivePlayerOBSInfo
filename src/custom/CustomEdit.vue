@@ -48,7 +48,7 @@
         <p>
           <el-link v-bind:href="currentViewUrl" target="_blank" type="primary">{{ currentViewUrl }}</el-link>
         </p>
-        <component :is="{template:textTemplate}" class="play">
+        <component :is="{template:getValidTemplate(textTemplate)}" class="play">
         </component>
       </div>
       <el-form label-width="128px">
@@ -125,7 +125,7 @@ export default {
         cssText.push(`.${key} {${this.userCSS[key]}}`)
       }
       return cssText.join("\n")
-    }
+    },
   },
   methods: {
     createTemplate() {
@@ -158,6 +158,14 @@ export default {
       fm.append("template", this.textTemplate);
       console.log(this)
       Client.post("/api/template/save", fm)
+    },
+    getValidTemplate(tmpl) {
+      if (tmpl === undefined) {
+        return ""
+      }
+      let doc = document.createElement('div');
+      doc.innerHTML = tmpl;
+      return doc.innerHTML;
     },
     changeCSS(cssName, content) {
       document.querySelectorAll('.' + cssName).forEach((elem) => {

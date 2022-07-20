@@ -1,5 +1,5 @@
 <template>
-  <component :is="{template:textTemplate}">
+  <component :is="{template:getValidTemplate(textTemplate)}">
   </component>
 </template>
 
@@ -33,6 +33,16 @@ export default {
     }).then(function (resp) {
       _this.textTemplate = resp.data.Template;
     })
+  },
+  methods: {
+    getValidTemplate(tmpl) {
+      if (tmpl === undefined) {
+        return ""
+      }
+      let doc = document.createElement('div');
+      doc.innerHTML = tmpl;
+      return doc.innerHTML;
+    },
   }
 }
 </script>
