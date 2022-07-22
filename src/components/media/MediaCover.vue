@@ -25,7 +25,5 @@ export default {
 
 <style scoped>
 .media-cover {
-  width: auto;
-  height: auto;
 }
 </style>
