@@ -81,6 +81,7 @@
 import {componentRoutes, routesMap, simpleRoutes} from "../router/index.js";
 import {Client} from "../api/client.js";
 import myComp from "../components/index.js"
+// import {parseFragment,serialize} from "parse5"
 
 export default {
   name: 'CustomEdit',
@@ -165,6 +166,7 @@ export default {
       }
       let doc = document.createElement('div');
       doc.innerHTML = tmpl;
+      console.log(serialize(parseFragment(doc.innerHTML)));
       return doc.innerHTML;
     },
     changeCSS(cssName, content) {
