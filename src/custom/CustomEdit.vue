@@ -166,7 +166,7 @@ export default {
       }
       let doc = document.createElement('div');
       doc.innerHTML = tmpl;
-      console.log(serialize(parseFragment(doc.innerHTML)));
+      // console.log(serialize(parseFragment(doc.innerHTML)));
       return doc.innerHTML;
     },
     changeCSS(cssName, content) {
