@@ -9,11 +9,11 @@ const Client = axios.create({
 class WebInfoClient {
     constructor () {
         this.websocket = null
-        this.running = false
+        this.running = true
     }
 
     connect () {
-        if (this.running) {
+        if (!this.running) {
             return
         }
         Client.get(InfoApi)
@@ -23,19 +23,20 @@ class WebInfoClient {
                 store.commit("totalTime",response.data.TotalTime);
                 store.commit("lyric",response.data.Lyric);
                 store.commit("playlist",response.data.Playlist);
+            }).catch(function (error) {
 
-            })
-        this.running = true
+        });
+        console.log("链接ws服务器中")
         this.websocket = new WebSocket(WsApi)
-        this.websocket.onopen = this.onWsOpen
-        this.websocket.onclose = this.onWsClose
-        this.websocket.onmessage = this.onWsMessage
+        this.websocket.onopen = this.onWsOpen.bind(this)
+        this.websocket.onclose = this.onWsClose.bind(this)
+        this.websocket.onmessage = this.onWsMessage.bind(this)
     }
 
     disconnect() {
-        this.running = false
+        this.running = false;
         if (this.websocket) {
-            this.websocket.close()
+            this.websocket.close();
         }
     }
 
@@ -44,12 +45,12 @@ class WebInfoClient {
     }
 
     onWsClose () {
-        this.websocket = null
+        this.websocket = null;
         if (!this.running) {
             return
         }
-        console.info(`掉线重连中...`)
-        this.connect()
+        console.info(`掉线重连中...`);
+        window.setTimeout(this.connect.bind(this), 1000)
     }
 
     onWsMessage (event) {
