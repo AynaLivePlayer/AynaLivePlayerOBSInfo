@@ -36,7 +36,7 @@ const imgSrc = computed(() => {
 <style scoped>
 @font-face {
   font-family: '得意黑';
-  src: url('SmileySans-Oblique.ttf') format('truetype');
+  src: url('./assets/SmileySans-Oblique.ttf') format('truetype');
 }
 
 .root {
