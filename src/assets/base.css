@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: '加粉圓';
+    src: url('@/assets/fonts/加粉圓.ttf') format('truetype');
+}

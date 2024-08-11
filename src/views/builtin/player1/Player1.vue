@@ -13,14 +13,14 @@ import CurrentLyric from "@/components/current/CurrentLyric.vue";
 const scrollSpan = ref<HTMLElement | null>(null);
 const shouldScroll = ref(false);
 
-const checkOverflow = () => {
-  if (scrollSpan.value) {
-    const parentWidth = scrollSpan.value.parentElement?.clientWidth || 0;
-    const spanWidth = scrollSpan.value.scrollWidth;
-
-    shouldScroll.value = spanWidth > parentWidth;
-  }
-};
+// const checkOverflow = () => {
+//   if (scrollSpan.value) {
+//     const parentWidth = scrollSpan.value.parentElement?.clientWidth || 0;
+//     const spanWidth = scrollSpan.value.scrollWidth;
+//
+//     shouldScroll.value = spanWidth > parentWidth;
+//   }
+// };
 
 const playInfoStore = usePlayInfoStore();
 
@@ -32,25 +32,27 @@ const progressPercentage = computed(() => {
 });
 
 
-onMounted(() => {
-  window.addEventListener('resize', checkOverflow);
-  setTimeout(checkOverflow,1000)
-});
-
-watch([scrollSpan], checkOverflow);
+// onMounted(() => {
+//   window.addEventListener('resize', checkOverflow);
+//   setTimeout(checkOverflow,1000)
+// });
+//
+// watch([scrollSpan], checkOverflow);
 
 </script>
 
 <template>
-  <div class="grid grid-cols-3">
+  <div class="grid grid-cols-3 myfont">
     <div class="col-span-1 p-4 justify-center content-center">
       <MediaCover></MediaCover>
     </div>
     <div class="col-span-2 pt-4 pb-4">
       <div class="flex flex-col space-y-4 overflow-hidden">
+<!--        <span ref="scrollSpan"-->
+<!--              :class="{'scrolling-text': shouldScroll, 'no-scroll': !shouldScroll}"-->
+<!--              @resize="checkOverflow"-->
+<!--              class="whitespace-nowrap">-->
         <span ref="scrollSpan"
-              :class="{'scrolling-text': shouldScroll, 'no-scroll': !shouldScroll}"
-              @resize="checkOverflow"
               class="whitespace-nowrap">
           <MediaTitle></MediaTitle> - <MediaUsername></MediaUsername>
         </span>
@@ -105,5 +107,13 @@ watch([scrollSpan], checkOverflow);
 }
 .media-cover {
   border-radius:16%;
+  object-fit: cover;
+  aspect-ratio: 1/1;
 }
+.myfont {
+  width: 400px;
+  font-family: '加粉圓', sans-serif;
+  text-shadow: 1px 1px 2px rgb(118, 118, 118);
+}
+
 </style>
