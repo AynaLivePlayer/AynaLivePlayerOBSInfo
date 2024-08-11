@@ -47,7 +47,7 @@ const progressPercentage = computed(() => {
       <MediaCover></MediaCover>
     </div>
     <div class="col-span-2 pt-4 pb-4">
-      <div class="flex flex-col space-y-4 overflow-hidden">
+      <div class="flex flex-col space-y-4 content-center">
 <!--        <span ref="scrollSpan"-->
 <!--              :class="{'scrolling-text': shouldScroll, 'no-scroll': !shouldScroll}"-->
 <!--              @resize="checkOverflow"-->
@@ -111,9 +111,10 @@ const progressPercentage = computed(() => {
   aspect-ratio: 1/1;
 }
 .myfont {
-  width: 400px;
+  width: 500px;
   font-family: '加粉圓', sans-serif;
   text-shadow: 1px 1px 2px rgb(118, 118, 118);
+  font-size: 20px;
 }
 
 </style>

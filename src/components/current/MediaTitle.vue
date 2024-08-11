@@ -1,5 +1,5 @@
 <template>
-  <span class="media-title text-base">{{ playInfoStore.current.Info.Title }}</span>
+  <span class="media-title">{{ playInfoStore.current.Info.Title }}</span>
 </template>
 
 <script setup>
