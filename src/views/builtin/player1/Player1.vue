@@ -13,6 +13,9 @@ import CurrentLyric from "@/components/current/CurrentLyric.vue";
 const scrollSpan = ref<HTMLElement | null>(null);
 const shouldScroll = ref(false);
 
+// todo: finish scrolling, i give up on doing this stupid css
+// fuck css, and javascript and html and frontend
+
 // const checkOverflow = () => {
 //   if (scrollSpan.value) {
 //     const parentWidth = scrollSpan.value.parentElement?.clientWidth || 0;
