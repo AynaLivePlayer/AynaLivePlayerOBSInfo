@@ -111,7 +111,7 @@ const progressPercentage = computed(() => {
   aspect-ratio: 1/1;
 }
 .myfont {
-  width: 500px;
+  width: 575px;
   font-family: '加粉圓', sans-serif;
   text-shadow: 1px 1px 2px rgb(118, 118, 118);
   font-size: 20px;
