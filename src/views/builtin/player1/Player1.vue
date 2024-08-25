@@ -56,7 +56,7 @@ const progressPercentage = computed(() => {
 <!--              @resize="checkOverflow"-->
 <!--              class="whitespace-nowrap">-->
         <span ref="scrollSpan"
-              class="whitespace-nowrap">
+              class="whitespace-nowrap overflow-hidden">
           <MediaTitle></MediaTitle> - <MediaUsername></MediaUsername>
         </span>
         <div>
