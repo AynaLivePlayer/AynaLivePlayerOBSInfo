@@ -1,6 +1,6 @@
 <template>
   <h1 class="text-xl font-bold underline">
-    Hello world!
+    Hello world! Rua!
   </h1>
   <MediaAlbum></MediaAlbum>
   <MediaUsername></MediaUsername>
