@@ -37,7 +37,7 @@
         >
           播放器样式2 by @立青
         </router-link>
-        <span class="text-sm text-gray-500">(宽度: 450 高度: 150)</span>
+        <span class="text-sm text-gray-500">(宽度: 450 高度: >=150)</span>
       </div>
 
       <div class="flex items-center space-x-2">
@@ -47,7 +47,7 @@
         >
           播放器样式2 右边对其 by @立青
         </router-link>
-        <span class="text-sm text-gray-500">(宽度: 450 高度: 150)</span>
+        <span class="text-sm text-gray-500">(宽度: 450 高度: >=150)</span>
       </div>
     </div>
     <p class="text-sm text-gray-500">
