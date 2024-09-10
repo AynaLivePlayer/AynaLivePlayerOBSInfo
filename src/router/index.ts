@@ -6,6 +6,9 @@ import Player2Right from "@/views/builtin/player2/Player2Right.vue";
 import Playlist1 from "@/views/builtin/player1/Playlist1.vue";
 import Welcome from "@/views/Welcome.vue";
 
+import NekoPlaylist from "@/views/user/neko/Playlist3.vue";
+import NekoPlayer from "@/views/user/neko/Player3.vue";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -42,12 +45,12 @@ const router = createRouter({
     {
       path: '/user/neko/player',
       name: 'neko_player',
-      component: import('@/views/user/neko/Player3.vue'),
+      component: NekoPlayer,
     },
     {
       path: '/user/neko/playlist',
       name: 'neko_playlist',
-      component: import('@/views/user/neko/Playlist3.vue'),
+      component: NekoPlaylist,
     },
   ]
 })

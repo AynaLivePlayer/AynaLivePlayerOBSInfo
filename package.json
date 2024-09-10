@@ -8,7 +8,8 @@
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
-    "type-check": "vue-tsc --build --force"
+    "type-check": "vue-tsc --build --force",
+    "deploy": "rsync -rvz dist/ cuora.frontend:/var/www/obsinfo/ --delete"
   },
   "dependencies": {
     "pinia": "^2.1.7",
