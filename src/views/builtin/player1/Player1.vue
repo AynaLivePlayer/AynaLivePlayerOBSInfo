@@ -66,7 +66,7 @@ const progressPercentage = computed(() => {
           <current-time format="m:s"></current-time>
           <div class="flex-grow progress-bar-background rounded-full h-2 relative">
             <div
-                class="absolute progress-bar h-2 rounded-full"
+                class="progress-bar absolute h-2 rounded-full"
                 :style="{ width: progressPercentage + '%' }"
             ></div>
         </div>
