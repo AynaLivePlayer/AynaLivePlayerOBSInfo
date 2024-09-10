@@ -38,7 +38,17 @@ const router = createRouter({
       path: '/builtin/player2_right',
       name: 'player2_right',
       component: Player2Right,
-    }
+    },
+    {
+      path: '/user/neko/player',
+      name: 'neko_player',
+      component: import('@/views/user/neko/Player3.vue'),
+    },
+    {
+      path: '/user/neko/playlist',
+      name: 'neko_playlist',
+      component: import('@/views/user/neko/Playlist3.vue'),
+    },
   ]
 })
 
