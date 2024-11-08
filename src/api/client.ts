@@ -4,10 +4,20 @@ const Base = baseParam || 'localhost:29629';
 const WsApi = 'ws://' + Base + '/wsinfo';
 
 class WebInfoClient {
+    private static instance: WebInfoClient | null = null;
     private websocket: WebSocket | null;
     private running: boolean;
     private wsApi: string;
     private onMessage: (event: MessageEvent) => void | null;
+
+    public static getInstance(): WebInfoClient | null {
+        return WebInfoClient.instance;
+    }
+
+    public static createInstance(onMessage: (event: MessageEvent) => void): WebInfoClient {
+        WebInfoClient.instance = new WebInfoClient(onMessage);
+        return WebInfoClient.instance;
+    }
 
     constructor(onMessage: (event: MessageEvent) => void,
                  wsApi: string = WsApi) {
@@ -52,6 +62,10 @@ class WebInfoClient {
         if (this.onMessage != null) {
             this.onMessage(event)
         }
+    }
+
+    sendEvent(eventID: string, data: any) {
+        this.websocket?.send(JSON.stringify({EventID: eventID, Data: data}));
     }
 }
 

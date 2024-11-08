@@ -22,7 +22,7 @@ export const usePlayInfoStore = defineStore('playinfo', () => {
             Name: "Unknown"
         }
     });
-
+    const paused = ref(true);
     const duration = ref(0);
     const timePos = ref(0);
     const currentLyric = reactive({
@@ -43,6 +43,9 @@ export const usePlayInfoStore = defineStore('playinfo', () => {
         playlist.splice(0, playlist.length, ...newPlaylist); // Replace the content reactively
     }
 
+    function setPaused(newPaused: boolean) {
+        paused.value = newPaused;
+    }
 
     // Computed property to get either User.Name or User.Username
     const currentUsername = computed(() => {
@@ -58,5 +61,6 @@ export const usePlayInfoStore = defineStore('playinfo', () => {
         current, currentUsername,
         currentLyric,
         playlist,setPlaylist,
+        paused,setPaused,
         duration, timePos }
 })

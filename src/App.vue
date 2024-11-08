@@ -31,13 +31,16 @@ onMounted(() => {
       case "update.playlist.detail.player":
         playInfoStore.setPlaylist(data.Medias)
         break
+      case "update.player.property.pause":
+        playInfoStore.setPaused(data.Paused)
+        break
       default:
         break;
     }
   };
 
   // Create an instance of WebInfoClient
-  const webInfoClient = new WebInfoClient(onMessageHandler);
+  const webInfoClient = WebInfoClient.createInstance(onMessageHandler);
 
   // Connect to the WebSocket server
   webInfoClient.connect();
