@@ -44,3 +44,8 @@ export interface EventData {
     EventID: string
     Data:any
 }
+
+export interface PlaylistInfo {
+    Meta: MetaData
+    Title: string
+}

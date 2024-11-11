@@ -4,8 +4,10 @@ import {onBeforeUnmount, onMounted} from 'vue';
 import { usePlayInfoStore } from './stores/playinfo';
 import {WebInfoClient} from "@/api/client";
 import type {EventData} from "@/api/model";
+import {usePlaylistsStore} from "@/stores/playlists";
 
 const playInfoStore = usePlayInfoStore();
+const playlistsStore = usePlaylistsStore();
 
 onMounted(() => {
   // Define the onMessage handler
@@ -29,10 +31,13 @@ onMounted(() => {
         playInfoStore.currentLyric.Total=data.Total;
         break
       case "update.playlist.detail.player":
-        playInfoStore.setPlaylist(data.Medias)
+        playInfoStore.setPlaylist(data.Medias);
         break
       case "update.player.property.pause":
-        playInfoStore.setPaused(data.Paused)
+        playInfoStore.setPaused(data.Paused);
+        break
+      case "update.playlist.manager.info":
+        playlistsStore.setPlaylists(data.Playlists);
         break
       default:
         break;

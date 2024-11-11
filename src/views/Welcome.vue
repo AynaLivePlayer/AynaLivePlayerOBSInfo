@@ -17,7 +17,7 @@
         >
           播放器样式1 by Aynakeya
         </router-link>
-        <span class="text-sm text-gray-500">(宽度: 600 高度: 300)</span>
+        <span class="text-sm text-gray-500">(宽度: 600 高度: 200)</span>
       </div>
 
       <div class="flex items-center space-x-2">

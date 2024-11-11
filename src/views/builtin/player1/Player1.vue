@@ -11,19 +11,9 @@ import {usePlayInfoStore} from "@/stores/playinfo";
 import CurrentLyric from "@/components/current/CurrentLyric.vue";
 
 const scrollSpan = ref<HTMLElement | null>(null);
-const shouldScroll = ref(false);
 
 // todo: finish scrolling, i give up on doing this stupid css
 // fuck css, and javascript and html and frontend
-
-// const checkOverflow = () => {
-//   if (scrollSpan.value) {
-//     const parentWidth = scrollSpan.value.parentElement?.clientWidth || 0;
-//     const spanWidth = scrollSpan.value.scrollWidth;
-//
-//     shouldScroll.value = spanWidth > parentWidth;
-//   }
-// };
 
 const playInfoStore = usePlayInfoStore();
 
@@ -35,12 +25,74 @@ const progressPercentage = computed(() => {
 });
 
 
-// onMounted(() => {
-//   window.addEventListener('resize', checkOverflow);
-//   setTimeout(checkOverflow,1000)
-// });
-//
-// watch([scrollSpan], checkOverflow);
+let stopPreviousScroll: () => void = () => {};
+
+const stopScroll = () => {
+  if (stopPreviousScroll) {
+    stopPreviousScroll();
+  }
+}
+
+const scrollLeftRight = (node: any, px_per_ms:number, stay_ms:number) => {
+  if (!node.value) return;
+
+  const span = node.value;
+  const parent = span.parentElement;
+  if (!parent) return;
+  const duration = span.scrollWidth * px_per_ms;
+
+  let currentTimeout: number|undefined = undefined;
+
+  const scrollLeft = () => {
+    console.log("left");
+    span.style.transition = "transform " + duration + "ms linear";
+    span.style.transform = `translateX(-${span.scrollWidth - parent.clientWidth}px)`;
+    currentTimeout = setTimeout(scrollRight, duration+stay_ms)
+  };
+
+  const scrollRight = () => {
+    console.log("right");
+    span.style.transition = "transform " + duration + "ms linear";
+    span.style.transform = `translateX(0)`;
+    currentTimeout = setTimeout(scrollLeft, duration+stay_ms)
+  };
+
+  scrollLeft();
+
+  stopPreviousScroll = () => {
+    console.log("stop");
+    clearTimeout(currentTimeout);
+    span.style.transition = 'none';
+    span.style.transform = 'translateX(0)';
+  };
+}
+
+const startScrolling = () => {
+  if (!scrollSpan.value) return;
+  stopScroll();
+
+  const span = scrollSpan.value;
+  const parent = span.parentElement;
+  console.log(span.scrollWidth, parent?.clientWidth);
+  if (parent && span.scrollWidth > parent.clientWidth) {
+    scrollLeftRight(scrollSpan, 20,300);
+  }
+};
+
+onMounted(() => {
+  const element = scrollSpan.value;
+  const mutationObserver = new MutationObserver(() => {
+    console.log(`width changed ${element?.scrollWidth}, restart scrolling if needed`);
+    startScrolling();
+  });
+  mutationObserver.observe(element, {
+    childList: true,
+    subtree: true,
+    characterData: true,
+  });
+});
+
+
 
 </script>
 
@@ -51,14 +103,12 @@ const progressPercentage = computed(() => {
     </div>
     <div class="col-span-2 pt-4 pb-4">
       <div class="flex flex-col space-y-4 content-center">
-<!--        <span ref="scrollSpan"-->
-<!--              :class="{'scrolling-text': shouldScroll, 'no-scroll': !shouldScroll}"-->
-<!--              @resize="checkOverflow"-->
-<!--              class="whitespace-nowrap">-->
-        <span ref="scrollSpan"
-              class="whitespace-nowrap overflow-hidden">
-          <MediaTitle></MediaTitle> - <MediaUsername></MediaUsername>
-        </span>
+        <div ref="scrollContainer" class="overflow-hidden" style="width: 100%;">
+          <span ref="scrollSpan"
+                class="whitespace-nowrap block">
+            <MediaTitle></MediaTitle> - <MediaUsername></MediaUsername>
+          </span>
+        </div>
         <div>
           <current-lyric class="text-nowrap"></current-lyric>
         </div>
@@ -78,6 +128,7 @@ const progressPercentage = computed(() => {
 </template>
 
 <style scoped>
+
 .progress-bar-background {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity))
@@ -87,32 +138,6 @@ const progressPercentage = computed(() => {
   background-color: rgb(102, 204, 255)
 }
 
-.scrolling-text {
-  white-space: nowrap;
-  display: inline-block;
-  animation: scroll 10s linear infinite; /* Adjust the timing as needed */
-}
-
-@keyframes scroll {
-  0% {
-    transform: translateX(5vw); /* Start at the initial position */
-  }
-  50% {
-    transform: translateX(calc(100% - 105vw)); /* Scroll left until all text shows */
-  }
-  100% {
-    transform: translateX(5vw); /* Scroll back to the initial position */
-  }
-}
-
-.no-scroll {
-  animation: none; /* Stops the animation when scrolling is not needed */
-}
-.media-cover {
-  border-radius:16%;
-  object-fit: cover;
-  aspect-ratio: 1/1;
-}
 .myfont {
   width: 575px;
   font-family: '加粉圓', sans-serif;
