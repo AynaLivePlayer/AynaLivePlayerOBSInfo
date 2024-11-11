@@ -4,16 +4,13 @@ import MediaCover from "@/components/current/MediaCover.vue";
 import MediaTitle from "@/components/current/MediaTitle.vue";
 import MediaArtist from "@/components/current/MediaArtist.vue";
 import MediaUsername from "@/components/current/MediaUsername.vue";
-import {computed, onMounted, ref, watch} from "vue";
+import {computed, onMounted, onUnmounted, ref, watch} from "vue";
 import CurrentTime from "@/components/current/CurrentTime.vue";
 import TotalTime from "@/components/current/TotalTime.vue";
 import {usePlayInfoStore} from "@/stores/playinfo";
 import CurrentLyric from "@/components/current/CurrentLyric.vue";
 
 const scrollSpan = ref<HTMLElement | null>(null);
-
-// todo: finish scrolling, i give up on doing this stupid css
-// fuck css, and javascript and html and frontend
 
 const playInfoStore = usePlayInfoStore();
 
@@ -47,20 +44,20 @@ const scrollLeftRight = (node: any, px_per_ms:number, stay_ms:number) => {
     console.log("left");
     span.style.transition = "transform " + duration + "ms linear";
     span.style.transform = `translateX(-${span.scrollWidth - parent.clientWidth}px)`;
-    currentTimeout = setTimeout(scrollRight, duration+stay_ms)
+    currentTimeout = setTimeout(scrollRight, duration+stay_ms);
   };
 
   const scrollRight = () => {
     console.log("right");
     span.style.transition = "transform " + duration + "ms linear";
     span.style.transform = `translateX(0)`;
-    currentTimeout = setTimeout(scrollLeft, duration+stay_ms)
+    currentTimeout = setTimeout(scrollLeft, duration+stay_ms);
   };
 
   scrollLeft();
 
   stopPreviousScroll = () => {
-    console.log("stop");
+    console.log(`stop ${currentTimeout}`);
     clearTimeout(currentTimeout);
     span.style.transition = 'none';
     span.style.transform = 'translateX(0)';
@@ -75,7 +72,7 @@ const startScrolling = () => {
   const parent = span.parentElement;
   console.log(span.scrollWidth, parent?.clientWidth);
   if (parent && span.scrollWidth > parent.clientWidth) {
-    scrollLeftRight(scrollSpan, 20,300);
+    scrollLeftRight(scrollSpan, 20,1000);
   }
 };
 
@@ -92,6 +89,9 @@ onMounted(() => {
   });
 });
 
+onUnmounted(() => {
+  stopScroll();
+});
 
 
 </script>
