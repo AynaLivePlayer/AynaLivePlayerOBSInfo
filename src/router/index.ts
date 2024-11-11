@@ -10,6 +10,8 @@ import NekoPlaylist from "@/views/user/neko/Playlist3.vue";
 import NekoPlayer from "@/views/user/neko/Player3.vue";
 import MediaSessionVue from '@/views/control/MediaSession.vue';
 
+import ScrollView from "@/views/playDemo/scrollText.vue"
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -57,6 +59,11 @@ const router = createRouter({
             path: '/controller/demo',
             name: 'media_session',
             component: MediaSessionVue,
+        },
+        {
+            path: "/scroll/demo",
+            name: "scrollTextDemo",
+            component: ScrollView,
         }
     ]
 })
