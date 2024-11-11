@@ -138,6 +138,12 @@ onMounted(() => {
   background-color: rgb(102, 204, 255)
 }
 
+.media-cover {
+  border-radius:16%;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+}
+
 .myfont {
   width: 575px;
   font-family: '加粉圓', sans-serif;
