@@ -9,6 +9,7 @@ import Welcome from "@/views/Welcome.vue";
 import NekoPlaylist from "@/views/user/neko/Playlist3.vue";
 import NekoPlayer from "@/views/user/neko/Player3.vue";
 import MediaSessionVue from '@/views/control/MediaSession.vue';
+import {createWebuiRouter} from "@/views/webui/routers";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -58,47 +59,9 @@ const router = createRouter({
             name: 'media_session',
             component: MediaSessionVue,
         },
-        {
-            path: '/webui',
-            component: () => import('@/views/webui/webui.vue'),
-            children: [
-                // {
-                //     path: '/music/playlist', // 正在播放列表
-                //     component: () => import('@/views/webui/pages/playList/playList.vue'),
-                //     meta: {
-                //         keepAlive: true,
-                //     },
-                // },
-                // {
-                //     path: '/music/userlist', // 我的歌单
-                //     component: () => import('pages/userList/userList'),
-                //     meta: {
-                //         title: '我的歌单',
-                //         keepAlive: true,
-                //     },
-                // },
-                // {
-                //     path: '/music/details/:id', // 音乐详情列表
-                //     component: () => import('pages/details/details'),
-                // },
-                // {
-                //     path: '/music/historylist', // 我听过的列表
-                //     component: () => import('pages/historyList/historyList'),
-                //     meta: {
-                //         title: '我听过的',
-                //     },
-                // },
-                // {
-                //     path: '/music/search', // 搜索
-                //     component: () => import('pages/search/search'),
-                //     meta: {
-                //         title: '搜索',
-                //         keepAlive: true,
-                //     },
-                // },
-            ],
-        },
     ]
 })
+
+createWebuiRouter(router);
 
 export default router

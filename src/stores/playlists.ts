@@ -11,9 +11,14 @@ export const usePlaylistsStore = defineStore('playlists', () => {
         playlists.splice(0, playlists.length, ...newPlaylist);
     }
 
+    function setCurrentPlaylistMedias(newMedias: Media[]) {
+        currentPlaylistMedias.value = newMedias;
+    }
+
     return {
         playlists,
         setPlaylists,
-        currentPlaylistMedias
+        currentPlaylistMedias,
+        setCurrentPlaylistMedias
     }
 });

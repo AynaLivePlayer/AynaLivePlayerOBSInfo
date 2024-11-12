@@ -8,7 +8,7 @@ import PlayerMeta from "@/views/webui/components/player/PlayerMeta.vue";
   <div class="grid grid-rows-3 md:grid-rows-1 md:grid-cols-[30%_40%_30%]">
     <PlayerControls />
     <PlayerDisplay class="h-14" />
-<!--    <PlayerMeta />-->
+    <PlayerMeta />
   </div>
 </template>
 

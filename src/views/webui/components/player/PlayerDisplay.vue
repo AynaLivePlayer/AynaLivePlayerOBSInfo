@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {usePlayInfoStore} from "@/stores/playinfo";
 import MediaCover from "@/components/current/MediaCover.vue";
-import {computed, ref} from "vue";
+import {computed, ref, watch} from "vue";
 import TotalTime from "@/components/current/TotalTime.vue";
 import CurrentTime from "@/components/current/CurrentTime.vue";
 import MediaArtist from "@/components/current/MediaArtist.vue";
@@ -25,6 +25,15 @@ function seek(event: Event) {
     "Absolute": true,
   });
 }
+
+const currentTime = ref(0);
+
+watch(() => playInfoStore.timePos, (newPosition) => {
+  if (Math.floor(newPosition) === Math.floor(currentTime.value)) {
+    return;
+  }
+  currentTime.value = newPosition;
+});
 
 </script>
 
@@ -53,8 +62,9 @@ function seek(event: Event) {
       <!--        @change="(e) => {spotifyApi.seek((e.target as HTMLInputElement).valueAsNumber)}"-->
       <input
         type="range"
+        min="0"
         :max="playInfoStore.duration"
-        :value="playInfoStore.timePos"
+        :value="currentTime"
         @mouseup="seek"
         class="w-full slider"
         :style="`--progress: ${progressPercent}%`"

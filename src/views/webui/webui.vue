@@ -123,17 +123,17 @@ if (navigator.mediaSession && wsClient!=null) {
     <source src="@/assets/5-minutes-of-silence.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
-  <div class="drawer h-full lg:drawer-open drawer-mobile">
+  <div class="drawer h-full lg:drawer-open drawer-mobile relative">
     <input id="app-drawer" type="checkbox" class="drawer-toggle" />
-    <div class="drawer-content flex flex-col">
-      <div class="flex-1 overflow-scroll relative">
+    <div class="drawer-content">
+      <div class="relative min-h-screen">
         <router-view></router-view>
         <label
             for="app-drawer"
             class="btn drawer-button btn-sm lg:hidden">
         </label>
       </div>
-      <div class="flex-none p-1 px-2 border-t md:border-t-0 md:border-b border-base-200 shadow-sm">
+      <div class="sticky bottom-0 p-1 px-2 border-t border-base-200 shadow-sm bg-white">
         <Player />
       </div>
     </div>

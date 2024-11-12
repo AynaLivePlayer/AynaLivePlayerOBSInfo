@@ -25,6 +25,7 @@ export const usePlayInfoStore = defineStore('playinfo', () => {
     const paused = ref(true);
     const duration = ref(0);
     const timePos = ref(0);
+    const volume = ref(0.0);
     const currentLyric = reactive({
         Lyric: "",
         CurrentIndex:-1,
@@ -47,6 +48,10 @@ export const usePlayInfoStore = defineStore('playinfo', () => {
         paused.value = newPaused;
     }
 
+    function setVolume(newVolume: number) {
+        volume.value = newVolume;
+    }
+
     // Computed property to get either User.Name or User.Username
     const currentUsername = computed(() => {
         if ('Username' in current.User) {
@@ -62,5 +67,6 @@ export const usePlayInfoStore = defineStore('playinfo', () => {
         currentLyric,
         playlist,setPlaylist,
         paused,setPaused,
+        volume,setVolume,
         duration, timePos }
 })

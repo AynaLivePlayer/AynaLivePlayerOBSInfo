@@ -39,6 +39,12 @@ onMounted(() => {
       case "update.playlist.manager.info":
         playlistsStore.setPlaylists(data.Playlists);
         break
+      case "update.playlist.manager.current":
+        playlistsStore.setCurrentPlaylistMedias(data.Medias);
+        break
+      case "update.player.property.volume":
+        playInfoStore.setVolume(data.Volume);
+        break
       default:
         break;
     }
