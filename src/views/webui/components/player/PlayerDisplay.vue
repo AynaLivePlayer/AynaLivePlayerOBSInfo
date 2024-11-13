@@ -21,7 +21,7 @@ let wsClient = WebInfoClient.getInstance();
 
 function seek(event: Event) {
   wsClient?.sendEvent("cmd.player.op.seek", {
-    "Position": (event.target as HTMLInputElement).valueAsNumber,
+    "Position": Math.floor((event.target as HTMLInputElement).valueAsNumber/100),
     "Absolute": true,
   });
 }
@@ -29,11 +29,15 @@ function seek(event: Event) {
 const currentTime = ref(0);
 
 watch(() => playInfoStore.timePos, (newPosition) => {
-  if (Math.floor(newPosition) === Math.floor(currentTime.value)) {
+  if (Math.floor(newPosition*100) === Math.floor(currentTime.value)) {
     return;
   }
-  currentTime.value = newPosition;
+  if (!isDragging.value) {
+    currentTime.value = newPosition*100;
+  }
 });
+
+const isDragging = ref(false);
 
 </script>
 
@@ -63,11 +67,13 @@ watch(() => playInfoStore.timePos, (newPosition) => {
       <input
         type="range"
         min="0"
-        :max="playInfoStore.duration"
+        :max="playInfoStore.duration*100"
         :value="currentTime"
-        @mouseup="seek"
-        class="w-full slider"
+        class="w-full slider px-1"
         :style="`--progress: ${progressPercent}%`"
+        @mousedown="isDragging = true"
+        @mouseup="isDragging = false; seek($event)"
+        @input="currentTime = ($event.target as HTMLInputElement).valueAsNumber"
       />
       <div class="transition-opacity duration-200 ease-in-out opacity-0 hover:opacity-100">
         <div

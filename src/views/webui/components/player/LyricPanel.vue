@@ -10,6 +10,8 @@ const containerRef = ref<HTMLDivElement | null>(null);
 watch(() => playInfoStore.timePos, async (newTimePos) => {
     const totalLyrics = playInfoStore.lyrics.Content.length || 0;
     if (totalLyrics > 0) {
+        await nextTick();
+        
         let index = playInfoStore.lyrics.Content.findIndex(
             (lyric, idx, arr) => {
                 const nextTime = idx < arr.length - 1 ? arr[idx + 1].Time : Infinity;
@@ -18,7 +20,6 @@ watch(() => playInfoStore.timePos, async (newTimePos) => {
         );
         currentIndex.value = index === -1 ? totalLyrics - 1 : index;
 
-        await nextTick();
         const currentElement = document.querySelector(`[data-index="${currentIndex.value}"]`);
         if (currentElement && containerRef.value) {
             currentElement.scrollIntoView({
