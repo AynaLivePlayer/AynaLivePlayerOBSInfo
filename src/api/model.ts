@@ -49,3 +49,13 @@ export interface PlaylistInfo {
     Meta: MetaData
     Title: string
 }
+
+export interface Lyrics {
+    Lang: string;
+    Content: LyricLine[];
+}
+
+export interface LyricLine {
+    Time: number; // in seconds
+    Lyric: string;
+}

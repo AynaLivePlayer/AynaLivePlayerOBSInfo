@@ -45,6 +45,9 @@ onMounted(() => {
       case "update.player.property.volume":
         playInfoStore.setVolume(data.Volume);
         break
+      case "update.player.lyric.reload":
+        playInfoStore.setLyrics(data.Lyrics);
+        break
       default:
         break;
     }

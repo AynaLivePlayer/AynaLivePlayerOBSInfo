@@ -125,8 +125,8 @@ if (navigator.mediaSession && wsClient!=null) {
   </audio>
   <div class="drawer h-full lg:drawer-open drawer-mobile relative">
     <input id="app-drawer" type="checkbox" class="drawer-toggle" />
-    <div class="drawer-content">
-      <div class="relative min-h-screen">
+    <div class="drawer-content flex flex-col h-full">
+      <div class="flex-grow relative overflow-auto">
         <router-view></router-view>
         <label
             for="app-drawer"

@@ -7,6 +7,7 @@ const playlistsStore = usePlaylistsStore();
 
 <template>
   <li class="menu-title">点歌机</li>
+  <li ><router-link :to="{name:'webui.player'}">播放器</router-link></li>
   <li ><router-link :to="{name:'webui.playlist'}">点歌列表</router-link></li>
 </template>
 

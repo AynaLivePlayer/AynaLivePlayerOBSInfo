@@ -2,7 +2,7 @@ import type { Router } from 'vue-router'
 import Webui from "@/views/webui/webui.vue";
 import Playlist from "@/views/webui/page/Playlist.vue";
 import PlayerPlaylist from "@/views/webui/page/PlayerPlaylist.vue";
-
+import Player from "@/views/webui/page/Player.vue";
 
 
 export const createWebuiRouter = (router: Router): void => {
@@ -17,6 +17,11 @@ export const createWebuiRouter = (router: Router): void => {
                 meta: {
                     keepAlive: true,
                 },
+            },
+            {
+                path: "/webui/player", // New route for Player
+                component: Player,
+                name: "webui.player",
             },
             {
                 path: "/webui/playlist",
