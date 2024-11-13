@@ -7,7 +7,7 @@ const playlistsStore = usePlaylistsStore();
 
 <template>
   <li class="menu-title">播放列表</li>
-  <li v-for="playlistInfo in playlistsStore.playlists"><router-link :to="{name:'webui.playlist', params:{id:MetaID(playlistInfo.Meta)}}">{{ playlistInfo.Title }}</router-link></li>
+  <li v-for="playlistInfo in playlistsStore.playlists"><router-link :to="{name:'webui.playlists', params:{id:MetaID(playlistInfo.Meta)}}">{{ playlistInfo.Title }}</router-link></li>
 </template>
 
 <style scoped>
