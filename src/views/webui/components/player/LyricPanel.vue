@@ -32,9 +32,9 @@ watch(() => playInfoStore.timePos, async (newTimePos) => {
 
 <template>
   <div ref="containerRef" class="overflow-hidden relative">
-    <div class="overflow-y-auto scrollbar-hide justify-center">
+    <div class="overflow-y-auto scrollbar-hide place-content-center min-h-full">
       <!-- i dont understand -->
-      <div class="py-[40vh] h-0 ">
+      <div class="h-0">
         <div v-for="(lyricLine, index) in playInfoStore.lyrics.Content" 
              :key="index"
              :data-index="index"
