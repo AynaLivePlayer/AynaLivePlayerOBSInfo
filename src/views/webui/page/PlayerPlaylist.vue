@@ -4,6 +4,8 @@ import {getPictureUrl, getUsername} from "@/utils";
 import {WebInfoClient} from "@/api/client";
 import {usePlayInfoStore} from "@/stores/playinfo";
 import type {Media} from "@/api/model";
+import {type SortableEvent, VueDraggable} from "vue-draggable-plus";
+import {computed, ref, watch} from "vue";
 
 
 const playinfoStore = usePlayInfoStore();
@@ -24,10 +26,31 @@ const play = (index: number, media: Media) => {
   )
 }
 
+const onDragEnd = (event: SortableEvent) => {
+  if (event.oldIndex === event.newIndex) {
+    return;
+  }
+  wsClient?.sendEvent(
+      "cmd.playlist.move.player",
+      {
+        From: event.oldIndex,
+        To: event.newIndex,
+      },
+  )
+}
+
+// currentMedias is copy of playlist, so we can drag it
+const currentMedias = ref(playinfoStore.playlist.map((media) => media));
+
+watch(playinfoStore.playlist, (newVal) => {
+  currentMedias.value = newVal.map((media) => media);
+})
+
 </script>
 
 <template>
   <div class="m-4 md:m-8 flex flex-col gap-y-8 items-center">
+    <VueDraggable v-model="currentMedias" target=".draggable-playlist" :animation="150" @end="onDragEnd">
     <table class="table table-zebra table-fixed w-full">
       <thead>
       <tr>
@@ -40,9 +63,9 @@ const play = (index: number, media: Media) => {
         <!--        <th class="w-16">Time</th>-->
       </tr>
       </thead>
-      <tbody>
+      <tbody class="draggable-playlist" >
       <tr
-          v-for="(media, index) in playinfoStore.playlist"
+          v-for="(media, index) in currentMedias"
           :key="index"
           class="h-16 hover group"
       >
@@ -53,8 +76,8 @@ const play = (index: number, media: Media) => {
               class="inset-0 hidden group-hover:flex justify-center items-center w-2 text-neutral"
           />
         </td>
-        <td @click="play(media)">
-          <div class="relative">
+        <td>
+          <div class="relative cursor-move">
             <img :src="getPictureUrl(media.Info.Cover)"
                  class="object-cover rounded group-hover:brightness-75 aspect-square"/>
           </div>
@@ -77,6 +100,7 @@ const play = (index: number, media: Media) => {
       </tr>
       </tbody>
     </table>
+    </VueDraggable>
   </div>
 </template>
 
