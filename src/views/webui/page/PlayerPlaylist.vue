@@ -3,10 +3,26 @@ import {usePlaylistsStore} from "@/stores/playlists";
 import {getPictureUrl, getUsername} from "@/utils";
 import {WebInfoClient} from "@/api/client";
 import {usePlayInfoStore} from "@/stores/playinfo";
+import type {Media} from "@/api/model";
 
 
 const playinfoStore = usePlayInfoStore();
 const wsClient = WebInfoClient.getInstance();
+
+// this is pending playlist, so when play it we need to remove it from pending playlist
+const play = (index: number, media: Media) => {
+  wsClient?.sendEvent(
+      "cmd.playlist.delete.player",
+      {
+        Index: index,
+      },);
+  wsClient?.sendEvent(
+      "cmd.player.op.play",
+      {
+        Media: media,
+      },
+  )
+}
 
 </script>
 
@@ -15,6 +31,7 @@ const wsClient = WebInfoClient.getInstance();
     <table class="table table-zebra table-fixed w-full">
       <thead>
       <tr>
+        <th class="w-3"> #</th>
         <th class="w-16"></th>
         <th>歌名</th>
         <th>歌手</th>
@@ -29,20 +46,17 @@ const wsClient = WebInfoClient.getInstance();
           :key="index"
           class="h-16 hover group"
       >
-        <td>
-          <div @click="" class="relative">
-            <img
-                :src="getPictureUrl(media.Info.Cover)"
-                class="object-cover rounded group-hover:brightness-75 aspect-square"
-            />
-            <div
-                class="absolute bottom-0 w-full h-full hidden group-hover:flex justify-center items-center"
-            >
-              <font-awesome-icon
-                  icon="fa-solid fa-play"
-                  class="w-2 text-neutral"
-              />
-            </div>
+        <td class="place-content-center" @click="play(index,media)">
+          <span class="group-hover:hidden w-full text-center">{{ index + 1 }}</span>
+          <font-awesome-icon
+              icon="fa-solid fa-play"
+              class="inset-0 hidden group-hover:flex justify-center items-center w-2 text-neutral"
+          />
+        </td>
+        <td @click="play(media)">
+          <div class="relative">
+            <img :src="getPictureUrl(media.Info.Cover)"
+                 class="object-cover rounded group-hover:brightness-75 aspect-square"/>
           </div>
         </td>
         <td class="truncate">
