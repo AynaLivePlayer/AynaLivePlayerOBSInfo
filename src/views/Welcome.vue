@@ -50,6 +50,15 @@
         <span class="text-sm text-gray-500">(宽度: 450 高度: >=150)</span>
       </div>
     </div>
+    <p class="text-lg text-gray-600">这个连接是正在开发中的webui,需要开启websocket以及websocket控制才能使用</p>
+    <div class="flex items-center space-x-2">
+      <router-link
+          to="/webui/player"
+          class="text-blue-600 hover:underline hover:text-blue-800"
+      >
+        WebUI by Aynakeya
+      </router-link>
+    </div>
     <p class="text-sm text-gray-500">
       代码开源在
       <a href="https://github.com/AynaLivePlayer/AynaLivePlayerOBSInfo"

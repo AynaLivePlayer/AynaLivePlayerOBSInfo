@@ -65,6 +65,8 @@ onMounted(() => {
   });
 });
 
+document.title = "WebUI";
+
 </script>
 
 <template>
