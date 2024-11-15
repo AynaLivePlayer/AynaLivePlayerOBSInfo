@@ -5,6 +5,7 @@ import {onMounted, watch} from "vue";
 import {WebInfoClient} from "@/api/client";
 import {useRoute} from "vue-router";
 import type {Media} from "@/api/model";
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
 const playlistsStore = usePlaylistsStore();
 const wsClient = WebInfoClient.getInstance();
@@ -60,12 +61,14 @@ const play = (media: Media) => {
           :key="index"
           class="h-16 hover group"
       >
-        <td class="place-content-center" @click="play(media)">
-          <span class="group-hover:hidden w-full text-center">{{ index + 1 }}</span>
-          <font-awesome-icon
-              icon="fa-solid fa-play"
-              class="inset-0 hidden group-hover:flex justify-center items-center w-2 text-neutral"
-          />
+        <td class="place-content-center">
+          <div class="cursor-pointer"  @click="play(media)">
+            <span class="group-hover:hidden w-full text-center">{{ index + 1 }}</span>
+            <font-awesome-icon
+                icon="fa-solid fa-play"
+                class="inset-0 hidden group-hover:flex justify-center items-center w-2 text-neutral"
+            />
+          </div>
         </td>
         <td>
           <div @click="" class="relative">
