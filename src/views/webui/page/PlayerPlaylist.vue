@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import {usePlaylistsStore} from "@/stores/playlists";
 import {getPictureUrl, getUsername} from "@/utils";
 import {WebInfoClient} from "@/api/client";
 import {usePlayInfoStore} from "@/stores/playinfo";
 import type {Media} from "@/api/model";
 import {type SortableEvent, VueDraggable} from "vue-draggable-plus";
-import {computed, ref, watch} from "vue";
+import {ref, watch} from "vue";
 
 
 const playinfoStore = usePlayInfoStore();
