@@ -5,6 +5,7 @@ import {usePlayInfoStore} from "@/stores/playinfo";
 import type {Media} from "@/api/model";
 import {type SortableEvent, VueDraggable} from "vue-draggable-plus";
 import {ref, watch} from "vue";
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
 
 const playinfoStore = usePlayInfoStore();
@@ -38,6 +39,15 @@ const onDragEnd = (event: SortableEvent) => {
   )
 }
 
+const deleteMedia = (index: number) => {
+  wsClient?.sendEvent(
+      "cmd.playlist.delete.player",
+      {
+        Index: index,
+      },
+  )
+}
+
 // currentMedias is copy of playlist, so we can drag it
 const currentMedias = ref(playinfoStore.playlist.map((media) => media));
 
@@ -59,7 +69,7 @@ watch(playinfoStore.playlist, (newVal) => {
         <th>歌手</th>
         <th>专辑</th>
         <th>点歌用户</th>
-        <!--        <th class="w-16">Time</th>-->
+        <th class="w-2"></th>
       </tr>
       </thead>
       <tbody class="draggable-playlist" >
@@ -68,12 +78,14 @@ watch(playinfoStore.playlist, (newVal) => {
           :key="index"
           class="h-16 hover group"
       >
-        <td class="place-content-center" @click="play(index,media)">
-          <span class="group-hover:hidden w-full text-center">{{ index + 1 }}</span>
-          <font-awesome-icon
-              icon="fa-solid fa-play"
-              class="inset-0 hidden group-hover:flex justify-center items-center w-2 text-neutral"
-          />
+        <td class="place-content-center">
+          <div class="cursor-pointer"  @click="play(index,media)">
+            <span class="group-hover:hidden w-full text-center">{{ index + 1 }}</span>
+            <font-awesome-icon
+                icon="fa-solid fa-play"
+                class="inset-0 hidden group-hover:flex justify-center items-center w-2 text-neutral"
+            />
+          </div>
         </td>
         <td>
           <div class="relative cursor-move">
@@ -93,9 +105,14 @@ watch(playinfoStore.playlist, (newVal) => {
         <td class="truncate">
           {{ getUsername(media.User) }}
         </td>
-        <!--        <td>-->
-        <!--          {{ millisToMinutesAndSeconds(song.track.duration_ms) }}-->
-        <!--        </td>-->
+        <td>
+          <div class="flex place-content-center cursor-pointer" @click="deleteMedia(index)">
+            <font-awesome-icon
+                icon="fa-solid fa-circle-minus"
+                class="hidden group-hover:flex"
+            />
+          </div>
+        </td>
       </tr>
       </tbody>
     </table>
