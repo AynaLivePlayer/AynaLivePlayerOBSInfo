@@ -16,7 +16,6 @@ const route = useRoute()
 watch(
     () => route.params.id,
     async newId => {
-      console.log("newId", newId)
       wsClient?.sendEvent(
           "cmd.playlist.manager.get.current",
           {
