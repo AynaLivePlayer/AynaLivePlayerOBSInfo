@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host=0.0.0.0",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
@@ -12,8 +12,14 @@
     "deploy": "rsync -rvz dist/ cuora.frontend:/var/www/obsinfo/ --delete"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/free-brands-svg-icons": "^6.6.0",
+    "@fortawesome/free-regular-svg-icons": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/vue-fontawesome": "^3.0.8",
     "pinia": "^2.1.7",
     "vue": "^3.4.29",
+    "vue-draggable-plus": "^0.6.0",
     "vue-router": "^4.3.3"
   },
   "devDependencies": {
@@ -22,6 +28,7 @@
     "@vitejs/plugin-vue": "^5.0.5",
     "@vue/tsconfig": "^0.5.1",
     "autoprefixer": "^10.4.20",
+    "daisyui": "^4.12.14",
     "npm-run-all2": "^6.2.0",
     "postcss": "^8.4.41",
     "tailwindcss": "^3.4.9",

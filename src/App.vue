@@ -39,6 +39,15 @@ onMounted(() => {
       case "update.playlist.manager.info":
         playlistsStore.setPlaylists(data.Playlists);
         break
+      case "update.playlist.manager.current":
+        playlistsStore.setCurrentPlaylistMedias(data.Medias);
+        break
+      case "update.player.property.volume":
+        playInfoStore.setVolume(data.Volume);
+        break
+      case "update.player.lyric.reload":
+        playInfoStore.setLyrics(data.Lyrics);
+        break
       default:
         break;
     }
@@ -55,6 +64,8 @@ onMounted(() => {
     webInfoClient.disconnect();
   });
 });
+
+document.title = "WebUI";
 
 </script>
 

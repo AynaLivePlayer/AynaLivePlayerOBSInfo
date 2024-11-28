@@ -9,6 +9,7 @@ import Welcome from "@/views/Welcome.vue";
 import NekoPlaylist from "@/views/user/neko/Playlist3.vue";
 import NekoPlayer from "@/views/user/neko/Player3.vue";
 import MediaSessionVue from '@/views/control/MediaSession.vue';
+import {createWebuiRouter} from "@/views/webui/routers";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -57,8 +58,10 @@ const router = createRouter({
             path: '/controller/demo',
             name: 'media_session',
             component: MediaSessionVue,
-        }
+        },
     ]
 })
+
+createWebuiRouter(router);
 
 export default router

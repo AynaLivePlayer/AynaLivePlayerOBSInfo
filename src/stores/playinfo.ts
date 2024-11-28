@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 import {computed, reactive, ref} from "vue";
-import type {Media} from "@/api/model";
+import type {Lyrics, Media} from "@/api/model";
 
 export const usePlayInfoStore = defineStore('playinfo', () => {
     // Initialize the current state according to the Media interface
@@ -25,11 +25,16 @@ export const usePlayInfoStore = defineStore('playinfo', () => {
     const paused = ref(true);
     const duration = ref(0);
     const timePos = ref(0);
+    const volume = ref(0.0);
     const currentLyric = reactive({
         Lyric: "",
         CurrentIndex:-1,
         Total: 0
     })
+    const lyrics = ref<Lyrics>({
+        Lang: "",
+        Content: []
+    });
     const playlist = reactive<Media[]>([]);
 
     function setCurrent(newMedia: Media) {
@@ -47,6 +52,14 @@ export const usePlayInfoStore = defineStore('playinfo', () => {
         paused.value = newPaused;
     }
 
+    function setVolume(newVolume: number) {
+        volume.value = newVolume;
+    }
+
+    function setLyrics(newLyrics: Lyrics) {
+        lyrics.value = newLyrics;
+    }
+
     // Computed property to get either User.Name or User.Username
     const currentUsername = computed(() => {
         if ('Username' in current.User) {
@@ -60,7 +73,9 @@ export const usePlayInfoStore = defineStore('playinfo', () => {
         setCurrent,
         current, currentUsername,
         currentLyric,
+        lyrics, setLyrics,
         playlist,setPlaylist,
         paused,setPaused,
+        volume,setVolume,
         duration, timePos }
 })
