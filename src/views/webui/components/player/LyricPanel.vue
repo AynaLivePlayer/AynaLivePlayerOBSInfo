@@ -11,7 +11,7 @@ watch(() => playInfoStore.timePos, async (newTimePos) => {
     const totalLyrics = playInfoStore.lyrics.Content.length || 0;
     if (totalLyrics > 0) {
         await nextTick();
-        
+
         let index = playInfoStore.lyrics.Content.findIndex(
             (lyric, idx, arr) => {
                 const nextTime = idx < arr.length - 1 ? arr[idx + 1].Time : Infinity;
@@ -36,7 +36,7 @@ watch(() => playInfoStore.timePos, async (newTimePos) => {
     <div class="overflow-y-auto scrollbar-hide place-content-center min-h-full">
       <!-- i dont understand -->
       <div class="h-0">
-        <div v-for="(lyricLine, index) in playInfoStore.lyrics.Content" 
+        <div v-for="(lyricLine, index) in playInfoStore.lyrics.Content"
              :key="index"
              :data-index="index"
              class="px-4 py-2 transition-all duration-300 text-center truncate"
