@@ -17,6 +17,8 @@ coverage
 /cypress/videos/
 /cypress/screenshots/
 
+./views/Sandbox.vue
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
