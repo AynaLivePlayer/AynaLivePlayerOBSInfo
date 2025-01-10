@@ -17,6 +17,7 @@ import Welcome from "@/views/Welcome.vue";
 
 import NekoPlaylist from "@/views/user/neko/Playlist3.vue";
 import NekoPlayer from "@/views/user/neko/Player3.vue";
+import AiiPlayerMini from "@/views/user/AiiKisaraki/PlayerMini-Aii.vue"
 import MediaSessionVue from '@/views/control/MediaSession.vue';
 import {createWebuiRouter} from "@/views/webui/routers";
 
@@ -62,6 +63,11 @@ const router = createRouter({
             path: '/user/neko/playlist',
             name: 'neko_playlist',
             component: NekoPlaylist,
+        },
+        {
+            path: '/user/aiikisaraki/playlistmini',
+            name: 'aii_playlist',
+            component: AiiPlayerMini,
         },
         {
             path: '/controller/demo',
