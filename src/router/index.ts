@@ -1,8 +1,8 @@
 /*
  * @Author: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
  * @Date: 2025-01-08 23:06:16
- * @LastEditors: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
- * @LastEditTime: 2025-01-10 16:22:26
+ * @LastEditors: Aii如樱如月 morikawa2021@163.com
+ * @LastEditTime: 2025-01-12 22:48:09
  * @FilePath: \AynaLivePlayerOBSInfo\src\router\index.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -17,7 +17,8 @@ import Welcome from "@/views/Welcome.vue";
 
 import NekoPlaylist from "@/views/user/neko/Playlist3.vue";
 import NekoPlayer from "@/views/user/neko/Player3.vue";
-import AiiPlayerMini from "@/views/user/AiiKisaraki/PlayerMini-Aii.vue"
+import AiiPlayerNormal from "@/views/user/AiiKisaraki/PlayerNormal-Aii.vue";
+import AiiPlayerPage from "@/views/user/AiiKisaraki/PlayerPage-Aii.vue";
 import MediaSessionVue from '@/views/control/MediaSession.vue';
 import {createWebuiRouter} from "@/views/webui/routers";
 
@@ -65,9 +66,14 @@ const router = createRouter({
             component: NekoPlaylist,
         },
         {
-            path: '/user/aiikisaraki/playlistmini',
-            name: 'aii_playlist',
-            component: AiiPlayerMini,
+            path: '/user/aiikisaraki/playernormal',
+            name: 'aii_player_normal',
+            component: AiiPlayerNormal,
+        },
+        {
+            path: '/user/aiikisaraki/playerpage',
+            name: 'aii_player_page',
+            component: AiiPlayerPage,
         },
         {
             path: '/controller/demo',
