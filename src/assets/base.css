@@ -11,3 +11,8 @@
     font-family: '抖音美好体';
     src: url('@/assets/fonts/抖音美好体.ttf') format('truetype');
 }
+
+@font-face {
+    font-family: '江城圆体 600W';
+    src: url('@/assets/fonts/江城圆体 600W.ttf') format('truetype');
+}
