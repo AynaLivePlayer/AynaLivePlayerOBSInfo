@@ -127,7 +127,7 @@ console.log(playlist)
           border-radius: 50%;
           border: 3px solid #ff548233;
           overflow: hidden;
-          color: #e2f3fb;
+          color: #f1f9fd;
           background-color: #7eb3ed;
           position: absolute;
           left: -20px;
