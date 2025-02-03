@@ -11,17 +11,20 @@ const props = defineProps<Props>();
 
 const itemIndex = ref<number>(props.index);
 const mediaItem = ref<Media>(props.item);
-
+const isCover = ref<boolean>(mediaItem.value.Info.Cover.Url=="");
 </script>
 
 <template>
   <div class="aii-playlist-item rounded-2xl grid grid-rows-2 grid-cols-3 gap-4">
-    <img src="@/assets/imgs/Aiikisaraki/star.png" alt="" class="aii-playlist-item-star">
+    <img src="@/assets/imgs/Aiikisaraki/star.png" alt="" class="aii-playlist-item-star-1">
+    <img src="@/assets/imgs/Aiikisaraki/star.png" alt="" class="aii-playlist-item-star-2">
     <div class="aii-playlist-item-num">
       <p>{{ itemIndex }}</p>
     </div>
     <div class="aii-playlist-item-album">
-      <img class="aii-playlist-item-img" :src="mediaItem.Info.Cover.Url" alt=""/>
+      <img class="aii-playlist-item-img" :src="mediaItem.Info.Cover.Url" alt="" v-if="!isCover"/>
+      <!--  添加默认封面    -->
+      <img class="aii-playlist-item-img" src="@/assets/imgs/default_cover.png" alt="" v-else/>
     </div>
     <div class="p-3 aii-playlist-item-aritist">
       <ScrollLeftRight :stay_ms="1500" :px_per_ms="50">
@@ -47,17 +50,17 @@ const mediaItem = ref<Media>(props.item);
 <style scoped lang="less">
 .aii-playlist-item {
   margin: 35px auto 10px;
-  width: 80%;
+  width: 85%;
   height: 120px;
   font-family: '江城圆体 600W', sans-serif;
   position: relative;
-  background-color: rgba(255, 255, 255, 0.35);
+  background-color: rgba(255, 222, 232, 0.35);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
   -webkit-box-shadow: rgba(142, 142, 142, 0.19) 0 6px 15px 0px;
-  .aii-playlist-item-star {
+  .aii-playlist-item-star-1 {
     width: 35px;
     height: 35px;
     transform: rotate(-20deg);
@@ -67,6 +70,17 @@ const mediaItem = ref<Media>(props.item);
     z-index: 1;
     //更改星星色调
     filter: brightness(90%) contrast(110%) saturate(120%) hue-rotate(200deg);
+  }
+  .aii-playlist-item-star-2 {
+    width: 15px;
+    height: 15px;
+    transform: rotate(90deg);
+    position: absolute;
+    top: -5px;
+    left: 18px;
+    z-index: 0;
+    //更改星星色调
+    filter: brightness(120%) contrast(180%) saturate(250%) hue-rotate(80deg);
   }
   .aii-playlist-item-num {
     width: 60px;

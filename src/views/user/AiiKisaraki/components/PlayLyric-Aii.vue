@@ -1,0 +1,107 @@
+<script lang="ts" setup>
+import { usePlayInfoStore } from "@/stores/playinfo";
+import type {LyricLine, Lyrics, Media} from "@/api/model";
+import {computed, nextTick, onMounted, ref, watch} from "vue";
+const playInfoStore = usePlayInfoStore();
+
+interface Props {
+  lyrics: Lyrics
+}
+
+interface LyricItem {
+  pre: number,
+  time: number,
+  lrc: string
+}
+
+const props = defineProps<Props>();
+
+const musicLyric = ref();
+
+// const lyricsCurMusic = computed(() => props.lyrics);
+const lyricsCurMusic = computed(() => {
+  const arr: LyricItem[] = [];
+  props.lyrics.Content.forEach((item: LyricLine, index: number) => {
+    const thisLyric = item.Lyric.length === 0 ? " " : item.Lyric;
+    if(index === 0 || props.lyrics.Content.length === 1) {
+      arr.push({time: item.Time, pre: 99999999999, lrc: thisLyric});
+    } else if (index === props.lyrics.Content.length - 1) {
+      arr[index - 1].pre = item.Time;
+    } else {
+      arr.push({time: item.Time, pre: 99999999999, lrc: thisLyric});
+      arr[index - 1].pre = item.Time;
+    }
+  });
+  return arr;
+});
+
+const activeIndex = computed(() => {
+  for(let i = lyricsCurMusic.value.length - 1; i >= 0; i--) {
+    if(playInfoStore.timePos >= lyricsCurMusic.value[i].time) {
+      return i;
+    }
+  }
+  return -1
+})
+
+const scrollLyrics = () => {
+  watch(activeIndex, (index) => {
+    // console.log(musicLyric.value.children[index]);
+    const line = musicLyric.value.children[index];
+    const offsetTop = line.offsetTop;
+    const containerHeight = musicLyric.value.clientHeight;
+    const lineHeight = line.clientHeight;
+    musicLyric.value.scrollTop = offsetTop - (containerHeight / 2 - lineHeight / 2);
+    // console.log(this.musicLyric.scrollTop)
+  })
+}
+
+onMounted(() => {
+  nextTick(()=> {
+    scrollLyrics();
+  })
+})
+
+console.log(lyricsCurMusic);
+</script>
+
+<template>
+  <div class="musicLyric" ref="musicLyric">
+    <p
+        class="lyric"
+        v-for="(item, index) in lyricsCurMusic"
+        :key="index"
+        :class="{active: /* currentTime < item.pre && currentTime > item.time */index === activeIndex}"
+    >
+      {{ item.lrc }}
+    </p>
+  </div>
+</template>
+
+<style lang="less" scoped>
+.musicLyric {
+  width: 100%;
+  height: 100%;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #90a4c8;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: none; /* 对于Firefox */
+  -ms-overflow-style: none; /* 对于IE和Edge */
+  scroll-behavior: smooth;
+  p.lyric {
+    width: 100%;
+    margin: 5px;
+    text-align: center;
+    word-wrap: break-word; /* 超出容器范围自动换行 */
+    overflow-wrap: break-word; /* 兼容性更好的属性 */
+  }
+  p.lyric.active {
+    color: #0d16a0;
+    font-size: 28px;
+  }
+}
+</style>
