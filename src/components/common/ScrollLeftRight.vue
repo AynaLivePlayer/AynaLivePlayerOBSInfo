@@ -66,7 +66,7 @@ const startScrolling = () => {
 
   const span = scrollContent.value;
   const parent = span.parentElement;
-  console.log(span.scrollWidth, parent?.clientWidth);
+  // console.log(span.scrollWidth, parent?.clientWidth);
   if (parent && span.scrollWidth > parent.clientWidth) {
     scrollLeftRight(scrollContent, props.px_per_ms,props.stay_ms);
   }
@@ -74,6 +74,7 @@ const startScrolling = () => {
 
 onMounted(() => {
   const element = scrollContent.value;
+  startScrolling();
   const mutationObserver = new MutationObserver(() => {
     // console.log(`width changed ${element?.scrollWidth}, restart scrolling if needed`);
     startScrolling();

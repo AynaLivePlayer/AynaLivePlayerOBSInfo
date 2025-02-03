@@ -66,7 +66,7 @@ const startScrolling = () => {
 
   const span = scrollContent.value;
   const parent = span.parentElement;
-  console.log(span.scrollHeight, parent?.clientHeight);
+  // console.log(span.scrollHeight, parent?.clientHeight);
   if (parent && span.scrollHeight > parent.clientHeight) {
     scrollUpDown(scrollContent, props.px_per_ms,props.stay_ms);
   }
@@ -74,6 +74,7 @@ const startScrolling = () => {
 
 onMounted(() => {
   const element = scrollContent.value;
+  startScrolling();
   const mutationObserver = new MutationObserver(() => {
     // console.log(`height changed ${element?.scrollHeight}, restart scrolling if needed`);
     startScrolling();
