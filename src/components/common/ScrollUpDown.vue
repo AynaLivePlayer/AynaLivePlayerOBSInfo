@@ -24,37 +24,37 @@ const stopScroll = () => {
   }
 }
 
-const scrollLeftRight = (node: any, px_per_ms:number, stay_ms:number) => {
+const scrollUpDown = (node: any, px_per_ms:number, stay_ms:number) => {
   if (!node.value) return;
 
   const span = node.value;
   const parent = span.parentElement;
   if (!parent) return;
-  const duration = (span.scrollWidth - parent.clientWidth) * px_per_ms;
+  const duration = (span.scrollHeight - parent.clientHeight) * px_per_ms;
 
   let currentTimeout: number|undefined = undefined;
 
-  const scrollLeft = () => {
+  const scrollUp = () => {
     // console.log("left");
     span.style.transition = "transform " + duration + "ms linear";
-    span.style.transform = `translateX(-${span.scrollWidth - parent.clientWidth}px)`;
-    currentTimeout = setTimeout(scrollRight, duration+stay_ms);
+    span.style.transform = `translateY(-${span.scrollHeight - parent.clientHeight}px)`;
+    currentTimeout = setTimeout(scrollDown, duration+stay_ms);
   };
 
-  const scrollRight = () => {
+  const scrollDown = () => {
     // console.log("right");
     span.style.transition = "transform " + duration + "ms linear";
-    span.style.transform = `translateX(0)`;
-    currentTimeout = setTimeout(scrollLeft, duration+stay_ms);
+    span.style.transform = `translateY(0)`;
+    currentTimeout = setTimeout(scrollUp, duration+stay_ms);
   };
 
-  scrollLeft();
+  scrollUp();
 
   stopPreviousScroll = () => {
     // console.log(`stop ${currentTimeout}`);
     clearTimeout(currentTimeout);
     span.style.transition = 'none';
-    span.style.transform = 'translateX(0)';
+    span.style.transform = 'translateY(0)';
   };
 }
 
@@ -66,9 +66,9 @@ const startScrolling = () => {
 
   const span = scrollContent.value;
   const parent = span.parentElement;
-  // console.log(span.scrollWidth, parent?.clientWidth);
-  if (parent && span.scrollWidth > parent.clientWidth) {
-    scrollLeftRight(scrollContent, props.px_per_ms,props.stay_ms);
+  // console.log(span.scrollHeight, parent?.clientHeight);
+  if (parent && span.scrollHeight > parent.clientHeight) {
+    scrollUpDown(scrollContent, props.px_per_ms,props.stay_ms);
   }
 };
 
@@ -76,7 +76,7 @@ onMounted(() => {
   const element = scrollContent.value;
   startScrolling();
   const mutationObserver = new MutationObserver(() => {
-    // console.log(`width changed ${element?.scrollWidth}, restart scrolling if needed`);
+    // console.log(`height changed ${element?.scrollHeight}, restart scrolling if needed`);
     startScrolling();
   });
   mutationObserver.observe(element, {
@@ -93,7 +93,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="overflow-hidden" style="width: 100%;">
+  <div class="overflow-hidden" style="height: 100%;">
     <div ref="scrollContent" class="whitespace-nowrap">
       <slot></slot>
     </div>

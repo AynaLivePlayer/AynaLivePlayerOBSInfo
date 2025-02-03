@@ -19,7 +19,7 @@ import NekoPlaylist from "@/views/user/neko/Playlist3.vue";
 import NekoPlayer from "@/views/user/neko/Player3.vue";
 import AiiPlayerNormal from "@/views/user/AiiKisaraki/PlayerNormal-Aii.vue";
 import AiiPlayerPage from "@/views/user/AiiKisaraki/PlayerPage-Aii.vue";
-import AiiPlaylist from "@/views/user/AiiKisaraki/Playlist-Aii.vue"
+import AiiPlaylist from "@/views/user/AiiKisaraki/Playlist-Aii.vue";
 import MediaSessionVue from '@/views/control/MediaSession.vue';
 import {createWebuiRouter} from "@/views/webui/routers";
 
