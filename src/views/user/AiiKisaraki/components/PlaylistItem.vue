@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ScrollLeftRight from "@/components/common/ScrollLeftRight.vue";
 import type {LiveRoomUser, Media} from "@/api/model";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 interface Props {
   index: number;
   item: Media;
@@ -9,7 +9,7 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const itemIndex = ref<number>(props.index);
+const itemIndex = computed(() => props.index);
 const mediaItem = ref<Media>(props.item);
 const isCover = ref<boolean>(mediaItem.value.Info.Cover.Url=="");
 const isUser = ref<boolean>(mediaItem.value.User.Username);
