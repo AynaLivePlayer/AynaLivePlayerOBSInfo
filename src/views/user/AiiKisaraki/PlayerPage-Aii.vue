@@ -18,6 +18,7 @@ import CurrentLyricCN from "@/components/current/CurrentLyricCN.vue";
 import ScrollLeftRight from "@/components/common/ScrollLeftRight.vue";
 import PlaylistAii from "@/views/user/AiiKisaraki/Playlist-Aii.vue";
 import PlayLyricAii from "@/views/user/AiiKisaraki/components/PlayLyric-Aii.vue";
+import PlayerEvent from "@/views/user/AiiKisaraki/components/PlayerEvent.vue";
 
 const playInfoStore = usePlayInfoStore();
 
@@ -38,68 +39,108 @@ const progressPercentage = computed(() => {
   }
   return 0;
 });
+
+const playlistStatus = computed(() => {
+  if(playInfoStore.playlist.length === 0) {
+    return "当前列表没有歌曲哦！"
+  } else {
+    return `当前列表有${playInfoStore.playlist.length}首歌~`;
+  }
+})
 </script>
 
 <template>
-    <div class="aii-player relative rounded-3xl border-2 border-indigo-300 shadow-lg border-dashed">
-        <div class="aii-player-topbar">
-          <img class="aii-player-topbar-icon" src="@/assets/imgs/proj_icon.jpg" alt="">
-          <div class="aii-player-topbar-tilte">
-            卡西米尔点歌机——直播中
-          </div>
-          <div class="aii-player-decoration-btn" id="btn-close"></div>
-          <div class="aii-player-decoration-btn" id="btn-extend"></div>
-          <div class="aii-player-decoration-btn" id="btn-minimize"></div>
-        </div>
-      <div class="aii-player-al-disk">
-        <img
-            src="@/assets/imgs/Aiikisaraki/needle-ab.png"
-            alt=""
-            class="aii-player-img-needle"
-            :class="{ 'aii-player-img-needle-active': !playStatus }"
+  <div class="aii-player relative rounded-3xl border-2 border-indigo-300 shadow-lg border-dashed">
+    <div class="aii-player-topbar">
+      <img class="aii-player-topbar-icon" src="@/assets/imgs/proj_icon.jpg" alt="">
+      <div class="aii-player-topbar-tilte">
+        卡西米尔点歌机——直播中
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        当前列表有{{playInfoStore.playlist.length}}首歌~
+      </div>
+      <div class="aii-player-decoration-btn" id="btn-close"></div>
+      <div class="aii-player-decoration-btn" id="btn-extend"></div>
+      <div class="aii-player-decoration-btn" id="btn-minimize"></div>
+    </div>
+    <PlayerEvent :playlistshowing="isShowPlaylist" />
+    <div
+        class="aii-player-al-disk"
+        :class="{ 'aii-player-al-disk-left': !isShowPlaylist, 'aii-player-al-disk-right': isShowPlaylist }"
+    >
+      <img
+          src="@/assets/imgs/Aiikisaraki/needle-ab.png"
+          alt=""
+          class="aii-player-img-needle"
+          :class="{ 'aii-player-img-needle-active': !playStatus }"
+      />
+      <div class="aii-player-cd-cover">
+        <img src="@/assets/imgs/Aiikisaraki/cd.png" alt="" class="aii-player-img-cd" />
+        <MediaCover
+            class="aii-player-img-al"
+            :class="{ 'aii-player-img-al-active': playStatus, 'aii-player-img-al-paused': !playStatus }"
         />
-        <div class="aii-player-cd-cover">
-          <img src="@/assets/imgs/Aiikisaraki/cd.png" alt="" class="aii-player-img-cd" />
-          <MediaCover
-              class="aii-player-img-al"
-              :class="{ 'aii-player-img-al-active': playStatus, 'aii-player-img-al-paused': !playStatus }"
-          />
+      </div>
+    </div>
+    <div
+        class="aii-player-lyrics"
+        :class="{ 'aii-player-lyrics-active': !isShowPlaylist, 'aii-player-lyrics-hide': isShowPlaylist }"
+    >
+      <PlayLyricAii :lyrics="playInfoStore.lyrics" />
+    </div>
+    <div
+        class="aii-player-mini-lyric"
+        :class="{ 'aii-player-mini-lyric-active': isShowPlaylist, 'aii-player-mini-lyric-hide': !isShowPlaylist }"
+    >
+      <CurrentLyricCN/>
+    </div>
+    <div class="bottom-player absolute bottom-0 grid grid-cols-3 grid-rows-1">
+      <img src="@/assets/imgs/Aiikisaraki/star.png" alt="" class="aii-player-bottom-star-1">
+      <img src="@/assets/imgs/Aiikisaraki/star.png" alt="" class="aii-player-bottom-star-2">
+      <img src="@/assets/imgs/Aiikisaraki/star.png" alt="" class="aii-player-bottom-star-3">
+      <img src="@/assets/imgs/Aiikisaraki/star.png" alt="" class="aii-player-bottom-star-4">
+      <div class="aii-player-bottom-progress-bar">
+        <CurrentTime format="m:s" class="bottom-player-current-time"/>
+        <div class="aii-player-bottom-progress-bar-back">
+          <div class="aii-player-bottom-progress-bar-inner" :style="`width:${progressPercentage}%`"></div>
+        </div>
+        <TotalTime format="m:s" class="bottom-player-total-time"/>
+      </div>
+
+      <div class="p-2 bottom-music-info-box">
+        <div class="bottom-music-info">
+          <MediaCover class="bottom-cover-img"/>
+          <div class="bottom-music-detail">
+            <ScrollLeftRight :stay_ms="1000" :px_per_ms="50" class="bottom-music-title">
+              <MediaTitle/>
+            </ScrollLeftRight>
+            <ScrollLeftRight :stay_ms="1000" :px_per_ms="50" class="bottom-music-artist">
+              <MediaArtist/>
+            </ScrollLeftRight>
+          </div>
         </div>
       </div>
-        <div class="aii-player-lyrics">
-          <PlayLyricAii :lyrics="playInfoStore.lyrics"/>
+      <div class="p-2 bottom-bulletin-board col-span-2">
+        <div class="bottom-bulletin-board-content">
+          点歌格式：点歌&nbsp;歌名&nbsp;歌手名（点歌与后面的词中间空格不可省略，歌手名可省略，可将歌名和歌手名换成bv号或者网易云中的歌曲ID）
         </div>
-        <div class="bottom-player absolute bottom-0 grid grid-cols-3 grid-rows-1">
-          <img src="@/assets/imgs/Aiikisaraki/star.png" alt="" class="aii-player-bottom-star-1">
-          <img src="@/assets/imgs/Aiikisaraki/star.png" alt="" class="aii-player-bottom-star-2">
-          <div class="aii-player-bottom-progress-bar">
-            <CurrentTime format="m:s" class="bottom-player-current-time"/>
-            <div class="aii-player-bottom-progress-bar-back">
-              <div class="aii-player-bottom-progress-bar-inner" :style="`width:${progressPercentage}%`"></div>
-            </div>
-            <TotalTime format="m:s" class="bottom-player-total-time"/>
-          </div>
-
-          <div class="p-2 bottom-music-info-box">
-            <div class="bottom-music-info">
-              <MediaCover class="bottom-cover-img"/>
-              <div class="bottom-music-detail">
-                <ScrollLeftRight :stay_ms="1000" :px_per_ms="50" class="bottom-music-title">
-                  <MediaTitle/>
-                </ScrollLeftRight>
-                <ScrollLeftRight :stay_ms="1000" :px_per_ms="50" class="bottom-music-artist">
-                  <MediaArtist/>
-                </ScrollLeftRight>
-              </div>
-            </div>
-          </div>
-          <div class="p-2 bottom-bulletin-board col-span-2"></div>
-        </div>
-        <PlaylistAii :height="900" class="aii-player-playlist" v-if="isShowPlaylist"></PlaylistAii>
-        <div class="aii-player-bulletin-board">
-
-        </div>
+      </div>
     </div>
+    <PlaylistAii :height="900" class="aii-player-playlist" :class="{'aii-player-playlist-active': isShowPlaylist, 'aii-player-playlist-hide': !isShowPlaylist }"></PlaylistAii>
+    <div
+        class="aii-player-playlist-status p-2"
+        :class="{'aii-player-playlist-status-active': !isShowPlaylist, 'aii-player-playlist-status-hide': isShowPlaylist }"
+    >
+      <img src="@/assets/imgs/Aiikisaraki/star.png" alt="" class="aii-player-playlist-status-star-1">
+      <p>{{playlistStatus}}</p>
+    </div>
+    <div class="aii-player-bulletin-board">
+      <img src="@/assets/imgs/Aiikisaraki/star.png" alt="" class="aii-player-bulletin-board-star-1">
+      <img src="@/assets/imgs/Aiikisaraki/star.png" alt="" class="aii-player-bulletin-board-star-2">
+      <div class="aii-player-bulletin-board-title">
+        Notice
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped lang="less">
@@ -112,9 +153,66 @@ const progressPercentage = computed(() => {
     font-family: '江城圆体 600W', sans-serif;
   .aii-player-playlist {
     position: absolute;
-    left: 0;
     top: 70px;
     z-index: 3;
+    transition: all 1s ease-in-out;
+  }
+  .aii-player-playlist-status {
+    width: 80px;
+    height: 380px;
+    font-size: 30px;
+    position: absolute;
+    letter-spacing: 5px;
+    top: 40%;
+    z-index: 3;
+    border-radius: 0 20px 20px 0;
+    border-top: 4px solid #d899b3;
+    border-right: 4px solid #d899b3;
+    border-bottom: 4px solid #d899b3;
+    background-image: linear-gradient(to right, white, #ffe6f9);
+    transition: all 1s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 2px 2px 5px gray;
+    .aii-player-playlist-status-star-1 {
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      top: -15px;
+      left: 60px;
+      z-index: 2;
+      transform: rotate(20deg);
+      filter: brightness(120%) contrast(120%) saturate(200%) hue-rotate(80deg);
+    }
+    p {
+      writing-mode: vertical-lr;
+      animation: playlist-status-font-blink-color 4s infinite;
+    }
+    @keyframes playlist-status-font-blink-color {
+      0%, 100% {
+        color: #bb517d;
+      } /* 开始和结束时的颜色 */
+      50% {
+        color: #85a2d2;
+      } /* 中间的颜色 */
+    }
+  }
+  .aii-player-playlist-status-active {
+    left: 0;
+    opacity: 100%;
+  }
+  .aii-player-playlist-status-hide {
+    left: -80px;
+    opacity: 0;
+  }
+  .aii-player-playlist-active {
+    left: 0;
+    opacity: 100%;
+  }
+  .aii-player-playlist-hide {
+    left: -600px;
+    opacity: 0;
   }
   .aii-player-topbar {
     width: 100%;
@@ -174,7 +272,7 @@ const progressPercentage = computed(() => {
     position: absolute;
     overflow: hidden;
     top: 200px;
-    left: 20%;
+    transition: all 1s;
     .aii-player-img-needle {
       width: 200px;
       z-index: 2;
@@ -243,12 +341,45 @@ const progressPercentage = computed(() => {
       }
     }
   }
+  .aii-player-al-disk-left {
+    left: 20%;
+  }
+  .aii-player-al-disk-right {
+    left: 60%;
+  }
   .aii-player-lyrics {
     width: 50%;
     height: 70%;
     position: absolute;
-    right: 30px;
     bottom: 100px;
+    transition: all 1s;
+  }
+  .aii-player-lyrics-active {
+    opacity: 100%;
+    right: 0;
+  }
+  .aii-player-lyrics-hide {
+    opacity: 0;
+    right: -50%;
+  }
+  .aii-player-mini-lyric {
+    width: 50%;
+    height: 5%;
+    position: absolute;
+    right: 25px;
+    color: #0d16a0;
+    font-size: 40px;
+    transition: all 1s;
+    display: flex;
+    justify-content: center;
+  }
+  .aii-player-mini-lyric-active {
+    bottom: 120px;
+    opacity: 100%;
+  }
+  .aii-player-mini-lyric-hide {
+    bottom: -10%;
+    opacity: 0;
   }
   .aii-player-bulletin-board {
     width: 60%;
@@ -260,6 +391,39 @@ const progressPercentage = computed(() => {
     border: 3px dashed #257e9b;
     background-color: #e0f2ffaf;
     box-shadow: 2px 2px 5px #999999;
+    margin-top: 20px;
+    .aii-player-bulletin-board-star-1 {
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      top: -15px;
+      left: 150px;
+      z-index: 2;
+      transform: rotate(20deg);
+      filter: brightness(120%) contrast(120%) saturate(200%) hue-rotate(270deg);
+    }
+    .aii-player-bulletin-board-star-2 {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      bottom: -20px;
+      right: 5px;
+      z-index: 2;
+      transform: rotate(20deg);
+    }
+    .aii-player-bulletin-board-title {
+      width: 10%;
+      height: 40px;
+      position: absolute;
+      background-color: #eacaef;
+      top: -20px;
+      left: 30px;
+      border-radius: 10px;
+      color: #4b0ea6;
+      border: 3px solid #4b0ea6;
+      font-size: 24px;
+      text-align: center;
+    }
   }
   .bottom-player {
     width: 1920px;
@@ -283,6 +447,26 @@ const progressPercentage = computed(() => {
       z-index: 2;
       transform: rotate(15deg);
       filter: brightness(120%) contrast(120%) saturate(200%) hue-rotate(90deg);
+    }
+    .aii-player-bottom-star-3 {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      top: 10px;
+      right: 45px;
+      z-index: 2;
+      transform: rotate(15deg);
+      filter: brightness(120%) contrast(120%) saturate(200%) hue-rotate(260deg);
+    }
+    .aii-player-bottom-star-4 {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: 40px;
+      right: 120px;
+      z-index: 2;
+      transform: rotate(-20deg);
+      filter: brightness(120%) contrast(120%) saturate(300%) hue-rotate(320deg);
     }
     .aii-player-bottom-progress-bar {
       width: 100%;
@@ -377,6 +561,15 @@ const progressPercentage = computed(() => {
       border-radius: 20px;
       border: 1px dashed #3d7cb8;
       box-shadow: inset 0 0 5px gray;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .bottom-bulletin-board-content {
+        width: 100%;
+        height: 24px;
+        color: #013454;
+        font-size: 18px;
+      }
     }
   }
 }

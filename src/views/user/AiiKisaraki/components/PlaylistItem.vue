@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import ScrollLeftRight from "@/components/common/ScrollLeftRight.vue";
-import type {Media} from "@/api/model";
+import type {LiveRoomUser, Media} from "@/api/model";
 import {ref} from "vue";
 interface Props {
   index: number;
@@ -12,6 +12,7 @@ const props = defineProps<Props>();
 const itemIndex = ref<number>(props.index);
 const mediaItem = ref<Media>(props.item);
 const isCover = ref<boolean>(mediaItem.value.Info.Cover.Url=="");
+const isUser = ref<boolean>(mediaItem.value.User.Username);
 </script>
 
 <template>
@@ -40,7 +41,8 @@ const isCover = ref<boolean>(mediaItem.value.Info.Cover.Url=="");
       <p>点歌用户：</p>
       <div class="aii-playlist-item-user-name">
         <ScrollLeftRight :stay_ms="1500" :px_per_ms="50">
-          <p>{{ mediaItem.User.Name }}</p>
+          <p v-if="isUser">{{ mediaItem.User.Username }}</p>
+          <p v-else>{{ mediaItem.User.Name }}</p>
         </ScrollLeftRight>
       </div>
     </div>

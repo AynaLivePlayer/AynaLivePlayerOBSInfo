@@ -17,6 +17,7 @@ interface LyricItem {
 const props = defineProps<Props>();
 
 const musicLyric = ref();
+const lyricContainer = ref();
 
 // const lyricsCurMusic = computed(() => props.lyrics);
 const lyricsCurMusic = computed(() => {
@@ -46,14 +47,17 @@ const activeIndex = computed(() => {
 
 const scrollLyrics = () => {
   watch(activeIndex, (index) => {
-    // console.log(musicLyric.value.children[index]);
-    const line = musicLyric.value.children[index];
-    const offsetTop = line.offsetTop;
-    const containerHeight = musicLyric.value.clientHeight;
-    const lineHeight = line.clientHeight;
-    musicLyric.value.scrollTop = offsetTop - (containerHeight / 2 - lineHeight / 2);
-    // console.log(this.musicLyric.scrollTop)
-  })
+    if(musicLyric.value !== null) {
+      const lines = musicLyric.value.children;
+      if(lines !== null && lines !== undefined && lines.length > 0) {
+        // 计算当前歌词中心高度
+        const currentIndexLyricCenterHeight = (lines[index].getBoundingClientRect().top + lines[index].getBoundingClientRect().bottom) / 2;
+        const curLyricInParentHeight = currentIndexLyricCenterHeight - musicLyric.value.getBoundingClientRect().top - lyricContainer.value.getBoundingClientRect().top / 2;
+        const targetScrollTop = lyricContainer.value.getBoundingClientRect().top - curLyricInParentHeight;
+        musicLyric.value.style.transform = `translateY(${targetScrollTop}px)`;
+      }
+    }
+  },{immediate: true})
 }
 
 onMounted(() => {
@@ -66,42 +70,55 @@ console.log(lyricsCurMusic);
 </script>
 
 <template>
-  <div class="musicLyric" ref="musicLyric">
-    <p
-        class="lyric"
-        v-for="(item, index) in lyricsCurMusic"
-        :key="index"
-        :class="{active: /* currentTime < item.pre && currentTime > item.time */index === activeIndex}"
-    >
-      {{ item.lrc }}
-    </p>
+  <div class="aii-player-lyric-container" ref="lyricContainer">
+    <div class="musicLyric" ref="musicLyric">
+      <p
+          class="lyric"
+          v-for="(item, index) in lyricsCurMusic"
+          :key="index"
+          :class="{active: /* currentTime < item.pre && currentTime > item.time */index === activeIndex}"
+      >
+        {{ item.lrc }}
+      </p>
+    </div>
   </div>
 </template>
 
 <style lang="less" scoped>
-.musicLyric {
+.aii-player-lyric-container {
   width: 100%;
   height: 100%;
-  font-size: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #90a4c8;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  scrollbar-width: none; /* 对于Firefox */
-  -ms-overflow-style: none; /* 对于IE和Edge */
-  scroll-behavior: smooth;
-  p.lyric {
+  overflow: hidden;
+  padding: 0 30px;
+  .musicLyric {
     width: 100%;
-    margin: 5px;
-    text-align: center;
-    word-wrap: break-word; /* 超出容器范围自动换行 */
-    overflow-wrap: break-word; /* 兼容性更好的属性 */
-  }
-  p.lyric.active {
-    color: #0d16a0;
-    font-size: 28px;
+    height: 100%;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #90a4c8;
+    text-shadow: 0px 0px 1px #c8c8c8;
+    //overflow: hidden;
+    will-change: transform; /* 提示浏览器该元素将使用transform，以优化性能 */
+    transition: transform 0.3s ease-out; /* 平滑过渡效果 */
+    //overflow-y: scroll;
+    //overflow-x: hidden;
+    //scrollbar-width: none; /* 对于Firefox */
+    //-ms-overflow-style: none; /* 对于IE和Edge */
+    //scroll-behavior: smooth;
+    p.lyric {
+      width: 100%;
+      margin: 5px;
+      text-align: center;
+      word-wrap: break-word; /* 超出容器范围自动换行 */
+      overflow-wrap: break-word; /* 兼容性更好的属性 */
+      //transition: transform 0.3s;
+    }
+    p.lyric.active {
+      color: #0d16a0;
+      font-size: 28px;
+    }
   }
 }
 </style>

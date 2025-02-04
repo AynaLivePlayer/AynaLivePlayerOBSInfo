@@ -17,7 +17,6 @@ const playInfoStore = usePlayInfoStore();
 const currentLyric = computed(() => {
   /* 添加纯音乐情况，方便其它页面进行分情况判断 */
   /* 目前仅考虑网易云与B站无歌词部分情况，待完善 */
-  console.log(playInfoStore)
   if (playInfoStore.current.Info.Meta.Provider === "bilibili-video") {
     return "B站歌曲暂无歌词~~"
   }
