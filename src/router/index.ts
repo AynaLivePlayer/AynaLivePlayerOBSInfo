@@ -18,6 +18,7 @@ import Welcome from "@/views/Welcome.vue";
 import NekoPlaylist from "@/views/user/neko/Playlist3.vue";
 import NekoPlayer from "@/views/user/neko/Player3.vue";
 import AiiPlayerNormal from "@/views/user/AiiKisaraki/PlayerNormal-Aii.vue";
+import AiiPlayerMini from "@/views/user/AiiKisaraki/PlayerMini-Aii.vue";
 import AiiPlayerPage from "@/views/user/AiiKisaraki/PlayerPage-Aii.vue";
 import AiiPlaylist from "@/views/user/AiiKisaraki/Playlist-Aii.vue";
 import MediaSessionVue from '@/views/control/MediaSession.vue';
@@ -70,6 +71,11 @@ const router = createRouter({
             path: '/user/aiikisaraki/playernormal',
             name: 'aii_player_normal',
             component: AiiPlayerNormal,
+        },
+        {
+            path: '/user/aiikisaraki/playermini',
+            name: 'aii_player_mini',
+            component: AiiPlayerMini,
         },
         {
             path: '/user/aiikisaraki/playerpage',

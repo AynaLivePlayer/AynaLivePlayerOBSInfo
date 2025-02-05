@@ -145,12 +145,14 @@ const playlistStatus = computed(() => {
 
 <style scoped lang="less">
 .aii-player {
-    width: 1920px;
-    height: 1080px;
-    overflow: hidden;
-    position: relative;
-    background-color: #fffaf5;
-    font-family: '江城圆体 600W', sans-serif;
+  width: 100%;
+  height: 100%;
+  min-width: 1920px;
+  min-height: 1080px;
+  overflow: hidden;
+  position: relative;
+  background-color: #fffaf5;
+  font-family: '江城圆体 600W', sans-serif;
   .aii-player-playlist {
     position: absolute;
     top: 70px;
@@ -267,7 +269,7 @@ const playlistStatus = computed(() => {
     }
   }
   .aii-player-al-disk {
-    width: 30%;
+    width: 50%;
     height: 70%;
     position: absolute;
     overflow: hidden;
@@ -278,26 +280,24 @@ const playlistStatus = computed(() => {
       z-index: 2;
       position: absolute;
       top: 30px;
-      left: 150px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
       transform-origin: 0 0;
       transform: rotate(-15deg);
       transition: all 1.5s;
     }
     .aii-player-img-needle-active {
-      width: 200px;
-      z-index: 2;
-      position: absolute;
-      top: 30px;
-      left: 150px;
-      transform-origin: 0 0;
       transform: rotate(-40deg);
-      transition: all 1.5s;
     }
     .aii-player-cd-cover {
       width: 500px;
       height: 500px;
       position: absolute;
       top: 150px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
       .aii-player-img-cd {
         width: 100%;
         height: 100%;
@@ -342,10 +342,10 @@ const playlistStatus = computed(() => {
     }
   }
   .aii-player-al-disk-left {
-    left: 20%;
+    left: 0%;
   }
   .aii-player-al-disk-right {
-    left: 60%;
+    left: 46%;
   }
   .aii-player-lyrics {
     width: 50%;
@@ -366,7 +366,7 @@ const playlistStatus = computed(() => {
     width: 50%;
     height: 5%;
     position: absolute;
-    right: 25px;
+    left: 46%;
     color: #0d16a0;
     font-size: 40px;
     transition: all 1s;
@@ -374,7 +374,7 @@ const playlistStatus = computed(() => {
     justify-content: center;
   }
   .aii-player-mini-lyric-active {
-    bottom: 120px;
+    bottom: 15%;
     opacity: 100%;
   }
   .aii-player-mini-lyric-hide {
@@ -426,7 +426,7 @@ const playlistStatus = computed(() => {
     }
   }
   .bottom-player {
-    width: 1920px;
+    width: 100%;
     height: 70px;
     background-color: #b1cfff;
     .aii-player-bottom-star-1 {
@@ -495,14 +495,14 @@ const playlistStatus = computed(() => {
         right: 145px;
       }
       .aii-player-bottom-progress-bar-back {
-        width: 85%;
+        //width: 85%;
         background-color: #93a1bd;
         position: relative;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        margin: auto;
+        margin: auto 150px;
         .aii-player-bottom-progress-bar-inner {
           //width: 40%;
           height: 4px;
@@ -518,7 +518,7 @@ const playlistStatus = computed(() => {
       height: 100%;
       position: relative;
       .bottom-music-info {
-        width: 77%;
+        //width: 77%;
         height: 100%;
         //background-color: black;
         background-image: linear-gradient(to right, white, #b1cfff 100%);
@@ -527,7 +527,7 @@ const playlistStatus = computed(() => {
         left: 0;
         right: 0;
         bottom: 0;
-        margin: auto;
+        margin: auto 80px;
         border-radius: 10px;
         display: flex;
         .bottom-cover-img {

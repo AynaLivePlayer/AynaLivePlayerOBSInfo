@@ -42,8 +42,9 @@ const activeIndex = computed(() => {
       return i;
     }
   }
-  return -1
-})
+  if(isBili.value || isEmptyLyric.value) return 0;
+  return -1;
+});
 
 const scrollLyrics = () => {
   watch(activeIndex, (index) => {
@@ -59,6 +60,24 @@ const scrollLyrics = () => {
     }
   },{immediate: true})
 }
+
+const isBili = computed(() => {
+  return playInfoStore.current.Info.Meta.Provider === "bilibili-video"
+})
+
+const isEmptyLyric = computed(() => {
+  if(playInfoStore.lyrics.Content.length === 0) {
+    return true;
+  }
+  let isEmpty:boolean = true;
+  for(let i = 0; i < playInfoStore.lyrics.Content.length; i++) {
+    if(playInfoStore.lyrics.Content[i].Lyric !== "" && playInfoStore.lyrics.Content[i].Lyric !== null) {
+      isEmpty = false;
+      break;
+    }
+  }
+  return isEmpty;
+})
 
 onMounted(() => {
   nextTick(()=> {
@@ -77,8 +96,21 @@ console.log(lyricsCurMusic);
           v-for="(item, index) in lyricsCurMusic"
           :key="index"
           :class="{active: /* currentTime < item.pre && currentTime > item.time */index === activeIndex}"
+          v-if="!(isBili || isEmptyLyric)"
       >
         {{ item.lrc }}
+      </p>
+      <p
+          class="lyric active"
+          v-else-if="isBili"
+      >
+        B站歌曲暂无歌词~~
+      </p>
+      <p
+          class="lyric active"
+          v-else-if="isEmptyLyric"
+      >
+        本曲暂无歌词~~
       </p>
     </div>
   </div>
@@ -93,7 +125,7 @@ console.log(lyricsCurMusic);
   .musicLyric {
     width: 100%;
     height: 100%;
-    font-size: 20px;
+    font-size: 32px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -117,7 +149,7 @@ console.log(lyricsCurMusic);
     }
     p.lyric.active {
       color: #0d16a0;
-      font-size: 28px;
+      font-size: 42px;
     }
   }
 }
