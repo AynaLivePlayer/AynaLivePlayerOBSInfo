@@ -1,10 +1,6 @@
 <!--
- * @Author: Aii如樱如月 morikawa2021@163.com
- * @Date: 2025-01-07 19:51:55
- * @LastEditors: Aii如樱如月 morikawa2021@163.com
- * @LastEditTime: 2025-01-11 17:34:41
- * @FilePath: \AynaLivePlayerOBSInfo\src\components\common\ScrollLeftRight.vue
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+  * 通用组件 - 左右滚动
+  * 贡献者: @Aynakeya, @Aiikisaraki
 -->
 <script setup lang="ts">
 import {onMounted, onUnmounted, ref} from "vue";
