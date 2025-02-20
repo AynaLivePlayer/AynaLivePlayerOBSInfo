@@ -19,6 +19,8 @@ import AiiPlayerPage from "@/views/user/AiiKisaraki/PlayerPage-Aii.vue";
 import AiiPlaylist from "@/views/user/AiiKisaraki/Playlist-Aii.vue";
 import MediaSessionVue from '@/views/control/MediaSession.vue';
 import {createWebuiRouter} from "@/views/webui/routers";
+import {createAiiKisarakiRouter} from "@/views/user/AiiKisaraki/routers";
+import {createUserNekoRouter} from "@/views/user/neko/routers";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -54,48 +56,15 @@ const router = createRouter({
             component: Player2Right,
         },
         {
-            path: '/user/neko/player',
-            name: 'neko_player',
-            component: NekoPlayer,
-        },
-        {
-            path: '/user/neko/playlist',
-            name: 'neko_playlist',
-            component: NekoPlaylist,
-        },
-        {
-            path: '/user/aiikisaraki/playernormal',
-            name: 'aii_player_normal',
-            component: AiiPlayerNormal,
-        },
-        {
-            path: '/user/aiikisaraki/playermini',
-            name: 'aii_player_mini',
-            component: AiiPlayerMini,
-        },
-        {
-            path: '/user/aiikisaraki/playerpage',
-            name: 'aii_player_page',
-            component: AiiPlayerPage,
-        },
-        {
-            path: '/user/aiikisaraki/playlist',
-            name: 'aii_playlist',
-            component: AiiPlaylist,
-        },
-        {
             path: '/controller/demo',
             name: 'media_session',
             component: MediaSessionVue,
         },
-        {
-            path: '/sandbox',
-            name: 'sandbox',
-            component: Sandbox,
-        }
     ]
 })
 
+createAiiKisarakiRouter(router);
+createUserNekoRouter(router);
 createWebuiRouter(router);
 
 export default router

@@ -50,6 +50,45 @@
         <span class="text-sm text-gray-500">(宽度: 450 高度: >=150)</span>
       </div>
     </div>
+    <p class="text-lg text-gray-600">由 @Aii如樱如月 贡献维护的样式: (点击可以预览，非常好看！)</p>
+    <div class="space-y-2">
+      <div class="flex items-center space-x-2">
+        <router-link
+            to="/user/aiikisaraki/playernormal"
+            class="text-blue-600 hover:underline hover:text-blue-800"
+        >
+          大播放器
+        </router-link>
+        <span class="text-sm text-gray-500">(宽度: 600 高度: 200)</span>
+      </div>
+      <div class="flex items-center space-x-2">
+        <router-link
+            to="/user/aiikisaraki/playermini"
+            class="text-blue-600 hover:underline hover:text-blue-800"
+        >
+          迷你播放器
+        </router-link>
+        <span class="text-sm text-gray-500">(宽度: 220 高度: 80)</span>
+
+      </div>
+      <div class="flex items-center space-x-2">
+        <router-link
+            to="/user/aiikisaraki/playlist"
+            class="text-blue-600 hover:underline hover:text-blue-800"
+        >
+          当前播放列表
+        </router-link>
+        <span class="text-sm text-gray-500">(宽度: 600 高度: 1000)</span>
+      </div>
+      <div class="flex items-center space-x-2">
+        <router-link
+            to="/user/aiikisaraki/playerpage"
+            class="text-blue-600 hover:underline hover:text-blue-800"
+        >
+          点歌机展示页面
+        </router-link>
+      </div>
+    </div>
     <p class="text-lg text-gray-600">这个连接是正在开发中的webui,需要开启websocket以及websocket控制才能使用</p>
     <div class="flex items-center space-x-2">
       <router-link
