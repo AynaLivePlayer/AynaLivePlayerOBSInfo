@@ -2,7 +2,7 @@
  * @Author: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
  * @Date: 2025-01-09 14:00:00
  * @LastEditors: Aii如樱如月 morikawa2021@163.com
- * @LastEditTime: 2025-02-11 10:27:08
+ * @LastEditTime: 2025-02-21 19:22:40
  * @FilePath: \AynaLivePlayerOBSInfo\src\views\user\AiiKisaraki\PlayerPage-Aii.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -398,7 +398,7 @@ const playlistStatus = computed(() => {
       height: 30px;
       position: absolute;
       top: -15px;
-      left: 150px;
+      left: 13%;
       z-index: 2;
       transform: rotate(20deg);
       filter: brightness(120%) contrast(120%) saturate(200%) hue-rotate(270deg);
