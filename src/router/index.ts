@@ -21,6 +21,7 @@ import MediaSessionVue from '@/views/control/MediaSession.vue';
 import {createWebuiRouter} from "@/views/webui/routers";
 import {createAiiKisarakiRouter} from "@/views/user/AiiKisaraki/routers";
 import {createUserNekoRouter} from "@/views/user/neko/routers";
+import {createComponentsRouter} from "@/views/component/routers";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -66,5 +67,6 @@ const router = createRouter({
 createAiiKisarakiRouter(router);
 createUserNekoRouter(router);
 createWebuiRouter(router);
+createComponentsRouter(router);
 
 export default router

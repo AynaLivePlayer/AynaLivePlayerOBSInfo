@@ -1,8 +1,4 @@
 import type { Router } from 'vue-router'
-import Webui from "@/views/webui/webui.vue";
-import Playlist from "@/views/webui/page/Playlist.vue";
-import PlayerPlaylist from "@/views/webui/page/PlayerPlaylist.vue";
-import Player from "@/views/webui/page/Player.vue";
 import AiiPlayerNormal from "@/views/user/AiiKisaraki/PlayerNormal-Aii.vue";
 import AiiPlayerMini from "@/views/user/AiiKisaraki/PlayerMini-Aii.vue";
 import AiiPlayerPage from "@/views/user/AiiKisaraki/PlayerPage-Aii.vue";
