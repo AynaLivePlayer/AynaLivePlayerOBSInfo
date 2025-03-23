@@ -1,8 +1,8 @@
 <!--
  * @Author: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
  * @Date: 2025-01-09 14:00:00
- * @LastEditors: Aii如樱如月 morikawa2021@163.com
- * @LastEditTime: 2025-02-21 19:22:40
+ * @LastEditors: Aii 如樱如月 morikawa@kimisui56.work
+ * @LastEditTime: 2025-03-23 12:10:28
  * @FilePath: \AynaLivePlayerOBSInfo\src\views\user\AiiKisaraki\PlayerPage-Aii.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -22,11 +22,13 @@ import PlayerEvent from "@/views/user/AiiKisaraki/components/PlayerEvent.vue";
 
 const playInfoStore = usePlayInfoStore();
 
-console.log(playInfoStore);
 const playStatus = computed(() => !playInfoStore.paused);
+// 设置播放列表和完整歌词是否显示，播放列表如果显示，那么歌词则不显示，反之亦然
+// 如果末尾10%时长大于25s，那么在播放进度到达时长的90%前和5%后不显示播放列表
+// 如果末尾10%时长小于25s，那么在播放进度到达最后25s前和开始10秒后不显示播放列表
 const isShowPlaylist = computed(() => {
-  const startShowRef = playInfoStore.duration - 0.95 * playInfoStore.duration > 15 ? 0.95 * playInfoStore.duration : playInfoStore.duration - 15;
-  const endShowRef = 0.02 * playInfoStore.duration > 5 ? 0.02 * playInfoStore.duration : 5;
+  const startShowRef = playInfoStore.duration - 0.8 * playInfoStore.duration > 40 ? 0.8 * playInfoStore.duration : playInfoStore.duration - 40;
+  const endShowRef = 0.05 * playInfoStore.duration > 10 ? 0.05 * playInfoStore.duration : 10;
   if (playInfoStore.timePos < startShowRef && playInfoStore.timePos > endShowRef) {
     return false;
   }
