@@ -17,7 +17,6 @@ const isShowAni = ref<boolean>(false);
 onMounted(()=>{
   isShowAni.value = true;
 })
-
 </script>
 
 <template>
@@ -30,7 +29,8 @@ onMounted(()=>{
       <img src="@/assets/imgs/Aiikisaraki/star.png" alt="" class="aii-playlist-title-dividing-line-star-3">
     </div>
     <div class="aii-playlist-list">
-      <ScrollUpDown :stay_ms="2000" :px_per_ms="50" class="aii-playlist-scroll">
+      <!-- 滚动速度调整 -->
+      <ScrollUpDown :stay_ms="2000" :px_per_ms="80" class="aii-playlist-scroll">
         <PlaylistItem v-for="(item, index) in playInfoStore.playlist" :key="item.Info.Meta.Identifier" :item="item" :index="index + 1" :class="{'fly-in-bottom': isShowAni}"/>
       </ScrollUpDown>
       <div class="aii-playlist-bar"></div>
