@@ -3,7 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 import {onBeforeUnmount, onMounted} from 'vue';
 import { usePlayInfoStore } from './stores/playinfo';
 import {WebInfoClient} from "@/api/client";
-import type {EventData} from "@/api/model";
+import {capitalizeKeysDeep, type EventData} from "@/api/model";
 import {usePlaylistsStore} from "@/stores/playlists";
 
 const playInfoStore = usePlayInfoStore();
@@ -14,6 +14,8 @@ onMounted(() => {
   const onMessageHandler = (event:MessageEvent) => {
     let raw:EventData = JSON.parse(event.data);
     let data = raw.Data;
+
+    data = capitalizeKeysDeep(data)
 
     switch (raw.EventID) {
       case "update.player.playing":

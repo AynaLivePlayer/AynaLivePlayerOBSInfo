@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
-    "deploy": "rsync -rvz dist/ cuora.frontend:/var/www/obsinfo/ --delete"
+    "deploy": "rsync -rvz dist/ scene:/home/ubuntu/repository/nginx-proxy-manager/data/www/obsinfo/ --delete"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
