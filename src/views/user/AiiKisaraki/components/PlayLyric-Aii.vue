@@ -16,8 +16,8 @@ interface LyricItem {
 
 const props = defineProps<Props>();
 
-const musicLyric = ref();
-const lyricContainer = ref();
+const musicLyric = ref<HTMLElement | null>(null);
+const lyricContainer = ref<HTMLElement | null>(null);
 
 // const lyricsCurMusic = computed(() => props.lyrics);
 const lyricsCurMusic = computed(() => {
@@ -47,17 +47,22 @@ const activeIndex = computed(() => {
 });
 
 const scrollLyrics = () => {
-  watch(activeIndex, (index) => {
-    if(musicLyric.value !== null) {
-      const lines = musicLyric.value.children;
-      if(lines !== null && lines !== undefined && lines.length > 0) {
-        // 计算当前歌词中心高度
-        const currentIndexLyricCenterHeight = (lines[index].getBoundingClientRect().top + lines[index].getBoundingClientRect().bottom) / 2;
-        const curLyricInParentHeight = currentIndexLyricCenterHeight - musicLyric.value.getBoundingClientRect().top - lyricContainer.value.getBoundingClientRect().top / 2;
-        const targetScrollTop = lyricContainer.value.getBoundingClientRect().top - curLyricInParentHeight;
-        musicLyric.value.style.transform = `translateY(${targetScrollTop}px)`;
-      }
+  watch(activeIndex, async (index) => {
+    await nextTick();
+    const wrapper = musicLyric.value;
+    const container = lyricContainer.value;
+    if (!wrapper || !container) return;
+    if (index < 0) {
+      wrapper.style.transform = "translateY(0px)";
+      return;
     }
+    const lines = wrapper.children;
+    if (!lines || index >= lines.length) return;
+
+    const currentLine = lines[index] as HTMLElement;
+    const targetOffset =
+        -(currentLine.offsetTop - (container.clientHeight / 2 - currentLine.clientHeight / 2));
+    wrapper.style.transform = `translateY(${targetOffset}px)`;
   },{immediate: true})
 }
 
@@ -84,8 +89,6 @@ onMounted(() => {
     scrollLyrics();
   })
 })
-
-console.log(lyricsCurMusic);
 </script>
 
 <template>

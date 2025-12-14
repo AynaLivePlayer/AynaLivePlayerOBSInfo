@@ -5,9 +5,19 @@ import { usePlayInfoStore } from './stores/playinfo';
 import {WebInfoClient} from "@/api/client";
 import {capitalizeKeysDeep, type EventData} from "@/api/model";
 import {usePlaylistsStore} from "@/stores/playlists";
+import {useProvidersStore} from "@/stores/providers";
+import {useSearchStore} from "@/stores/search";
+import {useHistoryStore} from "@/stores/history";
+import {useConfigStore} from "@/stores/config";
+import {useLiveRoomStore} from "@/stores/liverooms";
 
 const playInfoStore = usePlayInfoStore();
 const playlistsStore = usePlaylistsStore();
+const providersStore = useProvidersStore();
+const searchStore = useSearchStore();
+const historyStore = useHistoryStore();
+const configStore = useConfigStore();
+const liveRoomStore = useLiveRoomStore();
 
 onMounted(() => {
   // Define the onMessage handler
@@ -20,6 +30,9 @@ onMounted(() => {
     switch (raw.EventID) {
       case "update.player.playing":
         playInfoStore.setCurrent(data.Media);
+        if (!data.Removed) {
+          historyStore.push(data.Media);
+        }
         break;
       case "update.player.property.time_pos":
         playInfoStore.timePos=data.TimePos;
@@ -41,6 +54,11 @@ onMounted(() => {
       case "update.playlist.manager.info":
         playlistsStore.setPlaylists(data.Playlists);
         break
+      case "update.playlist.manager.system":
+        if (data.Info) {
+          playlistsStore.setSystemPlaylist(data.Info);
+        }
+        break
       case "update.playlist.manager.current":
         playlistsStore.setCurrentPlaylistMedias(data.Medias);
         break
@@ -49,6 +67,36 @@ onMounted(() => {
         break
       case "update.player.lyric.reload":
         playInfoStore.setLyrics(data.Lyrics);
+        break
+      case "update.search_result":
+        searchStore.setResults(data.Medias);
+        break
+      case "update.media.provider.update":
+        providersStore.setMediaProviders(data.Providers);
+        if (!searchStore.provider && data.Providers.length > 0) {
+          searchStore.setProvider(data.Providers[0]);
+        }
+        break
+      case "update.liveroom.provider":
+        liveRoomStore.setProviders(data.Providers);
+        break
+      case "update.liveroom.rooms":
+        liveRoomStore.setRooms(data.Rooms);
+        break
+      case "update.liveroom.status":
+        liveRoomStore.updateRoom(data.Room);
+        break
+      case "update.playlist.mode.player":
+        configStore.setPlaylistMode("player", data.Mode);
+        break
+      case "update.playlist.mode.system":
+        configStore.setPlaylistMode("system", data.Mode);
+        break
+      case "update.player.audio_device":
+        configStore.setAudioDevices(data.Devices, data.Current);
+        break
+      case "update.update.check":
+        configStore.setUpdateInfo(data.Info, data.HasUpdate);
         break
       default:
         break;

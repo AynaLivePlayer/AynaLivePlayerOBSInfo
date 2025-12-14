@@ -7,6 +7,19 @@ const playInfoStore = usePlayInfoStore();
 const currentIndex = ref(-1);
 const containerRef = ref<HTMLDivElement | null>(null);
 
+function scrollToCurrentLine() {
+    if (!containerRef.value || currentIndex.value === -1) return;
+    const currentElement = containerRef.value.querySelector(`[data-index="${currentIndex.value}"]`) as HTMLElement | null;
+    if (!currentElement) return;
+
+    const target =
+        currentElement.offsetTop - containerRef.value.clientHeight / 2 + currentElement.clientHeight / 2;
+    containerRef.value.scrollTo({
+        top: Math.max(target, 0),
+        behavior: 'smooth',
+    });
+}
+
 watch(() => playInfoStore.timePos, async (newTimePos) => {
     const totalLyrics = playInfoStore.lyrics.Content.length || 0;
     if (totalLyrics > 0) {
@@ -19,22 +32,14 @@ watch(() => playInfoStore.timePos, async (newTimePos) => {
             }
         );
         currentIndex.value = index === -1 ? totalLyrics - 1 : index;
-
-        const currentElement = document.querySelector(`[data-index="${currentIndex.value}"]`);
-        if (currentElement && containerRef.value) {
-            currentElement.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center'
-            });
-        }
+        scrollToCurrentLine();
     }
 });
 </script>
 
 <template>
-  <div ref="containerRef" class="overflow-hidden relative">
-    <div class="overflow-y-auto scrollbar-hide place-content-center min-h-full">
-      <!-- i dont understand -->
+  <div class="overflow-hidden relative">
+    <div ref="containerRef" class="overflow-y-auto scrollbar-hide place-content-center min-h-full">
       <div class="h-0">
         <div v-for="(lyricLine, index) in playInfoStore.lyrics.Content"
              :key="index"

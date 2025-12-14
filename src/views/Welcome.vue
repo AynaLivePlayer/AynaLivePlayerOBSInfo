@@ -1,117 +1,140 @@
 <script setup lang="ts">
+import {computed} from "vue";
+import {useRouter} from "vue-router";
+import Player1 from "@/views/builtin/player1/Player1.vue";
+import Playlist1 from "@/views/builtin/player1/Playlist1.vue";
+import Player2 from "@/views/builtin/player2/Player2.vue";
+import Player2Right from "@/views/builtin/player2/Player2Right.vue";
+import PlayerNormalAii from "@/views/user/AiiKisaraki/PlayerNormal-Aii.vue";
+import PlayerMiniAii from "@/views/user/AiiKisaraki/PlayerMini-Aii.vue";
+import PlaylistAii from "@/views/user/AiiKisaraki/Playlist-Aii.vue";
+import PlayerPageAii from "@/views/user/AiiKisaraki/PlayerPage-Aii.vue";
+import WebuiPlayer from "@/views/webui/page/Player.vue";
 
+const router = useRouter();
+
+type Showcase = {
+  title: string;
+  author?: string;
+  path: string;
+  size?: string;
+  tag?: string;
+  component: any;
+  scale?: number;
+  height?: string;
+};
+
+const groups: Record<string, Showcase[]> = {
+  "官方样式": [
+    { title: "播放器样式1", author: "Aynakeya", path: "/builtin/player1", size: "600 × 200", tag: "Player", component: Player1, scale: 0.6, height: "220px" },
+    { title: "播放列表", author: "Aynakeya", path: "/builtin/player1/playlist", size: "600 × auto", tag: "Playlist", component: Playlist1, scale: 0.82, height: "260px" },
+    { title: "播放器样式2", author: "@立青", path: "/builtin/player2", size: "450 × 150+", tag: "Player", component: Player2, scale: 0.95, height: "200px" },
+    { title: "播放器样式2 右对齐", author: "@立青", path: "/builtin/player2_right", size: "450 × 150+", tag: "Player", component: Player2Right, scale: 0.95, height: "200px" },
+  ],
+  "Aii 如樱如月": [
+    { title: "大播放器", author: "@Aii如樱如月", path: "/user/aiikisaraki/playernormal", size: "600 × 200", tag: "Player", component: PlayerNormalAii, scale: 0.6, height: "320px" },
+    { title: "迷你播放器", author: "@Aii如樱如月", path: "/user/aiikisaraki/playermini", size: "220 × 80", tag: "Player", component: PlayerMiniAii, scale: 1, height: "140px" },
+    { title: "当前播放列表", author: "@Aii如樱如月", path: "/user/aiikisaraki/playlist", size: "600 × 1000", tag: "Playlist", component: PlaylistAii, scale: 0.6, height: "520px" },
+    { title: "点歌机展示页", author: "@Aii如樱如月", path: "/user/aiikisaraki/playerpage", size: "全屏", tag: "Page", component: PlayerPageAii, scale: 0.2, height: "420px" },
+  ],
+  "WebUI": [
+    { title: "控制台 WebUI", author: "Aynakeya", path: "/webui/player", size: "响应式", tag: "WebUI", component: WebuiPlayer, scale: 0.2, height: "260px" },
+  ],
+};
+
+const cards = computed(() =>
+  Object.entries(groups).map(([name, items]) => ({ name, items }))
+);
+
+const openLink = (path: string) => router.push(path);
 </script>
 
 <template>
-  <div class="p-6 space-y-4">
-    <p class="text-2xl font-bold text-gray-800">这边是欢迎页面</p>
-    <p class="text-lg text-gray-600">在设置中启动websocket服务器后就可以预览了，如果需要开启自动启动websocket服务器请把自动启动打上勾</p>
-
-    <p class="text-lg text-gray-600">教程请看: <a href="https://www.bilibili.com/video/BV1Zw4m1y7xQ/?p=3" target="_blank" class="text-blue-600 hover:underline hover:text-blue-800 text-base">BV1Zw4m1y7xQ?p=3</a></p>
-    <p class="text-lg text-gray-600">下面是一些可选项: (点击可以预览)</p>
-    <div class="space-y-2">
-      <div class="flex items-center space-x-2">
-        <router-link
-            to="/builtin/player1"
-            class="text-blue-600 hover:underline hover:text-blue-800"
-        >
-          播放器样式1 by Aynakeya
-        </router-link>
-        <span class="text-sm text-gray-500">(宽度: 600 高度: 200)</span>
-      </div>
-
-      <div class="flex items-center space-x-2">
-        <router-link
-            to="/builtin/player1/playlist"
-            class="text-blue-600 hover:underline hover:text-blue-800"
-        >
-          播放列表 by Aynakeya
-        </router-link>
-        <span class="text-sm text-gray-500">(宽度: 600 高度: any)</span>
-      </div>
-
-      <div class="flex items-center space-x-2">
-        <router-link
-            to="/builtin/player2"
-            class="text-blue-600 hover:underline hover:text-blue-800"
-        >
-          播放器样式2 by @立青
-        </router-link>
-        <span class="text-sm text-gray-500">(宽度: 450 高度: >=150)</span>
-      </div>
-
-      <div class="flex items-center space-x-2">
-        <router-link
-            to="/builtin/player2_right"
-            class="text-blue-600 hover:underline hover:text-blue-800"
-        >
-          播放器样式2 右边对其 by @立青
-        </router-link>
-        <span class="text-sm text-gray-500">(宽度: 450 高度: >=150)</span>
+  <div class="px-6 py-8 space-y-6">
+    <div class="card bg-gradient-to-r from-primary/10 via-base-100 to-secondary/10 shadow-md">
+      <div class="card-body">
+        <h1 class="text-3xl font-bold text-base-content">欢迎使用 AynaLivePlayer OBS Info</h1>
+        <p class="text-base text-base-content/70">
+          开启 WebSocket 服务器后，直接在下方卡片中实时预览各类样式，点击即可跳转到对应路由。
+        </p>
+        <div class="flex flex-wrap gap-3 mt-3">
+          <a
+            class="btn btn-primary btn-sm"
+            href="https://www.bilibili.com/video/BV1Zw4m1y7xQ/?p=3"
+            target="_blank"
+          >
+            使用教程
+          </a>
+          <a
+            class="btn btn-outline btn-sm"
+            href="https://github.com/AynaLivePlayer/AynaLivePlayerOBSInfo"
+            target="_blank"
+          >
+            GitHub
+          </a>
+          <router-link to="/webui/player" class="btn btn-secondary btn-sm">
+            直接进入 WebUI
+          </router-link>
+        </div>
       </div>
     </div>
-    <p class="text-lg text-gray-600">由 @Aii如樱如月 贡献维护的样式: (点击可以预览，非常好看！)</p>
-    <div class="space-y-2">
-      <div class="flex items-center space-x-2">
-        <router-link
-            to="/user/aiikisaraki/playernormal"
-            class="text-blue-600 hover:underline hover:text-blue-800"
-        >
-          大播放器
-        </router-link>
-        <span class="text-sm text-gray-500">(宽度: 600 高度: 200)</span>
-      </div>
-      <div class="flex items-center space-x-2">
-        <router-link
-            to="/user/aiikisaraki/playermini"
-            class="text-blue-600 hover:underline hover:text-blue-800"
-        >
-          迷你播放器
-        </router-link>
-        <span class="text-sm text-gray-500">(宽度: 220 高度: 80)</span>
 
-      </div>
-      <div class="flex items-center space-x-2">
-        <router-link
-            to="/user/aiikisaraki/playlist"
-            class="text-blue-600 hover:underline hover:text-blue-800"
-        >
-          当前播放列表
-        </router-link>
-        <span class="text-sm text-gray-500">(宽度: 600 高度: 1000)</span>
-      </div>
-      <div class="flex items-center space-x-2">
-        <router-link
-            to="/user/aiikisaraki/playerpage"
-            class="text-blue-600 hover:underline hover:text-blue-800"
-        >
-          点歌机展示页面
-        </router-link>
-      </div>
-    </div>
-    <p class="text-lg text-gray-600">这个连接是正在开发中的webui,需要开启websocket以及websocket控制才能使用</p>
-    <div class="flex items-center space-x-2">
-      <router-link
-          to="/webui/player"
-          class="text-blue-600 hover:underline hover:text-blue-800"
+    <div class="space-y-8">
+      <div
+        v-for="group in cards"
+        :key="group.name"
+        class="space-y-3"
       >
-        WebUI by Aynakeya
-      </router-link>
+        <div class="flex items-center justify-between">
+          <h2 class="text-xl font-semibold text-base-content">{{ group.name }}</h2>
+          <span class="text-sm text-base-content/60">点击卡片即可跳转</span>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 [@media(min-width:1800px)]:grid-cols-5">
+          <div
+            v-for="item in group.items"
+            :key="item.path"
+            class="card bg-base-100 shadow hover:shadow-lg transition-shadow cursor-pointer border border-base-200"
+            @click="openLink(item.path)"
+          >
+            <div class="card-body space-y-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="font-semibold text-lg truncate">{{ item.title }}</h3>
+                  <p class="text-sm text-base-content/60">{{ item.author }}</p>
+                </div>
+                <div class="badge badge-outline">{{ item.tag }}</div>
+              </div>
+              <div
+                class="rounded-lg overflow-hidden border border-base-200 bg-base-200 relative"
+                :style="{height: item.height || '240px', minHeight: item.height || '240px'}"
+              >
+                <div
+                  class="absolute inset-0 overflow-hidden pointer-events-none"
+                  :style="{
+                    transform: `scale(${item.scale || 1})`,
+                    transformOrigin: 'top left',
+                    width: item.scale ? `${100 / (item.scale || 1)}%` : '100%',
+                    height: item.scale ? `${100 / (item.scale || 1)}%` : '100%'
+                  }"
+                >
+                  <component :is="item.component" />
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-base-100/50 to-transparent pointer-events-none"></div>
+              </div>
+              <div class="flex items-center justify-between text-sm text-base-content/60">
+                <span>{{ item.size }}</span>
+                <span class="link text-primary">点击预览</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <p class="text-sm text-gray-500">
-      代码开源在
-      <a href="https://github.com/AynaLivePlayer/AynaLivePlayerOBSInfo"
-         class="text-blue-600 hover:underline hover:text-blue-800"
-         target="_blank"
-      >
-        https://github.com/AynaLivePlayer/AynaLivePlayerOBSInfo
-      </a>，欢迎fork/pull request，我会定期部署到自己的服务器。或者你也可以自行修改并部署~
-    </p>
-    <p class="text-sm text-gray-500">所以如果你需要自定义样式，可以找任何样式作者代写捏～ 当然也可以找我本人，当然复杂的就不是免费的喽</p>
-    <p class="text-sm text-gray-500">- By Aynakeya</p>
+
+    <div class="text-sm text-base-content/60 space-y-1">
+      <p>代码开源，欢迎 Fork / PR，一起丰富更多模板！</p>
+      <p>需要定制样式可以联系作者或贡献者协助完成。</p>
+      <p>— By Aynakeya</p>
+    </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>

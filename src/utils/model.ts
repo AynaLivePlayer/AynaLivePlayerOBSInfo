@@ -12,3 +12,7 @@ export const getUsername = (user: LiveRoomUser | User) => {
         return user.Name;
     }
 }
+
+export const getLiveRoomIdentifier = (provider: string, room: string) => {
+    return `${provider}_${room}`;
+}

@@ -27,12 +27,38 @@ export interface UserMedal {
     RoomID: string
 }
 
+export interface LiveRoomConfig {
+    AutoConnect: boolean
+}
+
+export interface LiveRoomInfo {
+    Provider: string
+    Room: string
+}
+
+export interface LiveRoom {
+    LiveRoom: LiveRoomInfo
+    Config: LiveRoomConfig
+    Title: string
+    Status: boolean
+}
+
+export interface LiveRoomProviderInfo {
+    Name: string
+    Description: string
+}
+
 export interface LiveRoomUser{
     Uid: string
     Username: string
     Admin: boolean
     Privilege: number
     Medal: UserMedal
+}
+
+export interface AudioDevice {
+    Name: string
+    Description: string
 }
 
 export interface Media {
@@ -58,6 +84,11 @@ export interface Lyrics {
 export interface LyricLine {
     Time: number; // in seconds
     Lyric: string;
+}
+
+export interface VersionInfo {
+    Version: number | string;
+    Info: string;
 }
 
 // since 1.2.0 all key are in lower case. transform to capitalized
