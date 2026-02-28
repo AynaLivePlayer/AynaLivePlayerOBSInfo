@@ -71,6 +71,16 @@ const play = (media: Media) => {
   )
 }
 
+const addToQueue = (media: Media) => {
+  wsClient?.sendEvent(
+    "cmd.playlist.insert.player",
+    {
+      Position: -1,
+      Media: media,
+    },
+  )
+}
+
 </script>
 
 <template>
@@ -99,6 +109,7 @@ const play = (media: Media) => {
         <th>歌名</th>
         <th>歌手</th>
         <th>专辑</th>
+        <th class="w-28 text-center">操作</th>
       </tr>
       </thead>
       <tbody>
@@ -133,6 +144,12 @@ const play = (media: Media) => {
         </td>
         <td class="truncate">
           {{ media.Info.Album }}
+        </td>
+        <td>
+          <div class="join w-full justify-center">
+            <button class="btn btn-xs join-item" @click="play(media)">播放</button>
+            <button class="btn btn-xs join-item" @click="addToQueue(media)">加入</button>
+          </div>
         </td>
       </tr>
       </tbody>

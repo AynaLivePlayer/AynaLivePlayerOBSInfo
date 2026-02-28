@@ -2,9 +2,8 @@ import {defineStore} from "pinia";
 import {computed, reactive, ref} from "vue";
 import type {Lyrics, Media} from "@/api/model";
 
-export const usePlayInfoStore = defineStore('playinfo', () => {
-    // Initialize the current state according to the Media interface
-    const current = reactive<Media>({
+function createDefaultMedia(): Media {
+    return {
         Info: {
             Title: "NoTitle",
             Artist: "Unknown",
@@ -21,7 +20,11 @@ export const usePlayInfoStore = defineStore('playinfo', () => {
         User: {
             Name: "Unknown"
         }
-    });
+    };
+}
+
+export const usePlayInfoStore = defineStore('playinfo', () => {
+    const current = reactive<Media>(createDefaultMedia());
     const paused = ref(true);
     const duration = ref(0);
     const timePos = ref(0);
@@ -43,6 +46,12 @@ export const usePlayInfoStore = defineStore('playinfo', () => {
         current.User = { ...newMedia.User };
     }
 
+    function resetCurrent() {
+        const d = createDefaultMedia();
+        current.Info = {...d.Info};
+        current.User = {...d.User};
+    }
+
     // New method to set the entire playlist
     function setPlaylist(newPlaylist: Media[]) {
         playlist.splice(0, playlist.length, ...newPlaylist); // Replace the content reactively
@@ -60,6 +69,20 @@ export const usePlayInfoStore = defineStore('playinfo', () => {
         lyrics.value = newLyrics;
     }
 
+    function resetPlaybackState() {
+        paused.value = true;
+        duration.value = 0;
+        timePos.value = 0;
+        currentLyric.Lyric = "";
+        currentLyric.CurrentIndex = -1;
+        currentLyric.Total = 0;
+        lyrics.value = {
+            Lang: "",
+            Content: [],
+        };
+        resetCurrent();
+    }
+
     // Computed property to get either User.Name or User.Username
     const currentUsername = computed(() => {
         if ('Username' in current.User) {
@@ -71,6 +94,8 @@ export const usePlayInfoStore = defineStore('playinfo', () => {
 
     return {
         setCurrent,
+        resetCurrent,
+        resetPlaybackState,
         current, currentUsername,
         currentLyric,
         lyrics, setLyrics,

@@ -27,10 +27,14 @@ onMounted(() => {
 
     data = capitalizeKeysDeep(data)
 
-    switch (raw.EventID) {
+      switch (raw.EventID) {
       case "update.player.playing":
-        playInfoStore.setCurrent(data.Media);
-        if (!data.Removed) {
+        if (data.Removed) {
+          playInfoStore.resetPlaybackState();
+          break;
+        }
+        if (data.Media) {
+          playInfoStore.setCurrent(data.Media);
           historyStore.push(data.Media);
         }
         break;
@@ -50,6 +54,13 @@ onMounted(() => {
         break
       case "update.player.property.pause":
         playInfoStore.setPaused(data.Paused);
+        break
+      case "update.player.property.state":
+        // 1 = loading, 2 = idle
+        if (data.State === 1 || data.State === 2) {
+          playInfoStore.duration = 0;
+          playInfoStore.timePos = 0;
+        }
         break
       case "update.playlist.manager.info":
         playlistsStore.setPlaylists(data.Playlists);

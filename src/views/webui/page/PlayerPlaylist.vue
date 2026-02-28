@@ -48,6 +48,16 @@ const deleteMedia = (index: number) => {
   )
 }
 
+const topMedia = (index: number) => {
+  wsClient?.sendEvent(
+    "cmd.playlist.move.player",
+    {
+      From: index,
+      To: 0,
+    },
+  )
+}
+
 // currentMedias is copy of playlist, so we can drag it
 const currentMedias = ref(playinfoStore.playlist.map((media) => media));
 
@@ -69,7 +79,7 @@ watch(playinfoStore.playlist, (newVal) => {
         <th>歌手</th>
         <th>专辑</th>
         <th>点歌用户</th>
-        <th class="w-2"></th>
+        <th class="w-28 text-center">操作</th>
       </tr>
       </thead>
       <tbody class="draggable-playlist" >
@@ -105,12 +115,10 @@ watch(playinfoStore.playlist, (newVal) => {
         <td class="truncate">
           {{ getUsername(media.User) }}
         </td>
-        <td>
-          <div class="flex place-content-center cursor-pointer" @click="deleteMedia(index)">
-            <font-awesome-icon
-                icon="fa-solid fa-circle-minus"
-                class="hidden group-hover:flex"
-            />
+        <td class="text-center">
+          <div class="join opacity-0 group-hover:opacity-100 transition-opacity duration-150">
+            <button class="btn btn-xs join-item" @click="topMedia(index)">置顶</button>
+            <button class="btn btn-xs join-item btn-error btn-outline" @click="deleteMedia(index)">删除</button>
           </div>
         </td>
       </tr>

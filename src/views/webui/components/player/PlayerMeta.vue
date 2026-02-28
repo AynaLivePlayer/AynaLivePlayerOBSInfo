@@ -40,7 +40,7 @@ const computedVolume = computed(() => {
 
 const wsClient = WebInfoClient.getInstance();
 
-function changeVolume(event: MouseEvent) {
+function changeVolume(event: Event) {
   const target = event.target as HTMLInputElement;
   wsClient?.sendEvent("cmd.player.op.change_volume", {
     "Volume": target.valueAsNumber,
@@ -59,6 +59,7 @@ function changeVolume(event: MouseEvent) {
         min="0"
         :value="computedVolume"
         max="100"
+        @change="changeVolume"
         @mouseup="changeVolume"
         class="w-20 slider"
         :style="`--progress: ${computedVolume}%`"

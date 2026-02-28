@@ -12,21 +12,25 @@ import {WebInfoClient} from "@/api/client";
 const playInfoStore = usePlayInfoStore();
 
 const showTime = ref(false);
+const isDragging = ref(false);
+const currentTime = ref(0);
 
 const progressPercent = computed(() => {
-  return (playInfoStore.timePos / playInfoStore.duration) * 100;
+  if (playInfoStore.duration <= 0) {
+    return 0;
+  }
+  return (currentTime.value / (playInfoStore.duration * 100)) * 100;
 });
 
 let wsClient = WebInfoClient.getInstance();
 
 function seek(event: Event) {
+  const target = event.target as HTMLInputElement;
   wsClient?.sendEvent("cmd.player.op.seek", {
-    "Position": Math.floor((event.target as HTMLInputElement).valueAsNumber/100),
+    "Position": target.valueAsNumber / 100,
     "Absolute": true,
   });
 }
-
-const currentTime = ref(0);
 
 watch(() => playInfoStore.timePos, (newPosition) => {
   if (Math.floor(newPosition*100) === Math.floor(currentTime.value)) {
@@ -36,9 +40,6 @@ watch(() => playInfoStore.timePos, (newPosition) => {
     currentTime.value = newPosition*100;
   }
 });
-
-const isDragging = ref(false);
-
 </script>
 
 <template>
@@ -73,6 +74,9 @@ const isDragging = ref(false);
         :style="`--progress: ${progressPercent}%`"
         @mousedown="isDragging = true"
         @mouseup="isDragging = false; seek($event)"
+        @touchstart="isDragging = true"
+        @touchend="isDragging = false; seek($event)"
+        @change="seek($event)"
         @input="currentTime = ($event.target as HTMLInputElement).valueAsNumber"
       />
       <div class="transition-opacity duration-200 ease-in-out opacity-0 hover:opacity-100">
