@@ -5,6 +5,9 @@ import Player1 from "@/views/builtin/player1/Player1.vue";
 import Playlist1 from "@/views/builtin/player1/Playlist1.vue";
 import Player2 from "@/views/builtin/player2/Player2.vue";
 import Player2Right from "@/views/builtin/player2/Player2Right.vue";
+import NowPlaying1 from "@/views/builtin/nowplaying/NowPlaying1.vue";
+import NowPlaying2 from "@/views/builtin/nowplaying/NowPlaying2.vue";
+import NowPlayingPlaylist1 from "@/views/builtin/nowplaying/NowPlayingPlaylist1.vue";
 import PlayerNormalAii from "@/views/user/AiiKisaraki/PlayerNormal-Aii.vue";
 import PlayerMiniAii from "@/views/user/AiiKisaraki/PlayerMini-Aii.vue";
 import PlaylistAii from "@/views/user/AiiKisaraki/Playlist-Aii.vue";
@@ -30,6 +33,11 @@ const groups: Record<string, Showcase[]> = {
     { title: "播放列表", author: "Aynakeya", path: "/builtin/player1/playlist", size: "600 × auto", tag: "Playlist", component: Playlist1, scale: 0.82, height: "260px" },
     { title: "播放器样式2", author: "@立青", path: "/builtin/player2", size: "450 × 150+", tag: "Player", component: Player2, scale: 0.95, height: "200px" },
     { title: "播放器样式2 右对齐", author: "@立青", path: "/builtin/player2_right", size: "450 × 150+", tag: "Player", component: Player2Right, scale: 0.95, height: "200px" },
+  ],
+  "nowplaying样式": [
+    { title: "当前播放1", author: "Aynakeya", path: "/builtin/nowplaying/1", size: "596 × 200", tag: "NowPlaying", component: NowPlaying1, scale: 0.62, height: "220px" },
+    { title: "当前播放2", author: "Aynakeya", path: "/builtin/nowplaying/2", size: "280 × 610", tag: "NowPlaying", component: NowPlaying2, scale: 0.42, height: "320px" },
+    { title: "播放列表1", author: "Aynakeya", path: "/builtin/nowplaying/playlist1", size: "596 × 300", tag: "Playlist", component: NowPlayingPlaylist1, scale: 0.62, height: "250px" },
   ],
   "Aii 如樱如月": [
     { title: "大播放器", author: "@Aii如樱如月", path: "/user/aiikisaraki/playernormal", size: "600 × 200", tag: "Player", component: PlayerNormalAii, scale: 0.6, height: "320px" },

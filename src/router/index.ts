@@ -9,6 +9,9 @@ import Player1 from "@/views/builtin/player1/Player1.vue";
 import Player2 from "@/views/builtin/player2/Player2.vue";
 import Player2Right from "@/views/builtin/player2/Player2Right.vue";
 import Playlist1 from "@/views/builtin/player1/Playlist1.vue";
+import NowPlaying1 from "@/views/builtin/nowplaying/NowPlaying1.vue";
+import NowPlaying2 from "@/views/builtin/nowplaying/NowPlaying2.vue";
+import NowPlayingPlaylist1 from "@/views/builtin/nowplaying/NowPlayingPlaylist1.vue";
 import Welcome from "@/views/Welcome.vue";
 
 import NekoPlaylist from "@/views/user/neko/Playlist3.vue";
@@ -55,6 +58,21 @@ const router = createRouter({
             path: '/builtin/player2_right',
             name: 'player2_right',
             component: Player2Right,
+        },
+        {
+            path: '/builtin/nowplaying/1',
+            name: 'nowplaying1',
+            component: NowPlaying1,
+        },
+        {
+            path: '/builtin/nowplaying/2',
+            name: 'nowplaying2',
+            component: NowPlaying2,
+        },
+        {
+            path: '/builtin/nowplaying/playlist1',
+            name: 'nowplaying-playlist1',
+            component: NowPlayingPlaylist1,
         },
         {
             path: '/controller/demo',
