@@ -12,6 +12,14 @@ import PlayerNormalAii from "@/views/user/AiiKisaraki/PlayerNormal-Aii.vue";
 import PlayerMiniAii from "@/views/user/AiiKisaraki/PlayerMini-Aii.vue";
 import PlaylistAii from "@/views/user/AiiKisaraki/Playlist-Aii.vue";
 import PlayerPageAii from "@/views/user/AiiKisaraki/PlayerPage-Aii.vue";
+import YoinPlayer from "@/views/user/yoin/PlayerYoin.vue";
+import YoinPlaylist from "@/views/user/yoin/PlaylistYoin.vue";
+import EndfieldPlayer from "@/views/user/yoin/endfield/PlayerEndfield.vue";
+import EndfieldPlaylist from "@/views/user/yoin/endfield/PlaylistEndfield.vue";
+import GflPlayer from "@/views/user/yoin/gfl/PlayerGfl.vue";
+import GflPlaylist from "@/views/user/yoin/gfl/PlaylistGfl.vue";
+import WuwaPlayer from "@/views/user/yoin/wuwa/PlayerWuwa.vue";
+import WuwaPlaylist from "@/views/user/yoin/wuwa/PlaylistWuwa.vue";
 import WebuiPlayer from "@/views/webui/page/Player.vue";
 
 const router = useRouter();
@@ -44,6 +52,22 @@ const groups: Record<string, Showcase[]> = {
     { title: "迷你播放器", author: "@Aii如樱如月", path: "/user/aiikisaraki/playermini", size: "220 × 80", tag: "Player", component: PlayerMiniAii, scale: 1, height: "140px" },
     { title: "当前播放列表", author: "@Aii如樱如月", path: "/user/aiikisaraki/playlist", size: "600 × 1000", tag: "Playlist", component: PlaylistAii, scale: 0.6, height: "520px" },
     { title: "点歌机展示页", author: "@Aii如樱如月", path: "/user/aiikisaraki/playerpage", size: "全屏", tag: "Page", component: PlayerPageAii, scale: 0.2, height: "420px" },
+  ],
+  "Yoin 卡西米尔": [
+    { title: "方舟播放器", author: "@Yoin", path: "/user/yoin/player", size: "640 × 220", tag: "Player", component: YoinPlayer, scale: 0.75, height: "230px" },
+    { title: "方舟点歌列表", author: "@Yoin", path: "/user/yoin/playlist", size: "640 × 360", tag: "Playlist", component: YoinPlaylist, scale: 0.62, height: "300px" },
+  ],
+  "Yoin 终末地": [
+    { title: "终末地播放器", author: "@Yoin", path: "/user/yoin/endfield/player", size: "640 × 220", tag: "Player", component: EndfieldPlayer, scale: 0.75, height: "230px" },
+    { title: "终末地点歌列表", author: "@Yoin", path: "/user/yoin/endfield/playlist", size: "640 × 360", tag: "Playlist", component: EndfieldPlaylist, scale: 0.62, height: "300px" },
+  ],
+  "Yoin 少前金属": [
+    { title: "少前播放器", author: "@Yoin", path: "/user/yoin/gfl/player", size: "640 × 220", tag: "Player", component: GflPlayer, scale: 0.75, height: "230px" },
+    { title: "少前点歌列表", author: "@Yoin", path: "/user/yoin/gfl/playlist", size: "640 × 360", tag: "Playlist", component: GflPlaylist, scale: 0.62, height: "300px" },
+  ],
+  "Yoin 鸣潮": [
+    { title: "鸣潮播放器", author: "@Yoin", path: "/user/yoin/wuwa/player", size: "640 × 220", tag: "Player", component: WuwaPlayer, scale: 0.75, height: "230px" },
+    { title: "鸣潮点歌列表", author: "@Yoin", path: "/user/yoin/wuwa/playlist", size: "640 × 360", tag: "Playlist", component: WuwaPlaylist, scale: 0.62, height: "300px" },
   ],
   "WebUI": [
     { title: "控制台 WebUI", author: "Aynakeya", path: "/webui/player", size: "响应式", tag: "WebUI", component: WebuiPlayer, scale: 0.2, height: "260px" },

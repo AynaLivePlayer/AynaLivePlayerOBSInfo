@@ -1,0 +1,122 @@
+/*
+ * Yoin 卡西米尔样式卡 · 终末地风格
+ * 依据 Arknights: Endfield 工业设计语言（参考 endfield-ui-skill 规范）：
+ * 纸白 #F4F4F2 / 墨 #161616 / 唯一酸黄 #FFFA00 只做填充
+ * 三色条、墨底白字右下切角标签、// 眉标 + 粗体中文、记录行发丝线、
+ * 黄色马克笔高亮、45° 斜线纹；无圆角/投影/发光/渐变/条形码
+ *
+ * 字体：Saira（可变字体，wdth 50-125），SIL Open Font License 1.1，
+ * 许可证见 src/assets/fonts/Saira-OFL.txt
+*/
+@font-face {
+    font-family: "Saira";
+    src: url("@/assets/fonts/Saira.ttf") format("truetype");
+}
+
+.ef-frame { padding: 1px; background: #161616;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 22px), calc(100% - 22px) 100%, 0 100%); }
+.ef-panel { background: #FFFFFF; position: relative; width: 100%; height: 100%;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 22px), calc(100% - 22px) 100%, 0 100%); }
+.ef-tri { position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, #FF00F0 0 33.3%, #FFFA00 33.3% 66.6%, #00FFA2 66.6% 100%); }
+
+.ef-eyebrow { font-family: "Saira", "MiSans", "Microsoft YaHei", sans-serif;
+    font-variation-settings: "wdth" 125; font-weight: 600;
+    font-size: 11px; letter-spacing: .14em; color: #5C5C5C; text-transform: uppercase; }
+.ef-field { font-family: "Saira", "MiSans", "Microsoft YaHei", sans-serif;
+    font-variation-settings: "wdth" 112; font-weight: 500;
+    font-size: 13px; color: #5C5C5C; font-feature-settings: "tnum"; }
+.ef-tag { display: inline-flex; align-items: center; background: #161616; color: #FFFFFF;
+    font-family: "Saira", "MiSans", "Microsoft YaHei", sans-serif;
+    font-variation-settings: "wdth" 112; font-weight: 600;
+    font-size: 12px; line-height: 18px; padding: 2px 10px 2px 8px;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%);
+    white-space: nowrap; max-width: 200px; overflow: hidden; }
+.ef-tag .ef-cn { font-family: "MiSans", "Microsoft YaHei", sans-serif; font-weight: 600; }
+.ef-tag.now { background: #FFFA00; color: #161616; }
+.ef-hatch { background: repeating-linear-gradient(-45deg, transparent 0 5px, rgba(22,22,22,.22) 5px 6.5px); }
+
+/* ===== 播放器 640×220 ===== */
+.ef-player { width: 640px; height: 220px; }
+.ef-player .ef-panel { padding: 15px 18px 12px; display: flex; gap: 20px; }
+
+.ef-cover-wrap { position: relative; flex: 0 0 138px; padding-top: 5px; }
+.ef-cover-shadow { position: absolute; left: 5px; top: 10px; width: 138px; height: 138px; }
+.ef-cover { position: relative; width: 138px; height: 138px; background: #FFFFFF;
+    border: 1px solid #161616;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
+.ef-cover img { width: 100%; height: 100%; object-fit: cover; display: block;
+    clip-path: polygon(9px 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%, 0 9px); }
+.ef-cover-tag { position: absolute; left: -4px; bottom: -2px; z-index: 2; }
+
+.ef-info { flex: 1; display: flex; flex-direction: column; min-width: 0; padding-top: 2px; }
+.ef-row-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.ef-title { font-family: "MiSans", "Microsoft YaHei", sans-serif; font-size: 25px; font-weight: 700;
+    color: #161616; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 7px; }
+.ef-meta { display: flex; align-items: center; gap: 10px; margin-top: 4px; min-width: 0; }
+.ef-meta .ef-rule-v { width: 1px; height: 14px; background: #D9D9D6; flex: none; }
+.ef-meta .ef-field, .ef-meta .ef-artist { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ef-artist { font-family: "Saira", "MiSans", "Microsoft YaHei", sans-serif;
+    font-variation-settings: "wdth" 112; font-weight: 500;
+    font-size: 13px; color: #5C5C5C; }
+.ef-artist .ef-cn { font-family: "MiSans", "Microsoft YaHei", sans-serif; font-weight: 600; }
+
+.ef-lyric { margin-top: 10px; height: 22px; display: flex; align-items: center; padding: 0 2px;
+    font-size: 13px; color: #161616; white-space: nowrap; overflow: hidden; }
+.ef-lyric mark { background: linear-gradient(transparent 18%, rgba(255,250,0,.55) 18% 88%, transparent 88%);
+    color: #161616; padding: 0 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.ef-progress { margin-top: 10px; display: flex; align-items: center; gap: 10px; }
+.ef-progress .ef-t { font-family: "Saira", "MiSans", sans-serif; font-variation-settings: "wdth" 112;
+    font-weight: 600; font-size: 13px; color: #5C5C5C; font-feature-settings: "tnum"; }
+.ef-progress .ef-t.elapsed { color: #161616; }
+.ef-bar { flex: 1; height: 4px; background: #E4E4E0; position: relative; }
+.ef-bar i { position: absolute; left: 0; top: 0; bottom: 0; background: #161616; }
+.ef-bar u { position: absolute; top: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px;
+    background: #FFFA00; }
+
+.ef-next { margin-top: 11px; padding-top: 9px; border-top: 1px solid #D9D9D6;
+    display: flex; align-items: center; gap: 10px; min-width: 0; }
+.ef-next .ef-eyebrow { flex: none; }
+.ef-next-name { font-size: 13.5px; font-weight: 700; color: #161616; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.ef-next-name .ef-na { color: #5C5C5C; font-weight: 500; font-size: 12.5px; }
+.ef-next .ef-tag { margin-left: auto; flex: none; }
+.ef-next-empty { font-size: 13px; color: #5C5C5C; }
+
+/* ===== 点歌列表 640×360 ===== */
+.ef-playlist { width: 640px; height: 360px; }
+.ef-playlist .ef-panel { display: flex; flex-direction: column; }
+.ef-pl-head { flex: none; padding: 15px 18px 10px; border-bottom: 1px solid #D9D9D6;
+    display: flex; align-items: flex-end; gap: 12px; }
+.ef-pl-head .ef-pair { display: flex; flex-direction: column; gap: 3px; }
+.ef-pl-head .ef-cn { font-size: 15px; font-weight: 700; color: #161616; }
+.ef-pl-head .ef-field { margin-left: auto; padding-bottom: 1px; }
+
+.ef-pl-body { flex: 1; display: flex; flex-direction: column; padding: 0 10px; min-height: 0; }
+.ef-pl-row { flex: 1; display: flex; align-items: center; gap: 12px; padding: 0 8px;
+    border-bottom: 1px solid #D9D9D6; min-width: 0; min-height: 0; position: relative; }
+.ef-pl-row:last-child { border-bottom: none; }
+.ef-pl-idx { font-family: "Saira", "MiSans", sans-serif; font-variation-settings: "wdth" 125;
+    font-weight: 600; font-size: 13px; color: #5C5C5C; font-feature-settings: "tnum";
+    width: 34px; flex: none; }
+.ef-pl-row.now { box-shadow: inset 4px 0 0 #161616; }
+.ef-pl-t { font-size: 14.5px; font-weight: 700; color: #161616; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 0 1 auto; }
+.ef-pl-nextlbl { flex: none; font-family: "MiSans", "Microsoft YaHei", sans-serif;
+    font-size: 11px; color: #5C5C5C; border: 1px solid #161616; padding: 1px 7px 0; line-height: 16px; }
+.ef-pl-a { font-family: "Saira", "MiSans", "Microsoft YaHei", sans-serif;
+    font-variation-settings: "wdth" 112; font-weight: 500;
+    font-size: 12.5px; color: #5C5C5C; white-space: nowrap; overflow: hidden;
+    text-overflow: ellipsis; width: 150px; flex: none; }
+.ef-pl-a .ef-cn { font-family: "MiSans", "Microsoft YaHei", sans-serif; font-weight: 600; }
+.ef-pl-row .ef-tag { margin-left: auto; flex: none; }
+
+.ef-pl-empty { flex: 1; display: flex; align-items: center; justify-content: center; gap: 10px;
+    color: #5C5C5C; font-size: 13px; }
+.ef-pl-foot { flex: none; height: 28px; background: #161616; display: flex; align-items: center;
+    padding: 0 18px; gap: 10px; }
+.ef-pl-foot .ef-eyebrow { color: #FFFFFF; }
+.ef-pl-foot .ef-ftr { margin-left: auto; font-family: "Saira", "MiSans", sans-serif;
+    font-variation-settings: "wdth" 112; font-weight: 500; font-size: 11px;
+    color: #A3A3A3; letter-spacing: .1em; }

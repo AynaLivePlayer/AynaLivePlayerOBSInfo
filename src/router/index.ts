@@ -24,6 +24,10 @@ import MediaSessionVue from '@/views/control/MediaSession.vue';
 import {createWebuiRouter} from "@/views/webui/routers";
 import {createAiiKisarakiRouter} from "@/views/user/AiiKisaraki/routers";
 import {createUserNekoRouter} from "@/views/user/neko/routers";
+import {createUserYoinRouter} from "@/views/user/yoin/routers";
+import {createUserEndfieldRouter} from "@/views/user/yoin/endfield/routers";
+import {createUserGflRouter} from "@/views/user/yoin/gfl/routers";
+import {createUserWuwaRouter} from "@/views/user/yoin/wuwa/routers";
 import {createComponentsRouter} from "@/views/component/routers";
 
 const router = createRouter({
@@ -84,6 +88,10 @@ const router = createRouter({
 
 createAiiKisarakiRouter(router);
 createUserNekoRouter(router);
+createUserYoinRouter(router);
+createUserEndfieldRouter(router);
+createUserGflRouter(router);
+createUserWuwaRouter(router);
 createWebuiRouter(router);
 createComponentsRouter(router);
 
