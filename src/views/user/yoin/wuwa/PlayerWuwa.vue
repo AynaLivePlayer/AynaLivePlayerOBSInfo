@@ -3,7 +3,7 @@
   * 波形声骸进度条；显示：封面 / 歌名 / 歌手 / 专辑 / 当前歌词 / 点歌人 / 进度 / 下一首及下一首点歌人
 -->
 <template>
-  <div class="wuwa-frame wuwa-player"><div class="wuwa-panel">
+  <div class="wuwa-frame wuwa-player" :class="bgClass" :style="{ zoom: String(cardScale) }"><div class="wuwa-panel">
     <div class="wuwa-corner tl"></div>
     <div class="wuwa-corner br"></div>
 
@@ -53,10 +53,17 @@
 <script setup lang="ts">
 import "./wuwa.css";
 import { computed } from "vue";
-import { usePlayerInfo } from "@/views/user/yoin/use-player";
+import { useCardBgMode, useCardScale, usePlayerInfo } from "@/views/user/yoin/use-player";
 
 const { store, coverSrc, identifier, providerLabel, title, artist, album, username,
         lyricText, progressPercent, fmtTime, next, mediaUsername } = usePlayerInfo();
+
+const cardScale = useCardScale();
+
+/* 背景透明度：卡片墙传入 bg prop，或 URL ?bg=75/50/25/0（trans=75、ghost=25 别名） */
+const props = defineProps<{ bg?: string }>();
+const bgLevel = useCardBgMode(props.bg);
+const bgClass = bgLevel === "solid" ? "" : `bg-${bgLevel}`;
 
 /* 波形声骸进度条：44 根振杆，点亮比例 = 当前进度 */
 const bars = computed(() => {

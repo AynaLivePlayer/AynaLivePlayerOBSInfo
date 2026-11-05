@@ -4,7 +4,7 @@
   * 显示：封面 / 歌名 / 歌手 / 专辑 / 当前歌词 / 点歌人 / 进度 / 下一首及下一首点歌人
 -->
 <template>
-  <div class="yoin-frame yoin-player">
+  <div class="yoin-frame yoin-player" :class="bgClass" :style="{ zoom: String(cardScale) }">
     <div class="yoin-panel">
       <div class="yoin-corner tl"></div>
       <div class="yoin-corner br"></div>
@@ -58,12 +58,19 @@
 </template>
 
 <script setup lang="ts">
-import "./cards.css";
+import "./ark.css";
 import { computed } from "vue";
-import { usePlayerInfo } from "@/views/user/yoin/use-player";
+import { useCardBgMode, useCardScale, usePlayerInfo } from "@/views/user/yoin/use-player";
 
 const { store, coverSrc, identifier, providerLabel, title, artist, album, username,
         lyricText, progressPercent, fmtTime, next, mediaUsername } = usePlayerInfo();
+
+const cardScale = useCardScale();
+
+/* 背景透明度：卡片墙传入 bg prop，或 URL ?bg=75/50/25/0（trans=75、ghost=25 别名） */
+const props = defineProps<{ bg?: string }>();
+const bgLevel = useCardBgMode(props.bg);
+const bgClass = bgLevel === "solid" ? "" : `bg-${bgLevel}`;
 
 const trackCode = computed(() => identifier.value ? identifier.value.slice(-4) : "????");
 </script>

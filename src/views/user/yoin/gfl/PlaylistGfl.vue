@@ -3,7 +3,7 @@
   * 银白金属板梯形列表行，第 1 行 = 下一首播放（黄色序号块 + 下一首 pill）
 -->
 <template>
-  <div class="gfl-frame gfl-playlist"><div class="gfl-panel">
+  <div class="gfl-frame gfl-playlist" :class="bgClass" :style="{ zoom: String(cardScale) }"><div class="gfl-panel">
     <div class="gfl-pl-hd">
       <div class="gfl-iconblk">♪</div>
       <div class="gfl-pair">
@@ -45,10 +45,17 @@
 <script setup lang="ts">
 import "./gfl.css";
 import { computed } from "vue";
-import { usePlayerInfo } from "@/views/user/yoin/use-player";
+import { useCardBgMode, useCardScale, usePlayerInfo } from "@/views/user/yoin/use-player";
 import type { Media } from "@/api/model";
 
 const { queue, mediaUsername } = usePlayerInfo();
+
+const cardScale = useCardScale();
+
+/* 背景透明度：卡片墙传入 bg prop，或 URL ?bg=75/50/25/0（trans=75、ghost=25 别名） */
+const props = defineProps<{ bg?: string }>();
+const bgLevel = useCardBgMode(props.bg);
+const bgClass = bgLevel === "solid" ? "" : `bg-${bgLevel}`;
 
 /* 待播放队列，最多展示 6 首 */
 const rows = computed<Media[]>(() => queue.value.slice(0, 6));

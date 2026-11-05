@@ -4,7 +4,7 @@
   * 显示：待播放队列（歌名 / 歌手 / 点歌人），第一行黄色高亮 = 下一首播放
 -->
 <template>
-  <div class="yoin-frame yoin-playlist">
+  <div class="yoin-frame yoin-playlist" :class="bgClass" :style="{ zoom: String(cardScale) }">
     <div class="yoin-panel">
       <div class="yoin-pl-head">
         <span class="yoin-sq"></span>
@@ -43,12 +43,19 @@
 </template>
 
 <script setup lang="ts">
-import "./cards.css";
+import "./ark.css";
 import { computed } from "vue";
-import { usePlayerInfo } from "@/views/user/yoin/use-player";
+import { useCardBgMode, useCardScale, usePlayerInfo } from "@/views/user/yoin/use-player";
 import type { Media } from "@/api/model";
 
 const { queue, mediaUsername } = usePlayerInfo();
+
+const cardScale = useCardScale();
+
+/* 背景透明度：卡片墙传入 bg prop，或 URL ?bg=75/50/25/0（trans=75、ghost=25 别名） */
+const props = defineProps<{ bg?: string }>();
+const bgLevel = useCardBgMode(props.bg);
+const bgClass = bgLevel === "solid" ? "" : `bg-${bgLevel}`;
 
 /* 待播放队列，最多展示 6 首 */
 const rows = computed<Media[]>(() => queue.value.slice(0, 6));

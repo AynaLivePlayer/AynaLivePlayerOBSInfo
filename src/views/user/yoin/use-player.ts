@@ -5,17 +5,46 @@
 import { computed } from "vue";
 import { usePlayInfoStore } from "@/stores/playinfo";
 import type { Media } from "@/api/model";
+import defaultCoverUrl from "@/assets/imgs/default_cover.png";
+
+/* OBS 高清：URL 加 ?scale=2 时卡片按 2x 渲染（源尺寸 1280×440 / 1280×720），OBS 里再缩小不糊 */
+export function useCardScale(): number {
+    const raw = new URLSearchParams(window.location.search).get("scale") ?? "1";
+    const v = parseFloat(raw);
+    return Number.isFinite(v) && v > 0 ? v : 1;
+}
+
+/* 背景透明度：URL ?bg=N 选面板不透明度档位（75 / 50 / 25 / 0=全透明），不加 = 原实底版。
+   旧参数兼容：trans/transparent → 75，ghost → 25；数字按最近档位归档（?bg=80 → 75）。
+   入参供卡片墙内联预览覆盖 URL 参数（Welcome 的 Showcase.props） */
+export type CardBgMode = "solid" | 0 | 25 | 50 | 75;
+export function useCardBgMode(override?: string): CardBgMode {
+    const raw = (override ?? new URLSearchParams(window.location.search).get("bg") ?? "").toLowerCase().trim();
+    if (raw === "" || raw === "solid") return "solid";
+    if (raw === "trans" || raw === "transparent") return 75;
+    if (raw === "ghost") return 25;
+    const n = Number.parseInt(raw, 10);
+    if (!Number.isFinite(n)) return "solid";
+    if (n <= 12) return 0;
+    if (n <= 37) return 25;
+    if (n <= 62) return 50;
+    if (n <= 87) return 75;
+    return "solid";
+}
 
 export function usePlayerInfo() {
     const store = usePlayInfoStore();
 
-    /* 封面：优先 base64，回退 URL */
+    /* 封面：优先 base64，其次 URL，都没有时回退黑胶占位图 */
     const coverSrc = computed(() => {
         const cover = store.current.Info.Cover;
         if (cover.Data && cover.Data.length > 0) {
             return "data:image/jpeg;base64," + cover.Data;
         }
-        return cover.Url;
+        if (cover.Url && cover.Url.length > 0) {
+            return cover.Url;
+        }
+        return defaultCoverUrl;
     });
 
     const identifier = computed(() => store.current.Info.Meta.Identifier || "");
