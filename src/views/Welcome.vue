@@ -12,6 +12,14 @@ import PlayerNormalAii from "@/views/user/AiiKisaraki/PlayerNormal-Aii.vue";
 import PlayerMiniAii from "@/views/user/AiiKisaraki/PlayerMini-Aii.vue";
 import PlaylistAii from "@/views/user/AiiKisaraki/Playlist-Aii.vue";
 import PlayerPageAii from "@/views/user/AiiKisaraki/PlayerPage-Aii.vue";
+import ArkPlayer from "@/views/user/yoin/ark/PlayerArk.vue";
+import ArkPlaylist from "@/views/user/yoin/ark/PlaylistArk.vue";
+import EndfieldPlayer from "@/views/user/yoin/endfield/PlayerEndfield.vue";
+import EndfieldPlaylist from "@/views/user/yoin/endfield/PlaylistEndfield.vue";
+import GflPlayer from "@/views/user/yoin/gfl/PlayerGfl.vue";
+import GflPlaylist from "@/views/user/yoin/gfl/PlaylistGfl.vue";
+import WuwaPlayer from "@/views/user/yoin/wuwa/PlayerWuwa.vue";
+import WuwaPlaylist from "@/views/user/yoin/wuwa/PlaylistWuwa.vue";
 import WebuiPlayer from "@/views/webui/page/Player.vue";
 
 const router = useRouter();
@@ -25,6 +33,8 @@ type Showcase = {
   component: any;
   scale?: number;
   height?: string;
+  /* 卡片底部的小字说明（如 URL 参数用法） */
+  note?: string;
 };
 
 const groups: Record<string, Showcase[]> = {
@@ -44,6 +54,24 @@ const groups: Record<string, Showcase[]> = {
     { title: "迷你播放器", author: "@Aii如樱如月", path: "/user/aiikisaraki/playermini", size: "220 × 80", tag: "Player", component: PlayerMiniAii, scale: 1, height: "140px" },
     { title: "当前播放列表", author: "@Aii如樱如月", path: "/user/aiikisaraki/playlist", size: "600 × 1000", tag: "Playlist", component: PlaylistAii, scale: 0.6, height: "520px" },
     { title: "点歌机展示页", author: "@Aii如樱如月", path: "/user/aiikisaraki/playerpage", size: "全屏", tag: "Page", component: PlayerPageAii, scale: 0.2, height: "420px" },
+  ],
+  "Yoin 舟终少潮": [
+    { title: "ark播放器", author: "@Yoin", path: "/user/yoin/player", size: "640 × 220", tag: "Player", component: ArkPlayer, scale: 0.75, height: "230px",
+      note: "链接可加参数：?scale=2（2x 超采样防糊）、?bg=75/50/25/0（背景不透明度档位，0=全透明），可叠加" },
+    { title: "ark点歌列表", author: "@Yoin", path: "/user/yoin/playlist", size: "640 × 360", tag: "Playlist", component: ArkPlaylist, scale: 0.62, height: "300px",
+      note: "链接可加参数：?scale=2（2x 超采样防糊）、?bg=75/50/25/0（背景不透明度档位，0=全透明），可叠加" },
+    { title: "endfield播放器", author: "@Yoin", path: "/user/yoin/endfield/player", size: "640 × 220", tag: "Player", component: EndfieldPlayer, scale: 0.75, height: "230px",
+      note: "链接可加参数：?scale=2（2x 超采样防糊）、?bg=75/50/25/0（背景不透明度档位，0=全透明），可叠加" },
+    { title: "endfield点歌列表", author: "@Yoin", path: "/user/yoin/endfield/playlist", size: "640 × 360", tag: "Playlist", component: EndfieldPlaylist, scale: 0.62, height: "300px",
+      note: "链接可加参数：?scale=2（2x 超采样防糊）、?bg=75/50/25/0（背景不透明度档位，0=全透明），可叠加" },
+    { title: "gfl播放器", author: "@Yoin", path: "/user/yoin/gfl/player", size: "640 × 220", tag: "Player", component: GflPlayer, scale: 0.75, height: "230px",
+      note: "链接可加参数：?scale=2（2x 超采样防糊）、?bg=75/50/25/0（背景不透明度档位，0=全透明），可叠加" },
+    { title: "gfl点歌列表", author: "@Yoin", path: "/user/yoin/gfl/playlist", size: "640 × 360", tag: "Playlist", component: GflPlaylist, scale: 0.62, height: "300px",
+      note: "链接可加参数：?scale=2（2x 超采样防糊）、?bg=75/50/25/0（背景不透明度档位，0=全透明），可叠加" },
+    { title: "wuwa播放器", author: "@Yoin", path: "/user/yoin/wuwa/player", size: "640 × 220", tag: "Player", component: WuwaPlayer, scale: 0.75, height: "230px",
+      note: "链接可加参数：?scale=2（2x 超采样防糊）、?bg=75/50/25/0（背景不透明度档位，0=全透明），可叠加" },
+    { title: "wuwa点歌列表", author: "@Yoin", path: "/user/yoin/wuwa/playlist", size: "640 × 360", tag: "Playlist", component: WuwaPlaylist, scale: 0.62, height: "300px",
+      note: "链接可加参数：?scale=2（2x 超采样防糊）、?bg=75/50/25/0（背景不透明度档位，0=全透明），可叠加" },
   ],
   "WebUI": [
     { title: "控制台 WebUI", author: "Aynakeya", path: "/webui/player", size: "响应式", tag: "WebUI", component: WebuiPlayer, scale: 0.2, height: "260px" },
@@ -129,6 +157,7 @@ const openLink = (path: string) => router.push(path);
                 </div>
                 <div class="absolute inset-0 bg-gradient-to-t from-base-100/50 to-transparent pointer-events-none"></div>
               </div>
+              <p v-if="item.note" class="text-xs text-base-content/50 leading-snug">{{ item.note }}</p>
               <div class="flex items-center justify-between text-sm text-base-content/60">
                 <span>{{ item.size }}</span>
                 <span class="link text-primary">点击预览</span>

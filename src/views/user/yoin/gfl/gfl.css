@@ -1,0 +1,159 @@
+/*
+ * Yoin 卡西米尔样式卡 · 少女前线风格（黑金属 / 银白金属板 / 黄色警告色）
+ * 参考《少女前线》游戏 UI：深炭黑拉丝金属底、银白拉丝金属板列表行（右缘斜切梯形）、
+ * 黄 #F7B500 = 警告/强调（进度条、位置格、状态 pill、警戒条纹）、
+ * 黑底白字小标签（服务器牌）、中文大字在上英文灰字在下、全角冒号元数据
+*/
+.gfl-frame { width: 640px; padding: 1px; position: relative;
+    --gfl-bgm: 1; /* 背景不透明度乘数 */
+    background: linear-gradient(180deg, rgba(216,216,212,var(--gfl-bgm)), rgba(85,85,90,var(--gfl-bgm)) 50%, rgba(138,138,142,var(--gfl-bgm))); }
+.gfl-panel { background:
+    repeating-linear-gradient(180deg, rgba(255,255,255,calc(.018 * var(--gfl-bgm))) 0 1px, transparent 1px 4px),
+    rgba(23,23,26,var(--gfl-bgm));
+  position: relative; width: 100%; height: 100%; }
+
+/* 斜纹方块图标位 */
+.gfl-iconblk { width: 32px; height: 32px;
+  background: repeating-linear-gradient(45deg, rgba(240,240,238,calc(.16 * var(--gfl-bgm))) 0 2px, transparent 2px 5px), rgba(15,15,17,var(--gfl-bgm));
+  border: 1px solid #414146; border-top-color: #7a7a80;
+  display: flex; align-items: center; justify-content: center;
+  color: #ECECEA; font-size: 17px; flex: none; }
+
+/* 标题对：中文大字在上、英文灰字在下 */
+.gfl-pair { display: flex; flex-direction: column; line-height: 1.1; }
+.gfl-pair .gfl-cn { font-size: 18px; font-weight: 700; color: #ECECEA; letter-spacing: .04em; }
+.gfl-pair .gfl-en { font-family: Bahnschrift, "MiSans", "Microsoft YaHei", sans-serif;
+  font-size: 10.5px; letter-spacing: .3em; color: #A2A2A0; margin-top: 2px; }
+
+/* 黑底白字小标签（服务器牌） */
+.gfl-tag { display: inline-flex; align-items: center; background: #141414; color: #ECECEA;
+  font-family: Bahnschrift, "MiSans", "Microsoft YaHei", sans-serif;
+  font-size: 12.5px; font-weight: 600; line-height: 17px;
+  padding: 1px 7px 0; letter-spacing: .04em; white-space: nowrap; }
+
+/* 黄色页签 */
+.gfl-tab { display: inline-flex; align-items: center; background: #F7B500; color: #1A1A1C;
+  font-size: 15px; font-weight: 700; padding: 3px 10px 2px; line-height: 18px; }
+.gfl-tab .gfl-num { font-family: Bahnschrift, "MiSans", sans-serif; font-weight: 700; }
+
+/* 黄色 2×2 方格（进度位置标记） */
+.gfl-checker { width: 9px; height: 9px; flex: none;
+  background: conic-gradient(#F7B500 0 25%, transparent 0 50%, #F7B500 0 75%, transparent 0); }
+
+/* 黄黑警戒条纹块 */
+.gfl-warnblk { height: 16px; width: 52px; flex: none;
+  background: repeating-linear-gradient(45deg, #F7B500 0 5px, #0F0F11 5px 10px); opacity: .92; }
+
+/* 银白拉丝金属板 */
+.gfl-plate { background:
+    repeating-linear-gradient(180deg, rgba(255,255,255,calc(.06 * var(--gfl-bgm))) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, rgba(240,240,238,var(--gfl-bgm)) 0%, rgba(201,201,197,var(--gfl-bgm)) 42%, rgba(175,175,171,var(--gfl-bgm)) 58%, rgba(216,216,212,var(--gfl-bgm)) 100%);
+  color: #1A1A1C; }
+
+/* ===== 播放器 640×220 ===== */
+.gfl-player { width: 640px; height: 220px; }
+.gfl-player .gfl-panel { display: flex; flex-direction: column; }
+.gfl-hd { flex: none; height: 48px; background: rgba(15,15,17,var(--gfl-bgm)); display: flex; align-items: center;
+  gap: 12px; padding: 0 14px;
+  border-bottom: 1px solid #414146; box-shadow: inset 0 1px 0 rgba(240,240,238,.12); }
+.gfl-hd .gfl-pair { margin-left: 2px; }
+.gfl-hd .gfl-spacer { flex: 1; }
+.gfl-hd .gfl-res { font-family: Bahnschrift, "MiSans", sans-serif; font-size: 13.5px;
+  font-weight: 600; color: #A2A2A0; letter-spacing: .08em; }
+.gfl-hd .gfl-res b { color: #F7B500; font-weight: 700; letter-spacing: .05em; }
+
+.gfl-body { flex: 1; display: flex; gap: 14px; padding: 12px 14px 10px; min-height: 0; }
+.gfl-cover-wrap { flex: 0 0 124px; position: relative; }
+.gfl-cover { width: 124px; height: 124px; padding: 2px;
+  background: linear-gradient(135deg, #E6E6E2, #6a6a6e 55%, #B5B5B1);
+  border: 1px solid #414146; }
+.gfl-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gfl-cover-corner { position: absolute; right: -4px; bottom: -4px; width: 14px; height: 14px;
+  background: repeating-linear-gradient(45deg, rgba(240,240,238,.2) 0 2px, transparent 2px 5px), #0F0F11;
+  border: 1px solid #414146; }
+
+.gfl-info { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.gfl-title-row { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.gfl-title { font-size: 24px; line-height: 1.2; font-weight: 700; color: #ECECEA; letter-spacing: .02em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gfl-meta { margin-top: 3px; font-size: 14px; color: #A2A2A0; white-space: nowrap; overflow: hidden; }
+.gfl-meta b { color: #ECECEA; font-weight: 600; }
+
+.gfl-lyric { margin-top: 5px; height: 24px; display: flex; align-items: center; font-size: 14.5px;
+  color: #ECECEA; white-space: nowrap; overflow: hidden; }
+.gfl-lyric .gfl-pfx { color: #F7B500; font-family: Bahnschrift, sans-serif; font-weight: 700; margin-right: 7px; }
+.gfl-lyric .gfl-lt { color: #D9D9D6; overflow: hidden; text-overflow: ellipsis; }
+
+.gfl-progress { margin-top: 6px; display: flex; align-items: center; gap: 9px; }
+.gfl-progress .gfl-t { font-family: Bahnschrift, "MiSans", sans-serif; font-size: 13.5px;
+  font-weight: 600; color: #A2A2A0; font-feature-settings: "tnum"; letter-spacing: .04em; }
+.gfl-progress .gfl-t.elapsed { color: #ECECEA; }
+.gfl-bar { flex: 1; height: 7px; background: rgba(43,43,47,var(--gfl-bgm));
+  border-top: 1px solid #000; border-bottom: 1px solid #3a3a40;
+  position: relative; clip-path: polygon(0 0, calc(100% - 3px) 0, 100% 100%, 3px 100%); }
+.gfl-bar i { position: absolute; left: 0; top: 0; bottom: 0;
+  background: linear-gradient(180deg, #FFE066, #F7B500 60%, #D89E00); }
+.gfl-bar .gfl-checker { position: absolute; top: 50%; margin: -5px 0 0 -2px; }
+
+.gfl-next { margin-top: 6px; flex: none; height: 34px; display: flex; align-items: center;
+  gap: 9px; padding: 0 12px; min-width: 0;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 100%, 0 100%); }
+.gfl-next .gfl-nx { background: #0F0F11; color: #F7B500; font-family: Bahnschrift, sans-serif;
+  font-size: 11.5px; font-weight: 700; letter-spacing: .2em; padding: 2px 8px 1px; flex: none;
+  border: 1px solid #414146; }
+.gfl-next-name { font-size: 15px; font-weight: 700; color: #1A1A1C; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.gfl-next-name .gfl-na { color: #4A4A4E; font-weight: 600; font-size: 13.5px; }
+.gfl-next .gfl-tag { margin-left: auto; flex: none; }
+.gfl-next-empty { font-size: 14.5px; color: #4A4A4E; }
+
+/* ===== 点歌列表 640×360 ===== */
+.gfl-playlist { width: 640px; height: 360px; }
+.gfl-playlist .gfl-panel { display: flex; flex-direction: column; }
+.gfl-pl-hd { flex: none; height: 52px; background: rgba(15,15,17,var(--gfl-bgm)); display: flex; align-items: center;
+  gap: 12px; padding: 0 14px;
+  border-bottom: 1px solid #414146; box-shadow: inset 0 1px 0 rgba(240,240,238,.12); }
+.gfl-pl-hd .gfl-tab { margin-left: auto; }
+
+.gfl-pl-body { flex: 1; display: flex; flex-direction: column; gap: 5px; padding: 9px 12px; min-height: 0; }
+.gfl-pl-row { flex: 1; display: flex; align-items: center; gap: 11px; padding: 0 10px 0 8px;
+  min-width: 0; min-height: 0; position: relative;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 100%, 0 100%); }
+.gfl-pl-idx { font-family: Bahnschrift, "MiSans", sans-serif; font-size: 28px; font-weight: 700;
+  color: rgba(26,26,28,.34); width: 34px; text-align: center; flex: none; line-height: 1; }
+.gfl-pl-row.now .gfl-pl-idx { color: #1A1A1C; background: #F7B500; align-self: center;
+  width: 34px; text-align: center; line-height: 34px; height: 34px;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 100%, 0 100%); }
+.gfl-pl-t { font-size: 17.5px; font-weight: 700; color: #1A1A1C; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 0 1 auto; }
+.gfl-pl-row.now .gfl-pl-t::before { content: ""; display: inline-block; width: 3px; height: 12px;
+  background: #F7B500; margin-right: 7px; transform: translateY(1px); }
+.gfl-pl-nextlbl { flex: none; background: #F7B500; color: #1A1A1C; font-size: 12.5px; font-weight: 700;
+  padding: 1px 6px 0; line-height: 18px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 5px) 100%, 0 100%); }
+.gfl-pl-a { font-size: 15px; color: #4A4A4E; white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis; flex: none; margin-left: auto; }
+.gfl-pl-a b { color: #1A1A1C; font-weight: 700; }
+.gfl-pl-row .gfl-tag { flex: none; font-size: 14px; }
+.gfl-pl-sep { width: 1px; height: 16px; background: rgba(0,0,0,.28); flex: none; }
+
+.gfl-pl-empty { flex: 1; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.gfl-pl-empty .gfl-plate { padding: 6px 16px; font-size: 16px; clip-path: none; }
+
+.gfl-pl-ft { flex: none; height: 28px; background: rgba(15,15,17,var(--gfl-bgm)); display: flex; align-items: center;
+  gap: 10px; padding: 0 14px; border-top: 1px solid #414146;
+  box-shadow: inset 0 1px 0 rgba(240,240,238,.1); }
+.gfl-pl-ft .gfl-stencil { font-family: Bahnschrift, "MiSans", sans-serif; font-size: 11px;
+  font-weight: 700; letter-spacing: .26em; color: #A2A2A0; }
+.gfl-pl-ft .gfl-spacer { flex: 1; }
+
+/* ===== 背景透明度档位（URL ?bg=75/50/25/0；面板 alpha = 档位） =====
+   透明档位去掉金属外框的垫底（否则 alpha 合成会明显加深，75 档实测 94%），
+   改用 border 画金属描边（全透明也保留描边） */
+.gfl-frame.bg-75 { --gfl-bgm: .75; }
+.gfl-frame.bg-50 { --gfl-bgm: .5; }
+.gfl-frame.bg-25 { --gfl-bgm: .25; }
+.gfl-frame.bg-0 { --gfl-bgm: 0; }
+.gfl-frame.bg-75, .gfl-frame.bg-50, .gfl-frame.bg-25, .gfl-frame.bg-0 {
+    background: transparent; padding: 0; border: 1px solid rgba(138, 138, 142, .6);
+}

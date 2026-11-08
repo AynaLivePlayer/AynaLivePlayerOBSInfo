@@ -1,0 +1,140 @@
+/*
+ * Yoin 卡西米尔样式卡 · 鸣潮风格
+ * 深蓝黑 + 青色单强调（#3CE6C8）、八边切角、
+ * 斜切徽章、波形声骸进度条、辉光细节
+*/
+.wuwa-frame { padding: 1px; position: relative;
+    --wuwa-bgm: 1; /* 背景不透明度乘数 */
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+    background: linear-gradient(135deg, rgba(60,230,200,calc(.75 * var(--wuwa-bgm))), rgba(60,230,200,calc(.15 * var(--wuwa-bgm))) 45%, rgba(60,230,200,calc(.4 * var(--wuwa-bgm)))); }
+.wuwa-panel { clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+    background: linear-gradient(160deg, rgba(16,24,32,var(--wuwa-bgm)) 0%, rgba(11,15,20,var(--wuwa-bgm)) 65%);
+    position: relative; width: 100%; height: 100%; color: #F5F7F8; }
+
+.wuwa-corner { position: absolute; width: 12px; height: 12px; pointer-events: none; }
+.wuwa-corner::before { content: ""; position: absolute; inset: 0; border: 0 solid #3CE6C8; }
+.wuwa-corner.tl { top: 6px; left: 6px; }
+.wuwa-corner.tl::before { border-top-width: 2px; border-left-width: 2px; }
+.wuwa-corner.br { bottom: 6px; right: 6px; }
+.wuwa-corner.br::before { border-bottom-width: 2px; border-right-width: 2px; border-color: #3CE6C8; }
+
+.wuwa-sq { display: inline-block; width: 8px; height: 8px; background: #3CE6C8; margin-right: 8px;
+  transform: translateY(-1px); box-shadow: 0 0 6px rgba(60,230,200,.8); }
+.wuwa-lbl { font-family: Bahnschrift, "MiSans", "Microsoft YaHei", sans-serif; font-size: 11.5px;
+  letter-spacing: .2em; color: #8FA3AD; text-transform: uppercase; font-weight: 600; }
+.wuwa-lbl b { color: #F5F7F8; font-weight: 600; }
+.wuwa-barcode { height: 14px; width: 60px; opacity: .5;
+  background: repeating-linear-gradient(90deg, #3CE6C8 0 2px, transparent 2px 4px,
+             #3CE6C8 4px 5px, transparent 5px 9px, #3CE6C8 9px 12px, transparent 12px 14px); }
+
+/* 斜切点歌人徽章（青色） */
+.wuwa-req { display: inline-flex; align-items: center; gap: 6px;
+  border: 1px solid rgba(60,230,200,.55); padding: 2px 10px 2px 8px;
+  font-size: 13.5px; color: #F5F7F8; background: rgba(60,230,200,.06);
+  white-space: nowrap; line-height: 18px; max-width: 210px; overflow: hidden;
+  transform: skewX(-12deg); }
+.wuwa-req > * { transform: skewX(12deg); display: inline-block; }
+.wuwa-req::before { content: ""; width: 6px; height: 6px; flex: none; background: #3CE6C8; transform: skewX(12deg); }
+.wuwa-req .wuwa-at { color: #3CE6C8; font-family: Bahnschrift, "MiSans", sans-serif; font-weight: 600; }
+.wuwa-req .wuwa-name { overflow: hidden; text-overflow: ellipsis; }
+
+/* ===== 播放器 640×220 ===== */
+.wuwa-player { width: 640px; height: 220px; }
+.wuwa-player .wuwa-panel { padding: 14px 20px 12px; display: flex; gap: 18px; }
+
+.wuwa-cover-wrap { position: relative; flex: 0 0 150px; display: flex; align-items: center; }
+.wuwa-cover { width: 150px; height: 150px; padding: 1px;
+  background: rgba(60,230,200,.7);
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%); }
+.wuwa-cover img { width: 100%; height: 100%; object-fit: cover; display: block;
+  clip-path: polygon(0 0, calc(100% - 11px) 0, 100% 11px, 100% 100%, 0 100%);
+  background: #131B23; }
+.wuwa-cover-tag { position: absolute; left: 0; bottom: 9px; background: #3CE6C8; color: #0b0f14;
+  font-family: Bahnschrift, "MiSans", sans-serif; font-size: 10px; letter-spacing: .18em;
+  font-weight: 700; padding: 2px 8px 1px 6px; transform: skewX(-12deg); transform-origin: 0 100%;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 6px) 100%, 0 100%); }
+.wuwa-cover-tag span { display: inline-block; transform: skewX(12deg); }
+
+.wuwa-info { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.wuwa-row-top { display: flex; justify-content: space-between; align-items: center; }
+.wuwa-title-row { display: flex; align-items: baseline; gap: 10px; margin-top: 6px; min-width: 0; }
+.wuwa-title { font-size: 28px; line-height: 1.2; font-weight: 700; letter-spacing: .02em; color: #F5F7F8;
+  text-shadow: 0 0 14px rgba(60,230,200,.25);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.wuwa-title::before { content: "▍"; color: #3CE6C8; font-weight: 400; margin-right: 2px;
+  text-shadow: 0 0 8px rgba(60,230,200,.8); }
+.wuwa-title-en { font-family: Bahnschrift, "MiSans", sans-serif; font-size: 11px;
+  color: #5C6D77; letter-spacing: .2em; white-space: nowrap; flex: none; }
+.wuwa-artist { margin-top: 4px; font-size: 15px; color: #8FA3AD; white-space: nowrap; overflow: hidden; }
+.wuwa-artist .wuwa-sep { color: #5C6D77; margin: 0 8px; }
+
+.wuwa-lyric { margin-top: 8px; height: 28px; background: rgba(60,230,200,calc(.07 * var(--wuwa-bgm)));
+  border-left: 2px solid #3CE6C8; display: flex; align-items: center; padding: 0 10px;
+  font-size: 15px; color: #D9E4E6; white-space: nowrap; overflow: hidden; }
+.wuwa-lyric .wuwa-pfx { color: #3CE6C8; font-family: Bahnschrift, sans-serif; margin-right: 8px; font-weight: 700; }
+
+.wuwa-progress { margin-top: 8px; display: flex; align-items: center; gap: 10px;
+  font-family: Bahnschrift, "MiSans", sans-serif; font-size: 12.5px; color: #8FA3AD; letter-spacing: .06em; }
+.wuwa-wave { flex: 1; height: 18px; display: flex; align-items: center; gap: 2px; min-width: 0; }
+.wuwa-wave i { flex: 1; min-width: 1px; background: rgba(255,255,255,calc(.16 * var(--wuwa-bgm))); }
+.wuwa-wave i.on { background: #3CE6C8; box-shadow: 0 0 4px rgba(60,230,200,.7); }
+.wuwa-time-total { color: #5C6D77; }
+
+.wuwa-next { margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(60,230,200,.18);
+  display: flex; align-items: center; gap: 10px; min-width: 0; }
+.wuwa-next-tag { background: #3CE6C8; color: #0b0f14; font-family: Bahnschrift, "MiSans", sans-serif;
+  font-size: 10.5px; font-weight: 700; letter-spacing: .22em; padding: 2px 7px 1px 9px;
+  white-space: nowrap; flex: none; transform: skewX(-12deg); }
+.wuwa-next-tag span { display: inline-block; transform: skewX(12deg); }
+.wuwa-next-arrow { color: #5C6D77; font-family: Bahnschrift, sans-serif; }
+.wuwa-next-name { font-size: 15px; font-weight: 600; color: #F5F7F8; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.wuwa-next-name .wuwa-na { color: #8FA3AD; font-weight: 400; }
+.wuwa-next .wuwa-req { margin-left: auto; flex: none; }
+.wuwa-next-empty { font-size: 14.5px; color: #5C6D77; letter-spacing: .1em; }
+
+/* ===== 点歌列表 640×360 ===== */
+.wuwa-playlist { width: 640px; height: 360px; }
+.wuwa-playlist .wuwa-panel { display: flex; flex-direction: column; }
+.wuwa-pl-head { height: 50px; padding: 0 18px; display: flex; align-items: center;
+  border-bottom: 1px solid rgba(60,230,200,.18); gap: 10px; flex: none; }
+.wuwa-pl-head .wuwa-cn { font-size: 17.5px; font-weight: 700; letter-spacing: .08em; margin-left: 2px; color: #F5F7F8; }
+.wuwa-pl-count { margin-left: auto; font-family: Bahnschrift, "MiSans", sans-serif; font-size: 12.5px;
+  letter-spacing: .18em; color: #3CE6C8; border: 1px solid rgba(60,230,200,.55);
+  padding: 3px 9px 2px 11px; background: rgba(60,230,200,.07); }
+.wuwa-pl-head .wuwa-barcode { margin-left: 12px; }
+
+.wuwa-pl-body { flex: 1; display: flex; flex-direction: column; padding: 6px 10px 4px; min-height: 0; }
+.wuwa-pl-row { flex: 1; display: flex; align-items: center; gap: 12px; padding: 0 10px;
+  border-bottom: 1px dashed rgba(255,255,255,.08); position: relative; min-width: 0; min-height: 0; }
+.wuwa-pl-row:last-child { border-bottom: none; }
+.wuwa-pl-idx { font-family: Bahnschrift, "MiSans", sans-serif; font-size: 16.5px; font-weight: 700;
+  color: #5C6D77; width: 30px; letter-spacing: .05em; flex: none; }
+.wuwa-pl-t { font-size: 18px; font-weight: 600; color: #F5F7F8; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 1 1 auto; }
+.wuwa-pl-a { font-size: 15.5px; color: #8FA3AD; white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis; width: 170px; flex: none; }
+.wuwa-pl-a::before { content: "♪ "; color: #5C6D77; }
+.wuwa-pl-row .wuwa-req { margin-left: auto; flex: none; font-size: 15px; line-height: 20px; }
+.wuwa-pl-row.nextup { background: linear-gradient(90deg, rgba(60,230,200,calc(.12 * var(--wuwa-bgm))), rgba(60,230,200,calc(.02 * var(--wuwa-bgm))) 70%);
+  box-shadow: inset 3px 0 0 #3CE6C8; }
+.wuwa-pl-row.nextup .wuwa-pl-idx { color: #3CE6C8; }
+.wuwa-pl-row.nextup .wuwa-pl-t::before { content: "NEXT"; font-family: Bahnschrift, "MiSans", sans-serif;
+  font-size: 11px; letter-spacing: .14em; border: 1px solid rgba(60,230,200,.6); padding: 1px 4px 0 6px;
+  margin-right: 8px; color: #3CE6C8; display: inline-block; transform: translateY(-2px);
+  text-shadow: 0 0 6px rgba(60,230,200,.6); }
+
+.wuwa-pl-empty { flex: 1; display: flex; align-items: center; justify-content: center; gap: 10px;
+  color: #5C6D77; font-size: 16px; letter-spacing: .12em; }
+
+.wuwa-pl-foot { height: 28px; border-top: 1px solid rgba(60,230,200,.18); display: flex;
+  align-items: center; padding: 0 18px; gap: 10px; flex: none; }
+.wuwa-pl-foot .wuwa-txt { font-family: Bahnschrift, "MiSans", sans-serif; font-size: 11px;
+  letter-spacing: .22em; color: rgba(60,230,200,.5); }
+.wuwa-pl-foot .wuwa-plus { margin-left: auto; color: #5C6D77; font-family: Bahnschrift, sans-serif; font-size: 13px; }
+
+/* ===== 背景透明度档位（URL ?bg=75/50/25/0；面板 alpha = 档位） ===== */
+.wuwa-frame.bg-75 { --wuwa-bgm: .75; }
+.wuwa-frame.bg-50 { --wuwa-bgm: .5; }
+.wuwa-frame.bg-25 { --wuwa-bgm: .25; }
+.wuwa-frame.bg-0 { --wuwa-bgm: 0; }

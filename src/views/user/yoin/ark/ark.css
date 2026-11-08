@@ -1,0 +1,395 @@
+/*
+ * Yoin 卡西米尔样式卡 · 共享设计样式
+ * 视觉语言：明日方舟 —— 深色面板 + 白色发丝线 + 单一黄色强调 + 切角面板 + 大写英文标签
+ * 所有类名以 yoin- 为前缀，避免与项目内其它样式冲突
+*/
+
+.yoin-frame {
+    --yoin-cut: 14px;
+    --yoin-line: rgba(255, 255, 255, .16);
+    --yoin-line-strong: rgba(255, 255, 255, .30);
+    --yoin-text: #f1f1ee;
+    --yoin-text-dim: #9aa0a8;
+    --yoin-text-faint: #6a6f78;
+    --yoin-ak: #ffba00;
+    --yoin-bgm: 1; /* 背景不透明度乘数，?bg=75/50/25/0 时由档位类覆盖 */
+    --yoin-mono: Bahnschrift, 'MiSans', 'Microsoft YaHei', sans-serif;
+    --yoin-cn: 'MiSans', 'Microsoft YaHei', sans-serif;
+
+    clip-path: polygon(0 0, calc(100% - var(--yoin-cut)) 0, 100% var(--yoin-cut),
+                       100% 100%, var(--yoin-cut) 100%, 0 calc(100% - var(--yoin-cut)));
+    background: rgba(255, 255, 255, calc(.3 * var(--yoin-bgm)));
+    padding: 1px;
+    color: var(--yoin-text);
+    font-family: var(--yoin-cn);
+    text-align: left;
+    user-select: none;
+}
+
+.yoin-panel {
+    clip-path: polygon(0 0, calc(100% - var(--yoin-cut)) 0, 100% var(--yoin-cut),
+                       100% 100%, var(--yoin-cut) 100%, 0 calc(100% - var(--yoin-cut)));
+    background:
+        repeating-linear-gradient(135deg, rgba(255, 255, 255, calc(.012 * var(--yoin-bgm))) 0 2px, transparent 2px 6px),
+        linear-gradient(180deg, rgba(19, 21, 25, var(--yoin-bgm)) 0%, rgba(12, 13, 16, var(--yoin-bgm)) 60%);
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* 四角装饰：L 形括号 */
+.yoin-corner {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    pointer-events: none;
+}
+.yoin-corner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 0 solid var(--yoin-ak);
+}
+.yoin-corner.tl { top: 6px; left: 6px; }
+.yoin-corner.tl::before { border-top-width: 2px; border-left-width: 2px; }
+.yoin-corner.br { bottom: 6px; right: 6px; }
+.yoin-corner.br::before { border-bottom-width: 2px; border-right-width: 2px; border-color: var(--yoin-line-strong); }
+
+.yoin-sq {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--yoin-ak);
+    margin-right: 8px;
+    transform: translateY(-1px);
+}
+
+.yoin-lbl {
+    font-family: var(--yoin-mono);
+    font-size: 11.5px;
+    letter-spacing: .2em;
+    color: var(--yoin-text-dim);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.yoin-lbl b {
+    color: var(--yoin-text);
+    font-weight: 600;
+}
+
+/* 条码装饰 */
+.yoin-barcode {
+    height: 14px;
+    width: 60px;
+    opacity: .5;
+    background: repeating-linear-gradient(90deg, var(--yoin-text) 0 2px, transparent 2px 4px,
+               var(--yoin-text) 4px 5px, transparent 5px 9px, var(--yoin-text) 9px 12px, transparent 12px 14px);
+}
+
+/* 点歌人徽章 */
+.yoin-req {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid rgba(255, 186, 0, .45);
+    padding: 2px 10px 2px 8px;
+    font-size: 13.5px;
+    color: var(--yoin-text);
+    background: rgba(255, 186, 0, .07);
+    white-space: nowrap;
+    line-height: 18px;
+    max-width: 210px;
+    overflow: hidden;
+}
+.yoin-req::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    flex: none;
+    background: var(--yoin-ak);
+}
+.yoin-req .yoin-at {
+    color: var(--yoin-ak);
+    font-family: var(--yoin-mono);
+    font-weight: 600;
+}
+.yoin-req .yoin-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ========== 播放器卡片 640×220 ========== */
+.yoin-player { width: 640px; height: 220px; }
+.yoin-player .yoin-panel { padding: 14px 20px 12px; display: flex; gap: 18px; }
+
+.yoin-cover-wrap { position: relative; flex: 0 0 150px; display: flex; align-items: center; }
+.yoin-cover {
+    width: 150px;
+    height: 150px;
+    --yoin-cut: 12px;
+    padding: 1px;
+    background: var(--yoin-line-strong);
+    clip-path: polygon(0 0, calc(100% - var(--yoin-cut)) 0, 100% var(--yoin-cut), 100% 100%, 0 100%);
+}
+.yoin-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    clip-path: inherit;
+    display: block;
+    background: #23262c;
+}
+.yoin-cover-tag {
+    position: absolute;
+    left: 0;
+    bottom: 9px;
+    background: var(--yoin-ak);
+    color: #141414;
+    font-family: var(--yoin-mono);
+    font-size: 10px;
+    letter-spacing: .18em;
+    font-weight: 700;
+    padding: 2px 8px 1px 6px;
+    clip-path: polygon(0 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+}
+
+.yoin-info { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.yoin-row-top { display: flex; justify-content: space-between; align-items: center; }
+
+.yoin-title-row { display: flex; align-items: baseline; gap: 10px; margin-top: 6px; min-width: 0; }
+.yoin-title {
+    font-size: 28px;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: .02em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+.yoin-title::before { content: "▍"; color: var(--yoin-ak); font-weight: 400; margin-right: 2px; }
+.yoin-title-en {
+    font-family: var(--yoin-mono);
+    font-size: 11px;
+    color: var(--yoin-text-faint);
+    letter-spacing: .2em;
+    white-space: nowrap;
+    flex: none;
+}
+.yoin-artist {
+    margin-top: 4px;
+    font-size: 15px;
+    color: var(--yoin-text-dim);
+    white-space: nowrap;
+    overflow: hidden;
+}
+.yoin-artist .yoin-sep { color: var(--yoin-text-faint); margin: 0 8px; }
+
+.yoin-lyric {
+    margin-top: 8px;
+    height: 28px;
+    background: rgba(255, 255, 255, calc(.045 * var(--yoin-bgm)));
+    border-left: 2px solid var(--yoin-ak);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    font-size: 15px;
+    color: #cfd3d8;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.yoin-lyric .yoin-pfx { color: var(--yoin-ak); font-family: var(--yoin-mono); margin-right: 8px; font-weight: 700; }
+
+.yoin-progress {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--yoin-mono);
+    font-size: 12.5px;
+    color: var(--yoin-text-dim);
+    letter-spacing: .06em;
+}
+.yoin-bar { flex: 1; height: 5px; background: rgba(255, 255, 255, calc(.13 * var(--yoin-bgm))); position: relative; }
+.yoin-bar i {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: var(--yoin-ak);
+}
+.yoin-bar i::after {
+    content: "";
+    position: absolute;
+    right: -3px;
+    top: -2.5px;
+    width: 6px;
+    height: 9px;
+    background: var(--yoin-text);
+}
+.yoin-time-total { color: var(--yoin-text-faint); }
+
+.yoin-next {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--yoin-line);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+.yoin-next-tag {
+    border: 1px solid var(--yoin-ak);
+    color: var(--yoin-ak);
+    font-family: var(--yoin-mono);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .22em;
+    padding: 2px 7px 1px 9px;
+    white-space: nowrap;
+    flex: none;
+}
+.yoin-next-arrow { color: var(--yoin-text-faint); font-family: var(--yoin-mono); }
+.yoin-next-name {
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+.yoin-next-name .yoin-next-artist { color: var(--yoin-text-dim); font-weight: 400; }
+.yoin-next .yoin-req { margin-left: auto; flex: none; }
+.yoin-next-empty { font-size: 14.5px; color: var(--yoin-text-faint); letter-spacing: .1em; }
+
+/* ========== 点歌列表卡片 640×360 ========== */
+.yoin-playlist { width: 640px; height: 360px; }
+.yoin-playlist .yoin-panel { display: flex; flex-direction: column; }
+
+.yoin-pl-head {
+    height: 50px;
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--yoin-line);
+    gap: 10px;
+    flex: none;
+}
+.yoin-pl-head .yoin-cn { font-size: 17.5px; font-weight: 700; letter-spacing: .08em; margin-left: 2px; }
+.yoin-pl-count {
+    margin-left: auto;
+    font-family: var(--yoin-mono);
+    font-size: 12.5px;
+    letter-spacing: .18em;
+    color: var(--yoin-ak);
+    border: 1px solid rgba(255, 186, 0, .5);
+    padding: 3px 9px 2px 11px;
+    background: rgba(255, 186, 0, .06);
+}
+.yoin-pl-head .yoin-barcode { margin-left: 12px; }
+
+.yoin-pl-body { flex: 1; display: flex; flex-direction: column; padding: 6px 10px 4px; min-height: 0; }
+.yoin-pl-row {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 10px;
+    border-bottom: 1px dashed rgba(255, 255, 255, .09);
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+}
+.yoin-pl-row:last-child { border-bottom: none; }
+.yoin-pl-idx {
+    font-family: var(--yoin-mono);
+    font-size: 16.5px;
+    font-weight: 700;
+    color: var(--yoin-text-faint);
+    width: 30px;
+    letter-spacing: .05em;
+    flex: none;
+}
+.yoin-pl-t {
+    font-size: 18px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    flex: 1 1 auto;
+}
+.yoin-pl-a {
+    font-size: 15.5px;
+    color: var(--yoin-text-dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 170px;
+    flex: none;
+}
+.yoin-pl-a::before { content: "♪ "; color: var(--yoin-text-faint); }
+.yoin-pl-row .yoin-req {
+    margin-left: auto;
+    border-color: rgba(255, 255, 255, .22);
+    background: transparent;
+    flex: none;
+    font-size: 15px;
+    line-height: 20px;
+}
+.yoin-pl-row .yoin-req::before { background: var(--yoin-text-faint); }
+.yoin-pl-row .yoin-req .yoin-at { color: var(--yoin-text-dim); }
+
+/* 第一行 = 下一首播放：黄色高亮 */
+.yoin-pl-row.nextup {
+    background: linear-gradient(90deg, rgba(255, 186, 0, calc(.10 * var(--yoin-bgm))), rgba(255, 186, 0, calc(.02 * var(--yoin-bgm))) 70%);
+    box-shadow: inset 3px 0 0 var(--yoin-ak);
+}
+.yoin-pl-row.nextup .yoin-pl-idx { color: var(--yoin-ak); }
+.yoin-pl-row.nextup .yoin-pl-t::before {
+    content: "NEXT";
+    font-family: var(--yoin-mono);
+    font-size: 11px;
+    letter-spacing: .14em;
+    border: 1px solid rgba(255, 186, 0, .55);
+    padding: 1px 4px 0 6px;
+    margin-right: 8px;
+    color: var(--yoin-ak);
+    display: inline-block;
+    transform: translateY(-2px);
+}
+
+.yoin-pl-empty {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--yoin-text-faint);
+    font-size: 16px;
+    letter-spacing: .12em;
+}
+.yoin-pl-empty .yoin-lbl { font-size: 13.5px; }
+
+.yoin-pl-foot {
+    height: 28px;
+    border-top: 1px solid var(--yoin-line);
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    gap: 10px;
+    flex: none;
+}
+.yoin-pl-foot .yoin-txt {
+    font-family: var(--yoin-mono);
+    font-size: 11px;
+    letter-spacing: .22em;
+    color: var(--yoin-text-faint);
+}
+.yoin-pl-foot .yoin-plus { margin-left: auto; color: var(--yoin-text-faint); font-family: var(--yoin-mono); font-size: 13px; }
+
+/* ========== 背景透明度档位（URL ?bg=75/50/25/0；面板 alpha = 档位） ========== */
+.yoin-frame.bg-75 { --yoin-bgm: .75; }
+.yoin-frame.bg-50 { --yoin-bgm: .5; }
+.yoin-frame.bg-25 { --yoin-bgm: .25; }
+.yoin-frame.bg-0 { --yoin-bgm: 0; }
